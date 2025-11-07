@@ -1,10 +1,11 @@
 import { useState, useEffect, useRef } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Menu, X, ChevronDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import colyonLogo from "@/assets/colyon-logo.png";
 
 const Navigation = () => {
+  const navigate = useNavigate();
   const [isOpen, setIsOpen] = useState(false);
   const [activeSubmenu, setActiveSubmenu] = useState<string | null>(null);
   const submenuRef = useRef<HTMLDivElement>(null);
@@ -127,17 +128,17 @@ const Navigation = () => {
                     {activeSubmenu === item.name && (
                       <div className="pl-4 mt-2 space-y-2">
                         {item.submenu.map((subItem) => (
-                          <Link
+                          <button
                             key={subItem.name}
-                            to={subItem.href}
-                            className="block text-sm text-foreground/70 hover:text-foreground transition-colors"
                             onClick={() => {
+                              navigate(subItem.href);
                               setActiveSubmenu(null);
                               setIsOpen(false);
                             }}
+                            className="block w-full text-left text-sm text-foreground/70 hover:text-foreground transition-colors"
                           >
                             {subItem.name}
-                          </Link>
+                          </button>
                         ))}
                       </div>
                     )}
