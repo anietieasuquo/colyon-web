@@ -2,11 +2,21 @@ import { useEffect, useState, useRef } from "react";
 import { Link } from "react-router-dom";
 import { useAppSelector, useAppDispatch } from "@/store/hooks";
 import { fetchNews } from "@/store/newsSlice";
-import { Filter, Grid3x3, List, ChevronDown } from "lucide-react";
+import { Filter, Grid3x3, List, ChevronDown, Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import * as z from "zod";
+import { toast } from "@/hooks/use-toast";
 
 type ViewMode = "list" | "grid";
 type SortOrder = "newest" | "oldest";
+
+const newsletterSchema = z.object({
+  email: z.string().email("Please enter a valid email address"),
+});
+
+type NewsletterFormData = z.infer<typeof newsletterSchema>;
 
 const News = () => {
   const dispatch = useAppDispatch();
@@ -16,7 +26,18 @@ const News = () => {
   const [selectedCategory, setSelectedCategory] = useState<string>("all");
   const [selectedYear, setSelectedYear] = useState<string>("all");
   const [isFilterOpen, setIsFilterOpen] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const filterRef = useRef<HTMLDivElement>(null);
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors, isValid },
+    reset,
+  } = useForm<NewsletterFormData>({
+    resolver: zodResolver(newsletterSchema),
+    mode: "onChange",
+  });
 
   useEffect(() => {
     dispatch(fetchNews());
@@ -54,6 +75,41 @@ const News = () => {
       const dateB = new Date(b.date).getTime();
       return sortOrder === "newest" ? dateB - dateA : dateA - dateB;
     });
+
+  const onNewsletterSubmit = async (data: NewsletterFormData) => {
+    setIsSubmitting(true);
+    try {
+      const response = await fetch("https://staging.monchain.com/p/nos/api/v1/subscription", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": "2f68ec95-940c-4ab1-bce0-9cc6a1dfd87f",
+        },
+        body: JSON.stringify({
+          email: data.email,
+          product: "colyon",
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error("Failed to subscribe");
+      }
+
+      toast({
+        title: "Success!",
+        description: "You've been subscribed to our newsletter.",
+      });
+      reset();
+    } catch (error) {
+      toast({
+        title: "Error",
+        description: "Failed to subscribe. Please try again.",
+        variant: "destructive",
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
 
   return (
     <main className="pt-24 pb-16">
@@ -270,16 +326,36 @@ const News = () => {
               Get the latest Colyon news, research updates, and product announcements
               delivered to your inbox.
             </p>
-            <div className="flex gap-4 max-w-md mx-auto">
-              <input
-                type="email"
-                placeholder="Enter your email"
-                className="flex-1 px-4 py-3 bg-background border border-border rounded-md focus:outline-none focus:ring-2 focus:ring-accent"
-              />
-              <button className="px-6 py-3 bg-primary text-primary-foreground rounded-md font-semibold hover:bg-primary/90 transition-all">
-                Subscribe
-              </button>
-            </div>
+            <form onSubmit={handleSubmit(onNewsletterSubmit)} className="max-w-md mx-auto">
+              <div className="flex flex-col sm:flex-row gap-4">
+                <div className="flex-1 w-full">
+                  <input
+                    type="email"
+                    placeholder="Enter your email"
+                    disabled={isSubmitting}
+                    {...register("email")}
+                    className="w-full px-4 py-3 bg-background border border-border rounded-md focus:outline-none focus:ring-2 focus:ring-accent disabled:opacity-50 disabled:cursor-not-allowed"
+                  />
+                  {errors.email && (
+                    <p className="text-red-500 text-sm mt-1 text-left">{errors.email.message}</p>
+                  )}
+                </div>
+                <button
+                  type="submit"
+                  disabled={!isValid || isSubmitting}
+                  className="w-full sm:w-auto px-6 py-3 bg-primary text-primary-foreground rounded-md font-semibold hover:bg-primary/90 transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+                >
+                  {isSubmitting ? (
+                    <>
+                      <Loader2 className="w-4 h-4 animate-spin" />
+                      Subscribing...
+                    </>
+                  ) : (
+                    "Subscribe"
+                  )}
+                </button>
+              </div>
+            </form>
           </div>
         </div>
       </div>
