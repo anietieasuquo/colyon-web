@@ -18,7 +18,7 @@ const Hero = () => {
               <ArrowRight className="w-4 h-4" />
             </a>
           </Button>
-          <Button variant="outline" size="lg" asChild>
+          <Button variant="heroOutline" size="lg" asChild>
             <a href="#vision">Learn More</a>
           </Button>
         </div>

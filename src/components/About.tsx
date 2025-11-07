@@ -11,7 +11,7 @@ const About = () => {
         <p className="text-xl md:text-2xl text-muted-foreground mb-12 leading-relaxed">
           Founded in 2025, Colyon is an independent AI research and product studio pushing the boundaries of collective intelligence.
         </p>
-        <Button variant="heroPrimary" size="lg" asChild>
+        <Button variant="hero" size="lg" asChild>
           <a href="#careers" className="gap-2">
             Join the Colony
             <ArrowRight className="w-4 h-4" />

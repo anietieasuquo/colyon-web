@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import { Menu, X, ChevronDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -6,22 +6,39 @@ import { Button } from "@/components/ui/button";
 const Navigation = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [activeSubmenu, setActiveSubmenu] = useState<string | null>(null);
+  const submenuRef = useRef<HTMLDivElement>(null);
 
   const menuItems = [
-    { name: "Research", href: "#research" },
-    { name: "Safety", href: "#safety" },
-    { name: "Explainability", href: "#explainability" },
-    { name: "Monchain", href: "#monchain" },
+    { name: "Research", href: "/research" },
+    { name: "Safety", href: "/safety" },
+    { name: "XAI", href: "/xai" },
+    { name: "Monchain", href: "/monchain" },
     {
       name: "Company",
       submenu: [
-        { name: "About us", href: "#about" },
-        { name: "Our mission", href: "#mission" },
-        { name: "Careers", href: "#careers" },
+        { name: "About us", href: "/about" },
+        { name: "Our mission", href: "/mission" },
+        { name: "Careers", href: "/careers" },
       ],
     },
-    { name: "News", href: "#news" },
+    { name: "News", href: "/news" },
   ];
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (submenuRef.current && !submenuRef.current.contains(event.target as Node)) {
+        setActiveSubmenu(null);
+      }
+    };
+
+    if (activeSubmenu) {
+      document.addEventListener("mousedown", handleClickOutside);
+    }
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [activeSubmenu]);
 
   return (
     <nav className="fixed top-0 w-full bg-background/80 backdrop-blur-md border-b border-border z-50">
@@ -37,37 +54,40 @@ const Navigation = () => {
             {menuItems.map((item) => (
               <div
                 key={item.name}
-                className="relative group"
-                onMouseEnter={() => item.submenu && setActiveSubmenu(item.name)}
-                onMouseLeave={() => setActiveSubmenu(null)}
+                className="relative"
+                ref={item.submenu ? submenuRef : null}
               >
                 {item.submenu ? (
                   <>
-                    <button className="flex items-center gap-1 text-sm font-medium text-foreground/80 hover:text-foreground transition-colors">
+                    <button 
+                      onClick={() => setActiveSubmenu(activeSubmenu === item.name ? null : item.name)}
+                      className="flex items-center gap-1 text-sm font-medium text-foreground/80 hover:text-foreground transition-colors"
+                    >
                       {item.name}
-                      <ChevronDown className="w-4 h-4" />
+                      <ChevronDown className={`w-4 h-4 transition-transform ${activeSubmenu === item.name ? "rotate-180" : ""}`} />
                     </button>
                     {activeSubmenu === item.name && (
-                      <div className="absolute top-full left-0 mt-2 w-48 bg-card border border-border rounded-lg shadow-lg py-2 animate-fade-in">
+                      <div className="absolute top-full left-0 mt-2 w-48 bg-card border border-border rounded-lg shadow-lg py-2 animate-fade-in z-50">
                         {item.submenu.map((subItem) => (
-                          <a
+                          <Link
                             key={subItem.name}
-                            href={subItem.href}
+                            to={subItem.href}
                             className="block px-4 py-2 text-sm text-foreground/80 hover:text-foreground hover:bg-accent/50 transition-colors"
+                            onClick={() => setActiveSubmenu(null)}
                           >
                             {subItem.name}
-                          </a>
+                          </Link>
                         ))}
                       </div>
                     )}
                   </>
                 ) : (
-                  <a
-                    href={item.href}
+                  <Link
+                    to={item.href}
                     className="text-sm font-medium text-foreground/80 hover:text-foreground transition-colors"
                   >
                     {item.name}
-                  </a>
+                  </Link>
                 )}
               </div>
             ))}
@@ -105,24 +125,29 @@ const Navigation = () => {
                     {activeSubmenu === item.name && (
                       <div className="pl-4 mt-2 space-y-2">
                         {item.submenu.map((subItem) => (
-                          <a
+                          <Link
                             key={subItem.name}
-                            href={subItem.href}
+                            to={subItem.href}
                             className="block text-sm text-foreground/70 hover:text-foreground transition-colors"
+                            onClick={() => {
+                              setActiveSubmenu(null);
+                              setIsOpen(false);
+                            }}
                           >
                             {subItem.name}
-                          </a>
+                          </Link>
                         ))}
                       </div>
                     )}
                   </>
                 ) : (
-                  <a
-                    href={item.href}
+                  <Link
+                    to={item.href}
                     className="block text-sm font-medium text-foreground/80 hover:text-foreground transition-colors"
+                    onClick={() => setIsOpen(false)}
                   >
                     {item.name}
-                  </a>
+                  </Link>
                 )}
               </div>
             ))}
