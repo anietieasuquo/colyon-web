@@ -1,14 +1,9 @@
-import Navigation from "@/components/Navigation";
-import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
 import { Shield, Zap, Eye, Lock } from "lucide-react";
 
 const Monchain = () => {
   return (
-    <div className="min-h-screen bg-background text-foreground">
-      <Navigation />
-      
-      <main className="pt-24 pb-16">
+    <main className="pt-24 pb-16">
         <div className="container mx-auto px-6">
           {/* Hero Section */}
           <div className="max-w-5xl mx-auto text-center mb-20 animate-fade-in-up">
@@ -138,9 +133,6 @@ const Monchain = () => {
           </div>
         </div>
       </main>
-
-      <Footer />
-    </div>
   );
 };
 

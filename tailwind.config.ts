@@ -85,6 +85,10 @@ export default {
           "0%, 100%": { transform: "translateY(0px)" },
           "50%": { transform: "translateY(-10px)" },
         },
+        "bounce-x": {
+          "0%, 100%": { transform: "translateX(0)" },
+          "50%": { transform: "translateX(4px)" },
+        },
         "draw-line": {
           from: { strokeDashoffset: "1000" },
           to: { strokeDashoffset: "0" },

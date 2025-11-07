@@ -15,7 +15,7 @@ const Hero = () => {
           <Button variant="hero" size="lg" asChild>
             <a href="#monchain" className="gap-2">
               Explore Monchain
-              <ArrowRight className="w-4 h-4" />
+              <ArrowRight className="w-4 h-4 animate-[bounce-x_1.5s_ease-in-out_infinite]" />
             </a>
           </Button>
           <Button variant="heroOutline" size="lg" asChild>
