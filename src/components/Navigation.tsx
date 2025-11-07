@@ -2,6 +2,7 @@ import { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import { Menu, X, ChevronDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import colyonLogo from "@/assets/colyon-logo.png";
 
 const Navigation = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -45,8 +46,8 @@ const Navigation = () => {
       <div className="container mx-auto px-6 py-4">
         <div className="flex items-center justify-between">
           {/* Logo */}
-          <Link to="/" className="text-2xl font-bold tracking-tight hover:opacity-80 transition-opacity">
-            Colyon
+          <Link to="/" className="hover:opacity-80 transition-opacity">
+            <img src={colyonLogo} alt="Colyon" className="h-10" />
           </Link>
 
           {/* Desktop Menu */}

@@ -217,7 +217,7 @@ const News = () => {
 
               {/* Grid View */}
               {viewMode === "grid" && (
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                   {filteredItems.map((item, index) => {
                     const badgeClass = item.accentColor === "accent" 
                       ? "bg-accent/10 text-accent border border-accent/20" 
