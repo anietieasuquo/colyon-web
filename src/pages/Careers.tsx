@@ -1,6 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { Code, Brain, Palette, Shield } from "lucide-react";
 import { Link } from "react-router-dom";
+import PageHeader from "@/components/PageHeader";
 
 const Careers = () => {
   const openPositions = [
@@ -41,16 +42,10 @@ const Careers = () => {
   return (
     <main className="pt-24 pb-16">
       <div className="container mx-auto px-6">
-        {/* Hero Section */}
-        <div className="max-w-4xl mx-auto text-center mb-20 animate-fade-in-up">
-          <h1 className="text-5xl md:text-6xl font-bold mb-6 tracking-tight">
-            Join the Colony
-          </h1>
-          <p className="text-xl text-foreground/70 leading-relaxed mb-8">
-            Help us build the future of collective intelligence. We're looking for exceptional
-            people who want to solve hard problems and create AI that matters.
-          </p>
-        </div>
+        <PageHeader
+          title="Join the Colony"
+          description="Help us build the future of collective intelligence. We're looking for exceptional people who want to solve hard problems and create AI that matters."
+        />
 
         {/* Why Colyon */}
         <div className="max-w-5xl mx-auto mb-20">

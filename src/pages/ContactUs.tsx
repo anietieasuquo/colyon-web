@@ -8,6 +8,7 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
 import { useState } from "react";
+import PageHeader from "@/components/PageHeader";
 
 const formSchema = z.object({
   name: z.string().min(1, "Name is required").max(100, "Name must be less than 100 characters"),
@@ -68,15 +69,10 @@ const ContactUs = () => {
   return (
     <main className="pt-24 pb-16">
       <div className="container mx-auto px-6">
-        {/* Hero Section */}
-        <div className="max-w-4xl mx-auto text-center mb-20 animate-fade-in-up">
-          <h1 className="text-5xl md:text-6xl font-bold mb-6 tracking-tight">
-            Get in Touch
-          </h1>
-          <p className="text-xl text-foreground/70 leading-relaxed">
-            Have a question or want to learn more? We'd love to hear from you.
-          </p>
-        </div>
+        <PageHeader
+          title="Get in Touch"
+          description="Have a question or want to learn more? We'd love to hear from you."
+        />
 
         {/* Contact Info */}
         <div className="max-w-5xl mx-auto mb-20">

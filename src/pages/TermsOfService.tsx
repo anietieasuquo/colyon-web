@@ -1,9 +1,11 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { ChevronDown } from 'lucide-react';
 import { ScrollArea } from '@/components/ui/scroll-area';
+import PageHeader from '@/components/PageHeader';
 
 const TermsOfService = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [activeSection, setActiveSection] = useState('agreement');
 
   const sections = [
     { id: 'agreement', title: 'Agreement To Our Legal Terms' },
@@ -29,20 +31,34 @@ const TermsOfService = () => {
     { id: 'contact-us', title: 'Contact Us' },
   ];
 
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setActiveSection(entry.target.id);
+          }
+        });
+      },
+      { rootMargin: '-20% 0px -80% 0px' }
+    );
+
+    sections.forEach((section) => {
+      const element = document.getElementById(section.id);
+      if (element) observer.observe(element);
+    });
+
+    return () => observer.disconnect();
+  }, []);
+
   return (
     <main className="pt-24 pb-16 min-h-screen">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header Section */}
-        <div className="bg-accent text-accent-foreground py-8 sm:py-10 rounded-2xl mb-8">
-          <div className="px-6 sm:px-8">
-            <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-center mb-4 tracking-tight">
-              Terms of Service
-            </h1>
-            <p className="text-center text-accent-foreground/80 text-sm sm:text-base">
-              Last updated: March 25, 2025
-            </p>
-          </div>
-        </div>
+        <PageHeader
+          title="Terms of Service"
+          description="Last updated: March 25, 2025"
+        />
 
         {/* Mobile Menu Button */}
         <div className="lg:hidden mb-6">
@@ -62,7 +78,11 @@ const TermsOfService = () => {
                   <a
                     key={section.id}
                     href={`#${section.id}`}
-                    className="px-4 py-2 text-muted-foreground hover:bg-muted hover:text-accent text-sm transition-colors"
+                    className={`px-4 py-2 text-sm transition-colors ${
+                      activeSection === section.id
+                        ? 'bg-muted text-accent font-medium'
+                        : 'text-muted-foreground hover:bg-muted hover:text-accent'
+                    }`}
                     onClick={() => setIsMenuOpen(false)}
                   >
                     {section.title}
@@ -86,7 +106,11 @@ const TermsOfService = () => {
                       <a
                         key={section.id}
                         href={`#${section.id}`}
-                        className="text-muted-foreground hover:text-accent text-sm transition-colors"
+                        className={`text-sm transition-colors ${
+                          activeSection === section.id
+                            ? 'text-accent font-medium border-l-2 border-accent pl-3 -ml-3'
+                            : 'text-muted-foreground hover:text-accent'
+                        }`}
                       >
                         {section.title}
                       </a>

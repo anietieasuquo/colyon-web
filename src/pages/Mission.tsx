@@ -1,21 +1,16 @@
 import { Compass, Shield, Globe, Sparkles } from "lucide-react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
+import PageHeader from "@/components/PageHeader";
 
 const Mission = () => {
   return (
     <main className="pt-24 pb-16">
         <div className="container mx-auto px-6">
-          {/* Hero Section */}
-          <div className="max-w-4xl mx-auto text-center mb-20 animate-fade-in-up">
-            <h1 className="text-5xl md:text-6xl font-bold mb-6 tracking-tight">
-              Our Mission
-            </h1>
-            <p className="text-2xl text-foreground/70 leading-relaxed">
-              To pioneer safe, adaptive, and collaborative AI ecosystems that amplify
-              human potential and protect digital life.
-            </p>
-          </div>
+          <PageHeader
+            title="Our Mission"
+            description="To pioneer safe, adaptive, and collaborative AI ecosystems that amplify human potential and protect digital life."
+          />
 
           {/* Core Pillars */}
           <div className="max-w-5xl mx-auto mb-20">

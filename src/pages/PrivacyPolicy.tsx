@@ -1,12 +1,14 @@
+import PageHeader from '@/components/PageHeader';
+
 const PrivacyPolicy = () => {
   return (
     <main className="pt-24 pb-16">
       <div className="container mx-auto px-6">
+        <PageHeader
+          title="Privacy Policy"
+          description="Last updated: January 2025"
+        />
         <div className="max-w-4xl mx-auto">
-          <h1 className="text-5xl md:text-6xl font-bold mb-8 tracking-tight">
-            Privacy Policy
-          </h1>
-          <p className="text-foreground/60 mb-12">Last updated: January 2025</p>
 
           <div className="prose prose-invert max-w-none space-y-8">
             <section>

@@ -1,19 +1,14 @@
 import { Brain, Network, Zap } from "lucide-react";
+import PageHeader from "@/components/PageHeader";
 
 const Research = () => {
   return (
     <main className="pt-24 pb-16">
         <div className="container mx-auto px-6">
-          {/* Hero Section */}
-          <div className="max-w-4xl mx-auto text-center mb-20 animate-fade-in-up">
-            <h1 className="text-5xl md:text-6xl font-bold mb-6 tracking-tight">
-              Research at Colyon
-            </h1>
-            <p className="text-xl text-foreground/70 leading-relaxed">
-              Advancing the frontier of collective intelligence through multi-agent systems,
-              adaptive learning, and secure AI architectures.
-            </p>
-          </div>
+          <PageHeader
+            title="Research at Colyon"
+            description="Advancing the frontier of collective intelligence through multi-agent systems, adaptive learning, and secure AI architectures."
+          />
 
           {/* Research Areas */}
           <div className="grid md:grid-cols-3 gap-8 mb-20">

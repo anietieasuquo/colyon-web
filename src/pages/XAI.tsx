@@ -1,19 +1,14 @@
 import { Lightbulb, GitBranch, FileText } from "lucide-react";
+import PageHeader from "@/components/PageHeader";
 
 const XAI = () => {
   return (
     <main className="pt-24 pb-16">
         <div className="container mx-auto px-6">
-          {/* Hero Section */}
-          <div className="max-w-4xl mx-auto text-center mb-20 animate-fade-in-up">
-            <h1 className="text-5xl md:text-6xl font-bold mb-6 tracking-tight">
-              Explainable AI
-            </h1>
-            <p className="text-xl text-foreground/70 leading-relaxed">
-              Making AI decisions transparent, understandable, and accountable.
-              Every action our agents take can be traced, explained, and justified.
-            </p>
-          </div>
+          <PageHeader
+            title="Explainable AI"
+            description="Making AI decisions transparent, understandable, and accountable. Every action our agents take can be traced, explained, and justified."
+          />
 
           {/* Why XAI Matters */}
           <div className="max-w-4xl mx-auto mb-20">
