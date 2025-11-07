@@ -137,7 +137,7 @@ const News = () => {
             <button
               onClick={() => setViewMode("list")}
               className={`p-2 rounded transition-colors ${
-                viewMode === "list" ? "bg-accent text-accent-foreground" : "hover:bg-muted"
+                viewMode === "list" ? "bg-black text-white" : "hover:bg-muted"
               }`}
               aria-label="List view"
             >
@@ -146,7 +146,7 @@ const News = () => {
             <button
               onClick={() => setViewMode("grid")}
               className={`p-2 rounded transition-colors ${
-                viewMode === "grid" ? "bg-accent text-accent-foreground" : "hover:bg-muted"
+                viewMode === "grid" ? "bg-black text-white" : "hover:bg-muted"
               }`}
               aria-label="Grid view"
             >
