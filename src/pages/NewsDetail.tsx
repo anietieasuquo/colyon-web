@@ -34,44 +34,46 @@ const NewsDetail = () => {
     : "bg-mint/10 text-mint border border-mint/20";
 
   return (
-    <>
-      <Link
-        to="/news"
-        className="inline-flex items-center gap-2 text-foreground/70 hover:text-foreground transition-colors mb-8 group"
-      >
-        <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" />
-        Back to News
-      </Link>
+    <main className="pt-48 pb-16 min-h-screen">
+      <div className="container mx-auto px-6">
+        <Link
+          to="/news"
+          className="inline-flex items-center gap-2 text-foreground/70 hover:text-foreground transition-colors mb-8 group"
+        >
+          <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" />
+          Back to News
+        </Link>
 
-      <article className="max-w-4xl mx-auto">
-        <div className={`border-l-4 ${borderColor} pl-8 animate-fade-in`}>
-          <div className="flex items-center gap-4 mb-4">
-            <span className="text-foreground/60 text-sm">{newsItem.date}</span>
-            <span className={`px-3 py-1 ${badgeClass} rounded-full text-xs font-medium`}>
-              {newsItem.category}
-            </span>
-          </div>
-          
-          <h1 className="text-4xl md:text-5xl font-bold mb-6 tracking-tight">
-            {newsItem.title}
-          </h1>
-          
-          <div className="prose prose-invert max-w-none">
-            <p className="text-xl text-foreground/80 leading-relaxed mb-8">
-              {newsItem.description}
-            </p>
+        <article className="max-w-4xl mx-auto">
+          <div className={`border-l-4 ${borderColor} pl-8 animate-fade-in`}>
+            <div className="flex items-center gap-4 mb-4">
+              <span className="text-foreground/60 text-sm">{newsItem.date}</span>
+              <span className={`px-3 py-1 ${badgeClass} rounded-full text-xs font-medium`}>
+                {newsItem.category}
+              </span>
+            </div>
             
-            {newsItem.content && (
-              <div className="text-foreground/70 leading-relaxed space-y-4">
-                {newsItem.content.split('\n\n').map((paragraph, index) => (
-                  <p key={index}>{paragraph}</p>
-                ))}
-              </div>
-            )}
+            <h1 className="text-4xl md:text-5xl font-bold mb-6 tracking-tight">
+              {newsItem.title}
+            </h1>
+            
+            <div className="prose prose-invert max-w-none">
+              <p className="text-xl text-foreground/80 leading-relaxed mb-8">
+                {newsItem.description}
+              </p>
+              
+              {newsItem.content && (
+                <div className="text-foreground/70 leading-relaxed space-y-4">
+                  {newsItem.content.split('\n\n').map((paragraph, index) => (
+                    <p key={index}>{paragraph}</p>
+                  ))}
+                </div>
+              )}
+            </div>
           </div>
-        </div>
-      </article>
-    </>
+        </article>
+      </div>
+    </main>
   );
 };
 
