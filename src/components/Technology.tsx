@@ -1,6 +1,16 @@
 import { Network } from "lucide-react";
+import { useEffect, useState } from "react";
 
 const Technology = () => {
+  const [rotation, setRotation] = useState(0);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setRotation((prev) => (prev + 0.5) % 360);
+    }, 50);
+    return () => clearInterval(interval);
+  }, []);
+
   return (
     <section className="py-32 px-6">
       <div className="container mx-auto max-w-6xl">
@@ -24,24 +34,32 @@ const Technology = () => {
                 </div>
                 
                 {/* Orbiting nodes */}
-                {[0, 1, 2, 3, 4, 5].map((i) => (
-                  <div
-                    key={i}
-                    className="absolute w-8 h-8 bg-mint rounded-full"
-                    style={{
-                      top: `${50 + 40 * Math.sin((i * Math.PI * 2) / 6)}%`,
-                      left: `${50 + 40 * Math.cos((i * Math.PI * 2) / 6)}%`,
-                      transform: "translate(-50%, -50%)",
-                    }}
-                  />
-                ))}
+                {[0, 1, 2, 3, 4, 5].map((i) => {
+                  const baseAngle = (i * Math.PI * 2) / 6;
+                  const currentAngle = baseAngle + (rotation * Math.PI) / 180;
+                  const x = 50 + 40 * Math.cos(currentAngle);
+                  const y = 50 + 40 * Math.sin(currentAngle);
+                  
+                  return (
+                    <div
+                      key={i}
+                      className="absolute w-8 h-8 bg-mint rounded-full transition-all duration-50"
+                      style={{
+                        top: `${y}%`,
+                        left: `${x}%`,
+                        transform: "translate(-50%, -50%)",
+                      }}
+                    />
+                  );
+                })}
                 
                 {/* Connection lines */}
                 <svg className="absolute inset-0 w-full h-full">
                   {[0, 1, 2, 3, 4, 5].map((i) => {
-                    const angle = (i * Math.PI * 2) / 6;
-                    const x = 50 + 40 * Math.cos(angle);
-                    const y = 50 + 40 * Math.sin(angle);
+                    const baseAngle = (i * Math.PI * 2) / 6;
+                    const currentAngle = baseAngle + (rotation * Math.PI) / 180;
+                    const x = 50 + 40 * Math.cos(currentAngle);
+                    const y = 50 + 40 * Math.sin(currentAngle);
                     return (
                       <line
                         key={i}
@@ -52,6 +70,7 @@ const Technology = () => {
                         stroke="hsl(var(--accent))"
                         strokeWidth="1"
                         opacity="0.3"
+                        className="transition-all duration-50"
                       />
                     );
                   })}

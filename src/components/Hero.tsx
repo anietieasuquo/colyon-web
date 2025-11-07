@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
+import { Link } from "react-router-dom";
 
 const Hero = () => {
   return (
@@ -13,10 +14,10 @@ const Hero = () => {
         </p>
         <div className="flex flex-col sm:flex-row gap-4 justify-center items-center animate-fade-in-up" style={{ animationDelay: "0.2s" }}>
           <Button variant="hero" size="lg" asChild>
-            <a href="/monchain" className="gap-2">
+            <Link to="/monchain" className="gap-2">
               Explore Monchain
               <ArrowRight className="w-4 h-4 animate-[bounce-x_1.5s_ease-in-out_infinite]" />
-            </a>
+            </Link>
           </Button>
           <Button variant="heroOutline" size="lg" asChild>
             <a href="#vision">Learn More</a>
