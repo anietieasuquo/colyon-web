@@ -1,4 +1,6 @@
 import { Compass, Shield, Globe, Sparkles } from "lucide-react";
+import { Link } from "react-router-dom";
+import { Button } from "@/components/ui/button";
 
 const Mission = () => {
   return (
@@ -90,12 +92,11 @@ const Mission = () => {
             <p className="text-foreground/70 text-lg mb-8">
               We're looking for exceptional people who want to shape the future of AI.
             </p>
-            <a 
-              href="/careers"
-              className="inline-block bg-primary text-primary-foreground px-8 py-4 rounded-md font-semibold hover:bg-primary/90 transition-all shadow-lg hover:shadow-xl"
-            >
-              View Open Positions
-            </a>
+            <Button variant="hero" size="lg" asChild>
+              <Link to="/careers">
+                View Open Positions
+              </Link>
+            </Button>
           </div>
         </div>
       </main>

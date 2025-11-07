@@ -18,8 +18,10 @@ const Monchain = () => {
               and multi-agent security.
             </p>
             <div className="flex gap-4 justify-center">
-              <Button variant="hero" size="lg">
-                Get Early Access
+              <Button variant="hero" size="lg" asChild>
+                <a href="https://monchain.ai" target="_blank" rel="noopener noreferrer">
+                  Get Early Access
+                </a>
               </Button>
               <Button variant="heroOutline" size="lg">
                 Watch Demo
@@ -127,8 +129,10 @@ const Monchain = () => {
               Monchain is currently in private beta. Be among the first to experience
               the future of crypto security.
             </p>
-            <Button variant="hero" size="lg">
-              Request Early Access
+            <Button variant="hero" size="lg" asChild>
+              <a href="https://monchain.ai" target="_blank" rel="noopener noreferrer">
+                Request Early Access
+              </a>
             </Button>
           </div>
         </div>

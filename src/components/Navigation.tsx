@@ -23,6 +23,7 @@ const Navigation = () => {
       ],
     },
     { name: "News", href: "/news" },
+    { name: "Contact", href: "/contact" },
   ];
 
   useEffect(() => {

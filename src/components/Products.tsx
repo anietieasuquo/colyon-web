@@ -1,5 +1,6 @@
 import { Shield, Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { Link } from "react-router-dom";
 
 const Products = () => {
   return (
@@ -19,7 +20,7 @@ const Products = () => {
               AI-powered crypto wallet that detects and blocks scams in real time. Your intelligent guardian in the blockchain ecosystem.
             </p>
             <Button variant="hero" asChild>
-              <a href="#monchain-details">Discover Monchain</a>
+              <Link to="/monchain">Discover Monchain</Link>
             </Button>
           </div>
 
