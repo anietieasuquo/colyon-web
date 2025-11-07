@@ -43,7 +43,7 @@ const Technology = () => {
                   return (
                     <div
                       key={i}
-                      className="absolute w-8 h-8 bg-mint rounded-full transition-all duration-50"
+                      className="absolute w-8 h-8 bg-mint rounded-full transition-all duration-50 z-10"
                       style={{
                         top: `${y}%`,
                         left: `${x}%`,
