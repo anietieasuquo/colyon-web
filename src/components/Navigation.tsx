@@ -8,7 +8,7 @@ const Navigation = () => {
   const navigate = useNavigate();
   const [isOpen, setIsOpen] = useState(false);
   const [activeSubmenu, setActiveSubmenu] = useState<string | null>(null);
-  const submenuRef = useRef<HTMLDivElement>(null);
+  const submenuRefs = useRef<{ [key: string]: HTMLDivElement | null }>({});
 
   const menuItems = [
     { name: "Research", href: "/research" },
@@ -29,8 +29,11 @@ const Navigation = () => {
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
-      if (submenuRef.current && !submenuRef.current.contains(event.target as Node)) {
-        setActiveSubmenu(null);
+      if (activeSubmenu) {
+        const submenuElement = submenuRefs.current[activeSubmenu];
+        if (submenuElement && !submenuElement.contains(event.target as Node)) {
+          setActiveSubmenu(null);
+        }
       }
     };
 
@@ -58,7 +61,11 @@ const Navigation = () => {
               <div
                 key={item.name}
                 className="relative"
-                ref={item.submenu ? submenuRef : null}
+                ref={(el) => {
+                  if (item.submenu) {
+                    submenuRefs.current[item.name] = el;
+                  }
+                }}
               >
                 {item.submenu ? (
                   <>
