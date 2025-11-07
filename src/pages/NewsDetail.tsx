@@ -34,7 +34,7 @@ const NewsDetail = () => {
     : "bg-mint/10 text-mint border border-mint/20";
 
   return (
-    <main className="pt-48 pb-16 min-h-screen">
+    <main className="pt-32 pb-16 min-h-screen">
       <div className="container mx-auto px-6">
         <Link
           to="/news"
