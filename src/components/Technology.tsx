@@ -27,12 +27,11 @@ const Technology = () => {
                 {[0, 1, 2, 3, 4, 5].map((i) => (
                   <div
                     key={i}
-                    className="absolute w-8 h-8 bg-mint rounded-full animate-float"
+                    className="absolute w-8 h-8 bg-mint rounded-full"
                     style={{
                       top: `${50 + 40 * Math.sin((i * Math.PI * 2) / 6)}%`,
                       left: `${50 + 40 * Math.cos((i * Math.PI * 2) / 6)}%`,
                       transform: "translate(-50%, -50%)",
-                      animationDelay: `${i * 0.5}s`,
                     }}
                   />
                 ))}

@@ -19,7 +19,7 @@ const Products = () => {
               AI-powered crypto wallet that detects and blocks scams in real time. Your intelligent guardian in the blockchain ecosystem.
             </p>
             <Button variant="hero" asChild>
-              <a href="#monchain-details">Discover Monchain</a>
+              <a href="/monchain">Discover Monchain</a>
             </Button>
           </div>
 
