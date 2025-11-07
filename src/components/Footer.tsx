@@ -1,4 +1,5 @@
 import { Github, Linkedin, Twitter, Instagram, Music2 } from "lucide-react";
+import { Link } from "react-router-dom";
 
 const Footer = () => {
   const socialLinks = [
@@ -13,9 +14,22 @@ const Footer = () => {
     <footer className="border-t border-border py-12 px-6">
       <div className="container mx-auto max-w-6xl">
         <div className="flex flex-col md:flex-row justify-between items-center gap-8">
-          {/* Copyright */}
-          <div className="text-sm text-muted-foreground">
-            © 2025 Colyon. All rights reserved.
+          {/* Copyright and Links */}
+          <div className="flex flex-col md:flex-row items-center gap-4 text-sm text-muted-foreground">
+            <span>© 2025 Colyon. All rights reserved.</span>
+            <div className="flex gap-4">
+              <Link to="/contact" className="hover:text-accent transition-colors">
+                Contact
+              </Link>
+              <span>•</span>
+              <Link to="/privacy" className="hover:text-accent transition-colors">
+                Privacy
+              </Link>
+              <span>•</span>
+              <Link to="/terms" className="hover:text-accent transition-colors">
+                Terms
+              </Link>
+            </div>
           </div>
 
           {/* Social Links */}

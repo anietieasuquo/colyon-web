@@ -17,6 +17,9 @@ import Mission from "./pages/Mission";
 import Careers from "./pages/Careers";
 import News from "./pages/News";
 import NewsDetail from "./pages/NewsDetail";
+import ContactUs from "./pages/ContactUs";
+import TermsOfService from "./pages/TermsOfService";
+import PrivacyPolicy from "./pages/PrivacyPolicy";
 
 const queryClient = new QueryClient();
 
@@ -39,6 +42,9 @@ const App = () => (
               <Route path="/careers" element={<Careers />} />
               <Route path="/news" element={<News />} />
               <Route path="/news/:id" element={<NewsDetail />} />
+              <Route path="/contact" element={<ContactUs />} />
+              <Route path="/terms" element={<TermsOfService />} />
+              <Route path="/privacy" element={<PrivacyPolicy />} />
             </Route>
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />

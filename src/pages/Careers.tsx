@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { Code, Brain, Palette, Shield } from "lucide-react";
+import { Link } from "react-router-dom";
 
 const Careers = () => {
   const openPositions = [
@@ -138,8 +139,10 @@ const Careers = () => {
             We're always looking for exceptional talent. Send us your resume and tell us
             how you'd like to contribute to Colyon's mission.
           </p>
-          <Button variant="hero" size="lg">
-            Get in Touch
+          <Button variant="hero" size="lg" asChild>
+            <Link to="/contact">
+              Get in Touch
+            </Link>
           </Button>
         </div>
       </div>
