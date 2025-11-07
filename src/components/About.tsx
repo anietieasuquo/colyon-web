@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
+import { Link } from "react-router-dom";
 
 const About = () => {
   return (
@@ -12,10 +13,10 @@ const About = () => {
           Founded in 2025, Colyon is an independent AI research and product studio pushing the boundaries of collective intelligence.
         </p>
         <Button variant="hero" size="lg" asChild>
-          <a href="#careers" className="gap-2">
+          <Link to="/careers" className="gap-2">
             Join the Colony
             <ArrowRight className="w-4 h-4" />
-          </a>
+          </Link>
         </Button>
       </div>
     </section>
