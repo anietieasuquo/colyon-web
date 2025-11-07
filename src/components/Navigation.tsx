@@ -3,9 +3,11 @@ import { Link, useNavigate } from "react-router-dom";
 import { Menu, X, ChevronDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import colyonLogo from "@/assets/colyon-logo.png";
+import { useIsMobile } from "@/hooks/use-mobile";
 
 const Navigation = () => {
   const navigate = useNavigate();
+  const isMobile = useIsMobile();
   const [isOpen, setIsOpen] = useState(false);
   const [activeSubmenu, setActiveSubmenu] = useState<string | null>(null);
   const submenuRefs = useRef<{ [key: string]: HTMLDivElement | null }>({});
@@ -28,23 +30,20 @@ const Navigation = () => {
   ];
 
   useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      if (activeSubmenu) {
-        const submenuElement = submenuRefs.current[activeSubmenu];
-        if (submenuElement && !submenuElement.contains(event.target as Node)) {
-          setActiveSubmenu(null);
-        }
+    if (!activeSubmenu || isMobile) return;
+
+    const handlePointerDown = (event: PointerEvent) => {
+      const submenuElement = submenuRefs.current[activeSubmenu];
+      if (submenuElement && !submenuElement.contains(event.target as Node)) {
+        setActiveSubmenu(null);
       }
     };
 
-    if (activeSubmenu) {
-      document.addEventListener("mousedown", handleClickOutside);
-    }
-
+    document.addEventListener("pointerdown", handlePointerDown);
     return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
+      document.removeEventListener("pointerdown", handlePointerDown);
     };
-  }, [activeSubmenu]);
+  }, [activeSubmenu, isMobile]);
 
   return (
     <nav className="fixed top-0 w-full bg-background/80 backdrop-blur-md border-b border-border z-50">
