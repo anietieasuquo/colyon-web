@@ -67,12 +67,12 @@ const Navigation = () => {
                       <ChevronDown className={`w-4 h-4 transition-transform ${activeSubmenu === item.name ? "rotate-180" : ""}`} />
                     </button>
                     {activeSubmenu === item.name && (
-                      <div className="absolute top-full left-0 mt-2 w-48 bg-white border border-border rounded-lg shadow-lg py-2 animate-fade-in z-50">
+                      <div className="absolute top-full left-0 mt-2 w-48 bg-card border border-border rounded-lg shadow-lg py-2 animate-fade-in z-50">
                         {item.submenu.map((subItem) => (
                           <Link
                             key={subItem.name}
                             to={subItem.href}
-                            className="block px-4 py-2 text-sm text-black hover:text-black hover:bg-gray-100 transition-colors"
+                            className="block px-4 py-2 text-sm text-foreground hover:text-black hover:bg-white transition-colors"
                             onClick={() => setActiveSubmenu(null)}
                           >
                             {subItem.name}
