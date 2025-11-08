@@ -1,0 +1,128 @@
+import React from "react";
+import {Link as RouterLink} from "react-router-dom";
+
+interface AutoLinkTextProps {
+    text: string;
+    /** Optional class applied to each paragraph <p> */
+    paragraphClassName?: string;
+    /** Optional class applied to anchor / Link elements */
+    linkClassName?: string;
+    /** If true, treat same-origin absolute URLs as internal and render react-router Link */
+    treatSameOriginAsInternal?: boolean;
+}
+
+// Simple URL regex capturing http(s) URLs until whitespace or closing punctuation.
+// We'll post-process trailing punctuation so it does not become part of the href.
+const URL_REGEX = /(https?:\/\/[^\s]+?)([.,!?)]?(?:\s|$))/g; // captures URL + optional trailing punctuation+delimiter
+
+function isExternal(href: string, currentOrigin: string): boolean {
+    try {
+        const url = new URL(href, currentOrigin);
+        return url.origin !== currentOrigin;
+    } catch {
+        return false; // treat malformed as internal/no-op
+    }
+}
+
+export const AutoLinkText: React.FC<AutoLinkTextProps> = ({
+  text,
+  paragraphClassName,
+  linkClassName,
+  treatSameOriginAsInternal = true,
+}) => {
+    if (!text) return null;
+    const origin = typeof window !== "undefined" ? window.location.origin : "";
+
+    // Split paragraphs by double newline; keep empty paragraphs if any
+    const paragraphs = text.split(/\n\n+/);
+
+    return (
+        <>
+            {paragraphs.map((para, pIndex) => {
+                // Inside a paragraph, preserve single newlines with <br/>.
+                const lines = para.split(/\n/);
+                return (
+                    <p key={pIndex} className={paragraphClassName}>
+                        {lines.map((line, lIndex) => {
+                            // Replace URLs in the line with React elements.
+                            const parts: React.ReactNode[] = [];
+                            let lastIndex = 0;
+                            line.replace(URL_REGEX, (match, urlPart: string, tail: string, offset: number) => {
+                                // tail contains punctuation plus whitespace or end. We need to separate trailing punctuation from delimiter.
+                                const punctuationMatch = tail.match(/^[.,!?)]/);
+                                const punctuation = punctuationMatch ? punctuationMatch[0] : "";
+                                const delimiter = tail.slice(punctuation.length); // whitespace or end
+
+                                // Push preceding text
+                                if (offset > lastIndex) {
+                                    parts.push(line.slice(lastIndex, offset));
+                                }
+
+                                // Decide link type
+                                const external = isExternal(urlPart, origin);
+                                const sameOrigin = !external;
+                                const shouldUseRouterLink = treatSameOriginAsInternal && sameOrigin && urlPart.startsWith("http");
+
+                                if (shouldUseRouterLink) {
+                                    try {
+                                        const urlObj = new URL(urlPart);
+                                        parts.push(
+                                            <RouterLink
+                                                to={urlObj.pathname + urlObj.search + urlObj.hash}
+                                                className={linkClassName}
+                                                key={`link-${pIndex}-${lIndex}-${offset}`}
+                                            >
+                                                {urlPart}
+                                            </RouterLink>
+                                        );
+                                    } catch {
+                                        parts.push(urlPart); // fallback
+                                    }
+                                } else {
+                                    parts.push(
+                                        <a
+                                            href={urlPart}
+                                            className={linkClassName}
+                                            key={`link-${pIndex}-${lIndex}-${offset}`}
+                                            {...(external
+                                                ? {
+                                                    target: "_blank",
+                                                    rel: "noopener noreferrer",
+                                                }
+                                                : {})}
+                                        >
+                                            {urlPart}
+                                        </a>
+                                    );
+                                }
+
+                                // Append punctuation if any
+                                if (punctuation) parts.push(punctuation);
+                                // Update lastIndex
+                                lastIndex = offset + match.length - delimiter.length; // exclude delimiter chars from match advancement if whitespace
+
+                                // Return match unchanged; we're not using its return value
+                                return match;
+                            });
+
+                            // Append any remaining text after last processed URL
+                            if (lastIndex < line.length) {
+                                parts.push(line.slice(lastIndex));
+                            }
+
+                            return (
+                                <React.Fragment key={lIndex}>
+                                    {parts}
+                                    {lIndex < lines.length - 1 && <br/>}
+                                </React.Fragment>
+                            );
+                        })}
+                    </p>
+                );
+            })}
+        </>
+    );
+};
+
+export default AutoLinkText;
+
