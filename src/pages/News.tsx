@@ -10,6 +10,7 @@ import * as z from "zod";
 import {toast} from "@/hooks/use-toast";
 import PageHeader from "@/components/PageHeader.tsx";
 import {slugify} from "@/lib/utils.ts";
+import {getMonchainApiBase, getNosApiKey} from "@/lib/config.ts";
 
 type ViewMode = "list" | "grid";
 type SortOrder = "newest" | "oldest";
@@ -81,11 +82,13 @@ const News = () => {
     const onNewsletterSubmit = async (data: NewsletterFormData) => {
         setIsSubmitting(true);
         try {
-            const response = await fetch("https://staging.monchain.com/p/nos/api/v1/subscription", {
+            const MONCHAIN_API_BASE_URL = getMonchainApiBase();
+            const NOS_API_KEY = getNosApiKey();
+            const response = await fetch(`${MONCHAIN_API_BASE_URL}/p/nos/api/v1/subscription`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
-                    "Authorization": "2f68ec95-940c-4ab1-bce0-9cc6a1dfd87f",
+                    "Authorization": NOS_API_KEY,
                 },
                 body: JSON.stringify({
                     email: data.email,

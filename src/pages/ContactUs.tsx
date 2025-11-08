@@ -9,6 +9,7 @@ import {zodResolver} from "@hookform/resolvers/zod";
 import * as z from "zod";
 import {useState} from "react";
 import PageHeader from "@/components/PageHeader";
+import {getMonchainApiBase, getUssApiKey} from "@/lib/config.ts";
 
 const formSchema = z.object({
     name: z.string().min(1, "Name is required").max(100, "Name must be less than 100 characters"),
@@ -34,10 +35,12 @@ const ContactUs = () => {
     const onSubmit = async (data: FormData) => {
         setIsSubmitting(true);
         try {
-            const response = await fetch("https://staging.monchain.ai/p/uss/api/v1/contact", {
+            const MONCHAIN_API_BASE_URL = getMonchainApiBase();
+            const USS_API_KEY = getUssApiKey();
+            const response = await fetch(`${MONCHAIN_API_BASE_URL}/p/uss/api/v1/contact`, {
                 method: "POST",
                 headers: {
-                    "x-api-key": "4c80b73b-dd32-485d-8eb8-2e2be60f5bd0",
+                    "x-api-key": USS_API_KEY,
                     "Content-Type": "application/json",
                 },
                 body: JSON.stringify(data),
