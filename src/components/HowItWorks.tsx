@@ -41,10 +41,10 @@ const HowItWorks = () => {
           {features.map((feature, index) => (
             <div
               key={feature.title}
-              className="bg-background/50 backdrop-blur-sm border border-border rounded-lg p-8 hover:border-primary/50 transition-all duration-300 animate-fade-in-up"
+              className="text-center bg-background/50 backdrop-blur-sm border border-border rounded-lg p-8 hover:border-primary/50 transition-all duration-300 animate-fade-in-up"
               style={{ animationDelay: `${index * 0.1}s` }}
             >
-              <div className="mb-4 text-primary">
+              <div className="mb-4 text-primary justify-items-center">
                 <feature.icon className="w-12 h-12" strokeWidth={1.5} />
               </div>
               <h3 className="text-xl font-semibold mb-3">{feature.title}</h3>
@@ -57,10 +57,10 @@ const HowItWorks = () => {
 
         <div className="text-center animate-fade-in-up" style={{ animationDelay: "0.3s" }}>
           <Button variant="hero" size="lg" asChild>
-            <Link to="/xai" className="gap-2">
-              Learn About Our Technology
-              <ArrowRight className="w-4 h-4" />
-            </Link>
+              <a href="#technology">
+                  Learn About Our Technology
+                  <ArrowRight className="w-4 h-4" />
+              </a>
           </Button>
         </div>
       </div>

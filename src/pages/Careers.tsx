@@ -52,7 +52,7 @@ const Careers = () => {
           <h2 className="text-3xl font-bold mb-12 text-center">Why Colyon?</h2>
           <div className="grid md:grid-cols-2 gap-8">
             <div className="bg-card border border-border rounded-lg p-8">
-              <h3 className="text-xl font-semibold mb-4">🚀 Ambitious Mission</h3>
+              <h3 className="text-xl font-semibold mb-4">Ambitious Mission</h3>
               <p className="text-foreground/70">
                 Work on cutting-edge AI research that's actually being deployed in production.
                 Your code will protect millions of dollars in crypto assets.
@@ -60,7 +60,7 @@ const Careers = () => {
             </div>
 
             <div className="bg-card border border-border rounded-lg p-8">
-              <h3 className="text-xl font-semibold mb-4">🧠 Learn & Grow</h3>
+              <h3 className="text-xl font-semibold mb-4">Learn & Grow</h3>
               <p className="text-foreground/70">
                 Collaborate with world-class researchers and engineers. We invest heavily in
                 your growth through mentorship, conferences, and continuous learning.
@@ -68,7 +68,7 @@ const Careers = () => {
             </div>
 
             <div className="bg-card border border-border rounded-lg p-8">
-              <h3 className="text-xl font-semibold mb-4">💼 Ownership & Impact</h3>
+              <h3 className="text-xl font-semibold mb-4">Ownership & Impact</h3>
               <p className="text-foreground/70">
                 Take ownership of major features and systems. Your decisions shape products
                 used by thousands of people. Plus competitive equity compensation.
@@ -76,7 +76,7 @@ const Careers = () => {
             </div>
 
             <div className="bg-card border border-border rounded-lg p-8">
-              <h3 className="text-xl font-semibold mb-4">🌍 Remote-First Culture</h3>
+              <h3 className="text-xl font-semibold mb-4">Remote-First Culture</h3>
               <p className="text-foreground/70">
                 Work from anywhere. We believe in async communication, clear documentation,
                 and trust. Optional hubs in SF and other cities.

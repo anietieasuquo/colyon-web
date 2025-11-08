@@ -13,14 +13,15 @@ const Products = () => {
           {/* Monchain */}
           <div className="bg-card border border-border rounded-2xl p-8 hover:shadow-lg transition-shadow">
             <div className="w-12 h-12 bg-accent/10 rounded-xl flex items-center justify-center mb-6">
-              <Shield className="w-6 h-6 text-accent" />
+                <img src="/img/monchain/favicon.png" alt="Monchain" className="w-6 h-6" />
             </div>
             <h3 className="text-2xl font-bold mb-4">Monchain</h3>
             <p className="text-lg text-muted-foreground mb-6 leading-relaxed">
-              AI-powered crypto wallet that detects and blocks scams in real time. Your intelligent guardian in the blockchain ecosystem.
+                Our first product, <span
+                className="text-accent font-semibold">Monchain</span>, is an AI-powered crypto wallet that detects and blocks fraud in real time - with 96% detection accuracy.
             </p>
             <Button variant="hero" asChild>
-              <Link to="/monchain">Discover Monchain</Link>
+              <Link to="/products/monchain">Discover Monchain</Link>
             </Button>
           </div>
 
@@ -31,7 +32,7 @@ const Products = () => {
             </div>
             <h3 className="text-2xl font-bold mb-4">Future Products</h3>
             <p className="text-lg text-muted-foreground mb-6 leading-relaxed">
-              Our next generation of agent-based AI tools are in development. Expanding collective intelligence across new domains.
+              Our next generation of agent-based AI systems are in development. Expanding collective intelligence across new domains.
             </p>
             <Button variant="outline" disabled>
               Coming Soon

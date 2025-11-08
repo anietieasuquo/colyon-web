@@ -12,7 +12,7 @@ const Technology = () => {
   }, []);
 
   return (
-    <section className="py-32 px-6">
+    <section className="py-32 px-6" id="technology">
       <div className="container mx-auto max-w-6xl">
         <div className="grid lg:grid-cols-2 gap-12 items-center">
           <div>

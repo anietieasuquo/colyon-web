@@ -21,7 +21,7 @@ const XAI = () => {
               </p>
               <p className="text-foreground/80 leading-relaxed">
                 At Colyon, we believe that every AI decision should be explainable in human terms.
-                Our multi-agent systems don't just act — they explain their reasoning, show their
+                Our multi-agent systems don't just act, they explain their reasoning, show their
                 confidence levels, and provide audit trails for every action.
               </p>
             </div>
@@ -62,7 +62,7 @@ const XAI = () => {
             <h2 className="text-3xl font-bold mb-8">XAI in Practice</h2>
             <div className="bg-gradient-to-br from-accent/5 to-mint/5 border border-accent/20 rounded-xl p-8">
               <h3 className="text-xl font-semibold mb-4 text-accent">
-                Example: Transaction Risk Assessment
+                Example: Transaction Risk Assessment on Monchain
               </h3>
               <div className="space-y-4 text-foreground/70">
                 <div className="border-l-2 border-accent pl-4">
@@ -73,14 +73,14 @@ const XAI = () => {
                   <p className="font-medium text-foreground mb-1">Agent Analysis</p>
                   <p>
                     • Address flagged by 3 agents as suspicious<br />
-                    • Pattern matches known phishing campaigns (85% confidence)<br />
+                    • Pattern matches known phishing campaigns (96% confidence)<br />
                     • No prior interaction history with this address<br />
                     • Transaction size exceeds user's typical range
                   </p>
                 </div>
                 <div className="border-l-2 border-accent pl-4">
                   <p className="font-medium text-foreground mb-1">Decision</p>
-                  <p>Transaction blocked with high confidence (92%)</p>
+                  <p>Transaction blocked with high confidence (96%)</p>
                 </div>
                 <div className="border-l-2 border-mint pl-4">
                   <p className="font-medium text-foreground mb-1">Explanation to User</p>

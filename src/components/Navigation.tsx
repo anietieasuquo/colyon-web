@@ -16,7 +16,7 @@ const Navigation = () => {
     { name: "Research", href: "/research" },
     { name: "Safety", href: "/safety" },
     { name: "XAI", href: "/xai" },
-    { name: "Monchain", href: "/monchain" },
+    { name: "Monchain", href: "/products/monchain" },
     {
       name: "Company",
       submenu: [
