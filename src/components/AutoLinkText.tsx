@@ -1,5 +1,6 @@
 import React from "react";
 import {Link as RouterLink} from "react-router-dom";
+import { ExternalLink } from "lucide-react";
 
 interface AutoLinkTextProps {
     text: string;
@@ -88,10 +89,19 @@ export const AutoLinkText: React.FC<AutoLinkTextProps> = ({
                                                 ? {
                                                     target: "_blank",
                                                     rel: "noopener noreferrer",
-                                                }
+                                                  }
                                                 : {})}
                                         >
                                             {urlPart}
+                                            {external && (
+                                                <>
+                                                    <ExternalLink
+                                                        className="ml-1 inline-block h-[0.9em] w-[0.9em] align-[-0.15em] opacity-80"
+                                                        aria-hidden="true"
+                                                    />
+                                                    <span className="sr-only"> (opens in a new tab)</span>
+                                                </>
+                                            )}
                                         </a>
                                     );
                                 }
@@ -125,4 +135,3 @@ export const AutoLinkText: React.FC<AutoLinkTextProps> = ({
 };
 
 export default AutoLinkText;
-
