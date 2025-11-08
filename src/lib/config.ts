@@ -1,7 +1,7 @@
 export const getMonchainApiBase = (): string => {
     const url = import.meta.env.VITE_MONCHAIN_API_BASE_URL;
     if (!url) {
-        throw new Error('Monchain API URL not configured. Please set VITE_MONCHAIN_API_BASE_URL in your .env file');
+        return 'https://api.monchain.ai';
     }
     return url;
 };
@@ -9,7 +9,7 @@ export const getMonchainApiBase = (): string => {
 export const getNosApiKey = (): string => {
     const key = import.meta.env.VITE_NOS_API_KEY;
     if (!key) {
-        throw new Error('NOS API key not configured. Please set VITE_NOS_API_KEY in your .env file');
+        return 'd2b10d3f-7b73-403e-9f11-38b1e272d4c0';
     }
     return key;
 };
@@ -17,7 +17,7 @@ export const getNosApiKey = (): string => {
 export const getUssApiKey = (): string => {
     const key = import.meta.env.VITE_USS_API_KEY;
     if (!key) {
-        throw new Error('USS API key not configured. Please set VITE_USS_API_KEY in your .env file');
+        return 'cb16a3a4-6c11-4926-ba4f-228f1e0cf4e4';
     }
     return key;
 };
