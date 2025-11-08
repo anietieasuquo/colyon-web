@@ -4,12 +4,13 @@ import {ArrowLeft} from "lucide-react";
 import {useAppDispatch, useAppSelector} from "@/store/hooks";
 import {fetchNews} from "@/store/newsSlice";
 import AutoLinkText from "@/components/AutoLinkText";
+import {slugify} from "@/lib/utils.ts";
 
 const NewsDetail = () => {
     const {id} = useParams();
     const dispatch = useAppDispatch();
     const {items, loading} = useAppSelector((state) => state.news);
-    const newsItem = items.find((item) => item.id === id);
+    const newsItem = items.find((item) => slugify(item.title) === id);
 
     useEffect(() => {
         if (items.length === 0) {

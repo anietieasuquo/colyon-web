@@ -9,6 +9,7 @@ import {zodResolver} from "@hookform/resolvers/zod";
 import * as z from "zod";
 import {toast} from "@/hooks/use-toast";
 import PageHeader from "@/components/PageHeader.tsx";
+import {slugify} from "@/lib/utils.ts";
 
 type ViewMode = "list" | "grid";
 type SortOrder = "newest" | "oldest";
@@ -249,11 +250,11 @@ const News = () => {
                                                     <span className="text-foreground/60 text-sm">{item.date}</span>
                                                     <span
                                                         className={`px-3 py-1 ${badgeClass} rounded-full text-xs font-medium`}>
-                            {item.category}
-                          </span>
+                                                        {item.category}
+                                                      </span>
                                                 </div>
                                                 <Link
-                                                    to={`/news/${item.id}`}
+                                                    to={`/news/${slugify(item.title)}`}
                                                     className="group"
                                                 >
                                                     <h3 className="text-2xl font-bold mb-3 group-hover:text-accent transition-colors cursor-pointer">
@@ -280,7 +281,7 @@ const News = () => {
                                         return (
                                             <Link
                                                 key={item.id}
-                                                to={`/news/${item.id}`}
+                                                to={`/news/${slugify(item.title)}`}
                                                 className="group bg-card border border-border rounded-lg overflow-hidden hover:border-accent transition-all animate-fade-in"
                                                 style={{animationDelay: `${index * 0.1}s`}}
                                             >
@@ -298,8 +299,8 @@ const News = () => {
                                                         <span className="text-foreground/60 text-xs">{item.date}</span>
                                                         <span
                                                             className={`px-2 py-1 ${badgeClass} rounded-full text-xs font-medium`}>
-                              {item.category}
-                            </span>
+                                                          {item.category}
+                                                        </span>
                                                     </div>
                                                     <h3 className="text-xl font-bold mb-2 group-hover:text-accent transition-colors">
                                                         {item.title}
