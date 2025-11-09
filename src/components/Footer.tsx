@@ -4,11 +4,11 @@ import Link from "next/link";
 
 const Footer = () => {
   const socialLinks = [
-    { icon: Linkedin, href: "https://linkedin.com", label: "LinkedIn" },
-    { icon: Twitter, href: "https://twitter.com", label: "X (Twitter)" },
-    { icon: Github, href: "https://github.com", label: "GitHub" },
-    { icon: Instagram, href: "https://instagram.com", label: "Instagram" },
-    { icon: Music2, href: "https://tiktok.com", label: "TikTok" },
+    { icon: Linkedin, href: "https://linkedin.com/colyon", label: "LinkedIn" },
+    { icon: Twitter, href: "https://twitter.com/colyonai", label: "X (Twitter)" },
+    { icon: Github, href: "https://github.com/colyonai", label: "GitHub" },
+    { icon: Instagram, href: "https://instagram.com/colyonai", label: "Instagram" },
+    { icon: Music2, href: "https://tiktok.com/colyonai", label: "TikTok" },
   ];
 
   return (
