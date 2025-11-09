@@ -1,8 +1,12 @@
+/* eslint-disable react-refresh/only-export-components */
 import "@/index.css";
 import { ReactNode } from "react";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import Providers from "./providers";
+import { Inter } from "next/font/google";
+
+const inter = Inter({ subsets: ["latin"], display: "swap", variable: "--font-inter" });
 
 export const metadata = {
   title: "Colyon - A colony of AI agents",
@@ -12,7 +16,7 @@ export const metadata = {
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="en">
-      <body>
+      <body className={`${inter.className}`}>
         <Providers>
           <div className="min-h-screen bg-background text-foreground flex flex-col">
             <Navigation />
@@ -24,4 +28,3 @@ export default function RootLayout({ children }: { children: ReactNode }) {
     </html>
   );
 }
-

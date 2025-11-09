@@ -53,6 +53,10 @@ All colors MUST be HSL.
   }
 
   body {
-    @apply bg-background text-foreground;
+    /* Ensure consistent typography baseline */
+    @apply bg-background text-foreground font-sans leading-7 md:leading-6;
   }
+
+  /* Help paragraphs inherit comfortable line-height by default */
+  p { @apply leading-7 md:leading-6; }
 }
