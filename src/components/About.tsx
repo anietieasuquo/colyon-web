@@ -1,6 +1,8 @@
+"use client";
+
 import {Button} from "@/components/ui/button";
 import {ArrowRight} from "lucide-react";
-import {Link} from "react-router-dom";
+import Link from "next/link";
 
 const About = () => {
     return (
@@ -17,7 +19,7 @@ const About = () => {
                     Get early access to our APIs, partnerships, and upcoming products.
                 </p>
                 <Button variant="hero" size="lg" asChild>
-                    <Link to="/careers" className="gap-2">
+                    <Link href="/careers" className="gap-2">
                         Join the Colony
                         <ArrowRight className="w-4 h-4"/>
                     </Link>

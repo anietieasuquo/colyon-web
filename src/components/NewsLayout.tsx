@@ -1,14 +1,3 @@
-import { Outlet, Link } from "react-router-dom";
-import { ArrowLeft } from "lucide-react";
+// NewsLayout deprecated after Next.js migration.
+export default function NewsLayout() { return null; }
 
-const NewsLayout = () => {
-  return (
-    <main className="pt-48 pb-16 min-h-screen">
-      <div className="container mx-auto px-6">
-        <Outlet />
-      </div>
-    </main>
-  );
-};
-
-export default NewsLayout;

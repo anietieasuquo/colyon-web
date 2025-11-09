@@ -1,7 +1,8 @@
+"use client";
 import {AlertTriangle, ArrowRight, Eye, Lock, Shield} from "lucide-react";
 import PageHeader from "@/components/PageHeader";
-import {Link} from "react-router-dom";
-import {Button} from "@/components/ui/button.tsx";
+import Link from "next/link";
+import {Button} from "@/components/ui/button";
 
 const Safety = () => {
     return (
@@ -57,7 +58,7 @@ const Safety = () => {
                                 className="font-semibold">auditable and explainable</span>.
                                 We design our AI systems to produce traceable reasoning paths, so humans can
                                 understand why decisions were made, not just what decisions were made.
-                                <Link to="/xai" className="gap-1 text-blue-500 hover:text-blue-700">
+                                <Link href="/xai" className="gap-1 text-blue-500 hover:text-blue-700">
                                     {' '}Read more
                                 </Link>
                             </p>
@@ -109,7 +110,7 @@ const Safety = () => {
                     </ul>
                     <p className="mt-8">
                         <Button variant="hero" size="lg" asChild>
-                            <Link to="/products/monchain" className="gap-2">
+                            <Link href="/products/monchain" className="gap-2">
                                 Explore Monchain
                                 <ArrowRight className="w-4 h-4 animate-[bounce-x_1.5s_ease-in-out_infinite]"/>
                             </Link>

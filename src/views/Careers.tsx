@@ -1,6 +1,7 @@
+"use client";
 import { Button } from "@/components/ui/button";
 import { Code, Brain, Palette, Shield } from "lucide-react";
-import { Link } from "react-router-dom";
+import Link from "next/link";
 import PageHeader from "@/components/PageHeader";
 
 const Careers = () => {
@@ -135,7 +136,7 @@ const Careers = () => {
             how you'd like to contribute to Colyon's mission.
           </p>
           <Button variant="hero" size="lg" asChild>
-            <Link to="/contact">
+            <Link href="/contact">
               Get in Touch
             </Link>
           </Button>

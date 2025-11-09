@@ -1,6 +1,8 @@
+"use client";
+
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Brain, Network, Shield } from "lucide-react";
-import { Link } from "react-router-dom";
+import Link from "next/link";
 
 const HowItWorks = () => {
   const features = [
@@ -57,10 +59,10 @@ const HowItWorks = () => {
 
         <div className="text-center animate-fade-in-up" style={{ animationDelay: "0.3s" }}>
           <Button variant="hero" size="lg" asChild>
-              <a href="#technology">
+              <Link href="#technology">
                   Learn About Our Technology
                   <ArrowRight className="w-4 h-4" />
-              </a>
+              </Link>
           </Button>
         </div>
       </div>

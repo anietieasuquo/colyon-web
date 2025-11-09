@@ -1,16 +1,23 @@
+"use client";
 import {useEffect} from "react";
-import {Link, Navigate, useParams} from "react-router-dom";
+import Link from "next/link";
+import {useRouter, useParams} from "next/navigation";
 import {ArrowLeft} from "lucide-react";
 import {useAppDispatch, useAppSelector} from "@/store/hooks";
 import {fetchNews} from "@/store/newsSlice";
 import AutoLinkText from "@/components/AutoLinkText";
-import {slugify} from "@/lib/utils.ts";
+import {slugify} from "@/lib/utils";
 
 const NewsDetail = () => {
-    const {id} = useParams();
+    const params = useParams();
+    const slug = typeof params?.slug === "string"
+        ? params.slug
+        : Array.isArray(params?.slug)
+            ? params?.slug[0]
+            : undefined;
+    const router = useRouter();
     const dispatch = useAppDispatch();
     const {items, loading} = useAppSelector((state) => state.news);
-    const newsItem = items.find((item) => slugify(item.title) === id);
 
     useEffect(() => {
         if (items.length === 0) {
@@ -18,16 +25,22 @@ const NewsDetail = () => {
         }
     }, [dispatch, items.length]);
 
-    if (loading) {
+    const newsItem = items.find((item) =>
+        item && slug && item.title && slugify(item.title) === slug
+    );
+
+    if (!loading && !newsItem) {
+        // If not found, navigate back to /news
+        router.push("/news");
+        return null;
+    }
+
+    if (loading || !newsItem) {
         return (
             <div className="min-h-[60vh] flex items-center justify-center">
                 <p className="text-foreground/60">Loading...</p>
             </div>
         );
-    }
-
-    if (!newsItem) {
-        return <Navigate to="/news" replace/>;
     }
 
     const borderColor = newsItem.accentColor === "accent" ? "border-accent" : "border-mint";
@@ -39,7 +52,7 @@ const NewsDetail = () => {
         <main className="pt-32 pb-16 min-h-screen">
             <div className="container mx-auto px-6">
                 <Link
-                    to="/news"
+                    href="/news"
                     className="inline-flex items-center gap-2 text-foreground/70 hover:text-foreground transition-colors mb-8 group"
                 >
                     <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform"/>
@@ -60,13 +73,17 @@ const NewsDetail = () => {
                         </h1>
 
                         <div className="prose prose-invert max-w-none">
+                            <p className="text-xl text-foreground/80 leading-relaxed mb-8">
+                                {newsItem.description}
+                            </p>
+
                             {newsItem.content && (
                                 <div className="text-foreground/70 leading-relaxed space-y-4">
                                     {/* Render paragraphs and auto-link URLs, preserving line breaks */}
                                     <AutoLinkText
                                         text={newsItem.content}
                                         paragraphClassName="mb-4"
-                                        linkClassName="text-accent font-semibold underline underline-offset-4 hover:text-foreground"
+                                        linkClassName="underline underline-offset-4 hover:text-foreground"
                                         treatSameOriginAsInternal
                                     />
                                 </div>

@@ -1,73 +1,102 @@
-# Welcome to your Lovable project
+# Colyon Web (Next.js)
 
-## Project info
+A Next.js 14 App Router migration of the former Vite + React SPA. Provides public marketing pages, news listing & detail, privacy/terms content, and product information with shadcn/ui components, Redux Toolkit for news items, and React Query (scaffolded for future API calls).
 
-**URL**: https://lovable.dev/projects/682c2770-57dd-4bcd-ad67-b036a58ec4ce
+## Tech Stack
+- Next.js 14 App Router
+- TypeScript, ESLint
+- TailwindCSS + shadcn/ui (Radix primitives)
+- Redux Toolkit (news state) + React Redux
+- React Query (ready for async data integration)
+- Zod + React Hook Form (forms & validation)
+- Lucide Icons
 
-## How can I edit this code?
+## Local Development
+```bash
+# Install dependencies
+npm install
 
-There are several ways of editing your application.
-
-**Use Lovable**
-
-Simply visit the [Lovable Project](https://lovable.dev/projects/682c2770-57dd-4bcd-ad67-b036a58ec4ce) and start prompting.
-
-Changes made via Lovable will be committed automatically to this repo.
-
-**Use your preferred IDE**
-
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
-
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
-
-Follow these steps:
-
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
-
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
-
-# Step 3: Install the necessary dependencies.
-npm i
-
-# Step 4: Start the development server with auto-reloading and an instant preview.
+# Run dev server
 npm run dev
+
+# Open http://localhost:3000
 ```
 
-**Edit a file directly in GitHub**
+## Available Scripts
+```bash
+npm run dev      # Start Next.js in development mode
+npm run build    # Production build (creates .next/)
+npm start        # Start production server (after build)
+npm run lint     # ESLint check
+```
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+## Environment Variables
+Define (in .env.local for local, or in Vercel dashboard):
+```
+NEXT_PUBLIC_MONCHAIN_API_BASE_URL=https://api.monchain.ai
+NEXT_PUBLIC_NOS_API_KEY=replace_me
+NEXT_PUBLIC_USS_API_KEY=replace_me
+```
+These are accessed via `process.env.*` in `src/lib/config.ts`.
 
-**Use GitHub Codespaces**
+## External Link Auto-Linking
+Component `src/components/AutoLinkText.tsx`:
+- Scans text for http/https URLs.
+- Internal (same-origin) absolute URLs become `<Link>`.
+- External URLs open in a new tab with an external-link icon.
+- Preserves paragraphs and single line breaks.
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+## Slugs
+Use `slugify` from `src/lib/utils.ts` to convert titles to URL-friendly slugs (lowercase, hyphens, trimmed). It removes accents, replaces ampersands with 'and', strips quotes, normalizes whitespace & punctuation into single hyphens.
 
-## What technologies are used for this project?
+Example:
+- `Élan Vital & Growth` -> `elan-vital-and-growth`
+- `John's   Car -- Build` -> `johns-car-build`
 
-This project is built with:
+Used consistently in `/news` listing and the dynamic route `/news/[slug]`. Detail page now matches items with `slugify(item.title) === slug`.
 
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
 
-## How can I deploy this project?
+## Routing
+- `app/` directory defines Next.js routes.
+- Former `src/pages/` components moved to `src/views/` and imported by route files.
+- Dynamic route: `/news/[slug]` (marked `dynamic = 'force-dynamic'` to allow client-side Redux fetching).
 
-Simply open [Lovable](https://lovable.dev/projects/682c2770-57dd-4bcd-ad67-b036a58ec4ce) and click on Share -> Publish.
+## State & Data
+- `fetchNews` in `src/store/newsSlice.ts` simulates an async fetch (replace with real API).
+- To move fetching server-side: create a server action or use `fetch` inside route file and pass data as props.
 
-## Can I connect a custom domain to my Lovable project?
+## Image Optimization
+`sharp` added for optimal Next.js Image performance. Replace `<img>` with `<Image>` where feasible; currently used for the logo.
 
-Yes, you can!
+## Deployment (Vercel)
+1. Push repository to GitHub.
+2. Import project in Vercel.
+3. Set environment variables in Vercel project settings.
+4. Vercel auto-detects Next.js; no build command changes needed.
 
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
+## Post-Migration Cleanup Summary
+Removed:
+- `react-router-dom`
+- Vite-related dev dependencies (`vite`, `@vitejs/plugin-react-swc`)
+- Legacy entrypoints (`index.html`, `src/main.tsx`, `src/App.tsx` now deprecated stubs)
 
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/features/custom-domain#custom-domain)
+Added:
+- `sharp` for image optimization.
+
+## Legacy / Migration Artifacts
+Legacy Vite files have been removed from the repo:
+- index.html
+- vite.config.ts
+- src/App.tsx, src/main.tsx
+- tsconfig.app.json, tsconfig.node.json
+
+If you had local tooling referencing them, update to use the root Next.js setup (`tsconfig.json`) and App Router.
+
+## Troubleshooting
+- 404 on refresh (was a SPA issue) is resolved by Next.js routing.
+- If external links fail to open: check `AutoLinkText` regex and ensure text includes protocol.
+- If environment variables undefined: verify `.env.local` or Vercel dashboard configuration.
+- Slug mismatch (404 redirect back to /news): ensure list and detail both use `slugify`; if editing titles, a page refresh will regenerate the correct slug.
+
+---
+MIT License © 2025 Colyon

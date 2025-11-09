@@ -1,4 +1,5 @@
-import {Link} from "react-router-dom";
+"use client";
+import Link from "next/link";
 import {Button} from "@/components/ui/button";
 import PageHeader from "@/components/PageHeader";
 
@@ -90,7 +91,7 @@ const Mission = () => {
                         We're looking for exceptional people who want to shape the future of AI.
                     </p>
                     <Button variant="hero" size="lg" asChild>
-                        <Link to="/careers">
+                        <Link href="/careers">
                             View Open Positions
                         </Link>
                     </Button>

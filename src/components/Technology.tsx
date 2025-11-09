@@ -1,3 +1,5 @@
+"use client";
+
 import { Network } from "lucide-react";
 import { useEffect, useState } from "react";
 
@@ -20,10 +22,14 @@ const Technology = () => {
               Technology
             </h2>
             <p className="text-xl text-muted-foreground leading-relaxed">
-              Colyon's <span className="text-accent font-semibold">multi-agent intelligence framework</span> powers adaptive, secure AI decisions across products and platforms.
+              Colyon's{" "}
+              <span className="text-accent font-semibold">
+                multi-agent intelligence framework
+              </span>{" "}
+              powers adaptive, secure AI decisions across products and platforms.
             </p>
           </div>
-          
+
           <div className="relative h-96 bg-gradient-to-br from-accent/5 to-mint/5 rounded-2xl border border-border overflow-hidden">
             {/* Network visualization */}
             <div className="absolute inset-0 flex items-center justify-center">
@@ -32,14 +38,14 @@ const Technology = () => {
                 <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-16 h-16 bg-accent rounded-full animate-pulse-slow flex items-center justify-center">
                   <Network className="w-8 h-8 text-background" />
                 </div>
-                
+
                 {/* Orbiting nodes */}
                 {[0, 1, 2, 3, 4, 5].map((i) => {
                   const baseAngle = (i * Math.PI * 2) / 6;
                   const currentAngle = baseAngle + (rotation * Math.PI) / 180;
                   const x = 50 + 40 * Math.cos(currentAngle);
                   const y = 50 + 40 * Math.sin(currentAngle);
-                  
+
                   return (
                     <div
                       key={i}
@@ -52,7 +58,7 @@ const Technology = () => {
                     />
                   );
                 })}
-                
+
                 {/* Connection lines */}
                 <svg className="absolute inset-0 w-full h-full">
                   {[0, 1, 2, 3, 4, 5].map((i) => {

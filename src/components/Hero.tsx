@@ -1,6 +1,7 @@
+"use client";
 import {Button} from "@/components/ui/button";
 import {ArrowRight} from "lucide-react";
-import {Link} from "react-router-dom";
+import Link from "next/link";
 
 const Hero = () => {
     return (
@@ -17,7 +18,7 @@ const Hero = () => {
                 <div className="flex flex-col sm:flex-row gap-4 justify-center items-center animate-fade-in-up"
                      style={{animationDelay: "0.2s"}}>
                     <Button variant="hero" size="lg" asChild>
-                        <Link to="/products/monchain" className="gap-2">
+                        <Link href="/products/monchain" className="gap-2">
                             Explore Monchain
                             <ArrowRight className="w-4 h-4 animate-[bounce-x_1.5s_ease-in-out_infinite]"/>
                         </Link>

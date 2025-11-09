@@ -1,5 +1,6 @@
+"use client";
 import {useEffect, useRef, useState} from "react";
-import {Link} from "react-router-dom";
+import Link from "next/link";
 import {useAppDispatch, useAppSelector} from "@/store/hooks";
 import {fetchNews} from "@/store/newsSlice";
 import {ChevronDown, Filter, Grid3x3, List, Loader2} from "lucide-react";
@@ -8,12 +9,9 @@ import {useForm} from "react-hook-form";
 import {zodResolver} from "@hookform/resolvers/zod";
 import * as z from "zod";
 import {toast} from "@/hooks/use-toast";
-import PageHeader from "@/components/PageHeader.tsx";
-import {slugify} from "@/lib/utils.ts";
-import {getMonchainApiBase, getNosApiKey} from "@/lib/config.ts";
-
-type ViewMode = "list" | "grid";
-type SortOrder = "newest" | "oldest";
+import PageHeader from "@/components/PageHeader";
+import {slugify} from "@/lib/utils";
+import {getMonchainApiBase, getNosApiKey} from "@/lib/config";
 
 const newsletterSchema = z.object({
     email: z.string().email("Please enter a valid email address"),
@@ -24,27 +22,20 @@ type NewsletterFormData = z.infer<typeof newsletterSchema>;
 const News = () => {
     const dispatch = useAppDispatch();
     const {items, loading, error} = useAppSelector((state) => state.news);
-    const [viewMode, setViewMode] = useState<ViewMode>("grid");
-    const [sortOrder, setSortOrder] = useState<SortOrder>("newest");
+    const [viewMode, setViewMode] = useState<"list" | "grid">("grid");
+    const [sortOrder, setSortOrder] = useState<"newest" | "oldest">("newest");
     const [selectedCategory, setSelectedCategory] = useState<string>("all");
     const [selectedYear, setSelectedYear] = useState<string>("all");
     const [isFilterOpen, setIsFilterOpen] = useState(false);
     const [isSubmitting, setIsSubmitting] = useState(false);
     const filterRef = useRef<HTMLDivElement>(null);
 
-    const {
-        register,
-        handleSubmit,
-        formState: {errors, isValid},
-        reset,
-    } = useForm<NewsletterFormData>({
+    const { register, handleSubmit, formState: {errors, isValid}, reset } = useForm<NewsletterFormData>({
         resolver: zodResolver(newsletterSchema),
         mode: "onChange",
     });
 
-    useEffect(() => {
-        dispatch(fetchNews());
-    }, [dispatch]);
+    useEffect(() => { dispatch(fetchNews()); }, [dispatch]);
 
     useEffect(() => {
         const handleClickOutside = (event: MouseEvent) => {
@@ -52,21 +43,13 @@ const News = () => {
                 setIsFilterOpen(false);
             }
         };
-
-        if (isFilterOpen) {
-            document.addEventListener("mousedown", handleClickOutside);
-        }
-
-        return () => {
-            document.removeEventListener("mousedown", handleClickOutside);
-        };
+        if (isFilterOpen) document.addEventListener("mousedown", handleClickOutside);
+        return () => document.removeEventListener("mousedown", handleClickOutside);
     }, [isFilterOpen]);
 
-    // Get unique categories and years
     const categories = ["all", ...Array.from(new Set(items.map((item) => item.category)))];
     const years = ["all", ...Array.from(new Set(items.map((item) => item.year.toString())))];
 
-    // Filter and sort items
     const filteredItems = items
         .filter((item) => {
             const categoryMatch = selectedCategory === "all" || item.category === selectedCategory;
@@ -90,30 +73,14 @@ const News = () => {
                     "Content-Type": "application/json",
                     "Authorization": NOS_API_KEY,
                 },
-                body: JSON.stringify({
-                    email: data.email,
-                    product: "colyon",
-                }),
+                body: JSON.stringify({ email: data.email, product: "colyon" }),
             });
-
-            if (!response.ok) {
-                throw new Error("Failed to subscribe");
-            }
-
-            toast({
-                title: "Success!",
-                description: "You've been subscribed to our newsletter.",
-            });
+            if (!response.ok) throw new Error("Failed to subscribe");
+            toast({ title: "Success!", description: "You've been subscribed to our newsletter." });
             reset();
         } catch (error) {
-            toast({
-                title: "Error",
-                description: "Failed to subscribe. Please try again.",
-                variant: "destructive",
-            });
-        } finally {
-            setIsSubmitting(false);
-        }
+            toast({ title: "Error", description: "Failed to subscribe. Please try again.", variant: "destructive" });
+        } finally { setIsSubmitting(false); }
     };
 
     return (
@@ -181,7 +148,7 @@ const News = () => {
                         {/* Sort Dropdown */}
                         <select
                             value={sortOrder}
-                            onChange={(e) => setSortOrder(e.target.value as SortOrder)}
+                            onChange={(e) => setSortOrder(e.target.value as any)}
                             className="px-4 py-2 bg-background border border-border rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-accent"
                         >
                             <option value="newest">Newest First</option>
@@ -257,7 +224,7 @@ const News = () => {
                                                       </span>
                                                 </div>
                                                 <Link
-                                                    to={`/news/${slugify(item.title)}`}
+                                                    href={`/news/${slugify(item.title)}`}
                                                     className="group"
                                                 >
                                                     <h3 className="text-2xl font-bold mb-3 group-hover:text-accent transition-colors cursor-pointer">
@@ -284,7 +251,7 @@ const News = () => {
                                         return (
                                             <Link
                                                 key={item.id}
-                                                to={`/news/${slugify(item.title)}`}
+                                                href={`/news/${slugify(item.title)}`}
                                                 className="group bg-card border border-border rounded-lg overflow-hidden hover:border-accent transition-all animate-fade-in"
                                                 style={{animationDelay: `${index * 0.1}s`}}
                                             >

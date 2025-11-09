@@ -1,6 +1,7 @@
+"use client";
 import {Rocket, Target, Users} from "lucide-react";
 import PageHeader from "@/components/PageHeader";
-import {Link} from "react-router-dom";
+import Link from "next/link";
 
 const AboutUs = () => {
     return (
@@ -29,7 +30,7 @@ const AboutUs = () => {
                             while remaining aligned to human values and priorities.
                         </p>
                         <p>
-                            Our flagship product, <Link to="/products/monchain" className="gap-2"><span
+                            Our flagship product, <Link href="/products/monchain" className="gap-2"><span
                             className="text-accent font-semibold">Monchain</span></Link>,
                             demonstrates our promise in the real world. Monchain is an AI-powered crypto wallet and
                             hybrid exchange that leverages our multi-agent architecture to detect and stop fraud,

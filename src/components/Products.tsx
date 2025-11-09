@@ -1,6 +1,7 @@
+"use client";
 import { Shield, Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Link } from "react-router-dom";
+import Link from "next/link";
 
 const Products = () => {
   return (
@@ -21,7 +22,7 @@ const Products = () => {
                 className="text-accent font-semibold">Monchain</span>, is an AI-powered crypto wallet that detects and blocks fraud in real time - with 96% detection accuracy.
             </p>
             <Button variant="hero" asChild>
-              <Link to="/products/monchain">Discover Monchain</Link>
+              <Link href="/products/monchain">Discover Monchain</Link>
             </Button>
           </div>
 

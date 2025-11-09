@@ -1,3 +1,5 @@
+"use client";
+
 import {Button} from "@/components/ui/button";
 import {Input} from "@/components/ui/input";
 import {Textarea} from "@/components/ui/textarea";
@@ -9,7 +11,7 @@ import {zodResolver} from "@hookform/resolvers/zod";
 import * as z from "zod";
 import {useState} from "react";
 import PageHeader from "@/components/PageHeader";
-import {getMonchainApiBase, getUssApiKey} from "@/lib/config.ts";
+import {getMonchainApiBase, getUssApiKey} from "@/lib/config";
 
 const formSchema = z.object({
     name: z.string().min(1, "Name is required").max(100, "Name must be less than 100 characters"),

@@ -1,5 +1,6 @@
+"use client";
 import React from "react";
-import {Link as RouterLink} from "react-router-dom";
+import Link from "next/link";
 import { ExternalLink } from "lucide-react";
 
 interface AutoLinkTextProps {
@@ -8,7 +9,7 @@ interface AutoLinkTextProps {
     paragraphClassName?: string;
     /** Optional class applied to anchor / Link elements */
     linkClassName?: string;
-    /** If true, treat same-origin absolute URLs as internal and render react-router Link */
+    /** If true, treat same-origin absolute URLs as internal and render Next Link */
     treatSameOriginAsInternal?: boolean;
 }
 
@@ -32,7 +33,7 @@ export const AutoLinkText: React.FC<AutoLinkTextProps> = ({
   treatSameOriginAsInternal = true,
 }) => {
     if (!text) return null;
-    const origin = typeof window !== "undefined" ? window.location.origin : "";
+    const origin = typeof window !== "undefined" && window.location ? window.location.origin : "";
 
     // Split paragraphs by double newline; keep empty paragraphs if any
     const paragraphs = text.split(/\n\n+/);
@@ -62,19 +63,19 @@ export const AutoLinkText: React.FC<AutoLinkTextProps> = ({
                                 // Decide link type
                                 const external = isExternal(urlPart, origin);
                                 const sameOrigin = !external;
-                                const shouldUseRouterLink = treatSameOriginAsInternal && sameOrigin && urlPart.startsWith("http");
+                                const shouldUseNextLink = treatSameOriginAsInternal && sameOrigin && urlPart.startsWith("http");
 
-                                if (shouldUseRouterLink) {
+                                if (shouldUseNextLink) {
                                     try {
                                         const urlObj = new URL(urlPart);
                                         parts.push(
-                                            <RouterLink
-                                                to={urlObj.pathname + urlObj.search + urlObj.hash}
+                                            <Link
+                                                href={urlObj.pathname + urlObj.search + urlObj.hash}
                                                 className={linkClassName}
                                                 key={`link-${pIndex}-${lIndex}-${offset}`}
                                             >
                                                 {urlPart}
-                                            </RouterLink>
+                                            </Link>
                                         );
                                     } catch {
                                         parts.push(urlPart); // fallback

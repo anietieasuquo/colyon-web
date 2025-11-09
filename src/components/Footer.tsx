@@ -1,5 +1,6 @@
+"use client";
 import { Github, Linkedin, Twitter, Instagram, Music2 } from "lucide-react";
-import { Link } from "react-router-dom";
+import Link from "next/link";
 
 const Footer = () => {
   const socialLinks = [
@@ -18,15 +19,15 @@ const Footer = () => {
           <div className="flex flex-col md:flex-row items-center gap-4 text-sm text-muted-foreground">
             <span>© 2025 Colyon. All rights reserved.</span>
             <div className="flex gap-4">
-              <Link to="/contact" className="hover:text-accent transition-colors">
+              <Link href="/contact" className="hover:text-accent transition-colors">
                 Contact
               </Link>
               <span>•</span>
-              <Link to="/privacy" className="hover:text-accent transition-colors">
+              <Link href="/privacy" className="hover:text-accent transition-colors">
                 Privacy
               </Link>
               <span>•</span>
-              <Link to="/terms" className="hover:text-accent transition-colors">
+              <Link href="/terms" className="hover:text-accent transition-colors">
                 Terms
               </Link>
             </div>
