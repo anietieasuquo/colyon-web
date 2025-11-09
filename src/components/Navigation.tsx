@@ -51,10 +51,7 @@ const Navigation = () => {
             <div className="container mx-auto px-6 py-4">
                 <div className="flex items-center justify-between">
                     {/* Logo */}
-                    {/*<Link href="/" className="hover:opacity-80 transition-opacity">*/}
-                    {/*  <Image src={colyonLogo} alt="Colyon" className="h-10" />*/}
-                    {/*</Link>*/}
-                    <AppLogo className="h-auto w-1/2 md:h-6 md:w-auto"/>
+                    <AppLogo className="h-auto w-1/3 md:h-10 md:w-auto"/>
 
                     {/* Desktop Menu */}
                     <div className="hidden lg:flex items-center gap-8">

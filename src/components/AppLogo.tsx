@@ -9,12 +9,12 @@ interface AppLogoProps {
     variant?: 'default' | 'small';
 }
 
-const AppLogo: React.FC<AppLogoProps> = ({className, width = 200, height = 40}: AppLogoProps) => {
+const AppLogo: React.FC<AppLogoProps> = ({className = "", width = 500, height = 50}: AppLogoProps) => {
     return (
         <div className="logo-container">
-            <Link href="/" className="no-underline">
+            <Link href="/" className="no-underline hover:opacity-80 transition-opacity">
                 <Image
-                    src="/img/colyon-logo.png"
+                    src="/img/colyon-logo.png" // served from public/img
                     alt="Colyon Logo"
                     width={width}
                     height={height}

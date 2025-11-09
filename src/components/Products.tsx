@@ -1,7 +1,8 @@
 "use client";
-import { Shield, Sparkles } from "lucide-react";
+import { Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
+import Image from "next/image";
 
 const Products = () => {
   return (
@@ -14,7 +15,7 @@ const Products = () => {
           {/* Monchain */}
           <div className="bg-card border border-border rounded-2xl p-8 hover:shadow-lg transition-shadow">
             <div className="w-12 h-12 bg-accent/10 rounded-xl flex items-center justify-center mb-6">
-                <img src="/img/monchain/favicon.png" alt="Monchain" className="w-6 h-6" />
+                <Image src="/img/monchain/favicon.png" alt="Monchain" width={24} height={24} className="w-6 h-6" />
             </div>
             <h3 className="text-2xl font-bold mb-4">Monchain</h3>
             <p className="text-lg text-muted-foreground mb-6 leading-relaxed">

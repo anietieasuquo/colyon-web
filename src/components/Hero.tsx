@@ -6,7 +6,7 @@ import Link from "next/link";
 const Hero = () => {
     return (
         <section className="min-h-screen flex items-center justify-center px-6 pt-20">
-            <div className="container mx-auto max-w-5xl text-center">
+            <div className="container mx-auto max-w-4xl text-center">
                 <h1 className="text-6xl md:text-7xl lg:text-8xl font-bold tracking-tight mb-6 animate-fade-in-up">
                     A Colony of AI Agents.
                 </h1>
