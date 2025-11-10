@@ -4,7 +4,7 @@ import Link from "next/link";
 
 const Footer = () => {
   const socialLinks = [
-    { icon: Linkedin, href: "https://linkedin.com/colyon", label: "LinkedIn" },
+    { icon: Linkedin, href: "https://linkedin.com/company/colyon", label: "LinkedIn" },
     { icon: Twitter, href: "https://twitter.com/colyonai", label: "X (Twitter)" },
     { icon: Github, href: "https://github.com/colyonai", label: "GitHub" },
     { icon: Instagram, href: "https://instagram.com/colyonai", label: "Instagram" },
