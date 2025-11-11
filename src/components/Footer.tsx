@@ -12,6 +12,7 @@ const Footer = () => {
         {icon: Instagram, href: "https://instagram.com/colyonai", label: "Instagram"},
         {icon: Music2, href: "https://www.tiktok.com/@colyonai", label: "TikTok"},
     ];
+    const currentYear = new Date().getFullYear();
 
     return (
         <footer className="border-t border-border py-12 px-6">
@@ -19,7 +20,7 @@ const Footer = () => {
                 <div className="flex flex-col md:flex-row justify-between items-center gap-8">
                     {/* Copyright and Links */}
                     <div className="flex flex-col md:flex-row items-center gap-4 text-sm text-muted-foreground">
-                        <span>© 2025 Colyon. All rights reserved.</span>
+                        <span>&copy; {currentYear} Colyon. All rights reserved.</span>
                         <div className="flex gap-4">
                             <Link href="/contact" className="hover:text-accent transition-colors">
                                 Contact
