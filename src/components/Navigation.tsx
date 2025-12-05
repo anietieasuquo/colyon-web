@@ -1,13 +1,14 @@
 "use client";
 import {useEffect, useRef, useState} from "react";
 import Link from "next/link";
-import {useRouter} from "next/navigation";
+import {usePathname, useRouter} from "next/navigation";
 import {ChevronDown, Menu, X} from "lucide-react";
 import {useIsMobile} from "@/hooks/use-mobile";
 import AppLogo from "@/components/AppLogo";
 
 const Navigation = () => {
     const router = useRouter();
+    const pathname = usePathname();
     const isMobile = useIsMobile();
     const [isOpen, setIsOpen] = useState(false);
     const [activeSubmenu, setActiveSubmenu] = useState<string | null>(null);
@@ -29,6 +30,24 @@ const Navigation = () => {
         {name: "News", href: "/news"},
         {name: "Contact", href: "/contact"},
     ];
+
+    const normalizePath = (path?: string | null) => {
+        if (!path) return "/";
+        return path.replace(/\/+$/, "") || "/";
+    };
+
+    const isPathActive = (target?: string) => {
+        const current = normalizePath(pathname);
+        const goal = normalizePath(target);
+        return current === goal || current.startsWith(`${goal}/`);
+    };
+
+    const isMenuItemActive = (item: (typeof menuItems)[number]) => {
+        if (item.submenu) {
+            return item.submenu.some((subItem) => isPathActive(subItem.href));
+        }
+        return isPathActive(item.href);
+    };
 
     useEffect(() => {
         if (!activeSubmenu || isMobile) return;
@@ -69,7 +88,10 @@ const Navigation = () => {
                                     <>
                                         <button
                                             onClick={() => setActiveSubmenu(activeSubmenu === item.name ? null : item.name)}
-                                            className="flex items-center gap-1 text-sm font-medium text-foreground/80 hover:text-foreground transition-colors"
+                                            className={`flex items-center gap-1 text-sm font-medium transition-colors ${
+                                                isMenuItemActive(item) ? "text-accent" : "text-foreground/80 hover:text-foreground"
+                                            }`}
+                                            aria-expanded={activeSubmenu === item.name}
                                         >
                                             {item.name}
                                             <ChevronDown
@@ -82,8 +104,13 @@ const Navigation = () => {
                                                     <Link
                                                         key={subItem.name}
                                                         href={subItem.href}
-                                                        className="block px-4 py-2 text-sm text-foreground hover:text-black hover:bg-white transition-colors"
+                                                        className={`block px-4 py-2 text-sm transition-colors ${
+                                                            isPathActive(subItem.href)
+                                                                ? "text-accent bg-accent/20"
+                                                                : "text-foreground/80 hover:text-black hover:bg-white"
+                                                        }`}
                                                         onClick={() => setActiveSubmenu(null)}
+                                                        aria-current={isPathActive(subItem.href) ? "page" : undefined}
                                                     >
                                                         {subItem.name}
                                                     </Link>
@@ -94,7 +121,10 @@ const Navigation = () => {
                                 ) : (
                                     <Link
                                         href={item.href}
-                                        className="text-sm font-medium text-foreground/80 hover:text-foreground transition-colors"
+                                        className={`text-sm font-medium transition-colors ${
+                                            isMenuItemActive(item) ? "text-accent" : "text-foreground/80 hover:text-foreground"
+                                        }`}
+                                        aria-current={isMenuItemActive(item) ? "page" : undefined}
                                     >
                                         {item.name}
                                     </Link>
@@ -123,7 +153,12 @@ const Navigation = () => {
                                             onClick={() =>
                                                 setActiveSubmenu(activeSubmenu === item.name ? null : item.name)
                                             }
-                                            className="flex items-center justify-between w-full text-sm font-medium text-foreground/80 hover:text-foreground transition-colors"
+                                            className={`flex items-center justify-between w-full text-sm font-medium transition-colors ${
+                                                isMenuItemActive(item)
+                                                    ? "text-accent"
+                                                    : "text-foreground/80 hover:text-foreground"
+                                            }`}
+                                            aria-expanded={activeSubmenu === item.name}
                                         >
                                             {item.name}
                                             <ChevronDown
@@ -142,7 +177,12 @@ const Navigation = () => {
                                                             setActiveSubmenu(null);
                                                             setIsOpen(false);
                                                         }}
-                                                        className="block w-full text-left text-sm text-foreground/70 hover:text-foreground transition-colors"
+                                                        className={`block w-full text-left text-sm transition-colors ${
+                                                            isPathActive(subItem.href)
+                                                                ? "text-accent"
+                                                                : "text-foreground/70 hover:text-foreground"
+                                                        }`}
+                                                        aria-current={isPathActive(subItem.href) ? "page" : undefined}
                                                     >
                                                         {subItem.name}
                                                     </button>
@@ -153,8 +193,11 @@ const Navigation = () => {
                                 ) : (
                                     <Link
                                         href={item.href}
-                                        className="block text-sm font-medium text-foreground/80 hover:text-foreground transition-colors"
+                                        className={`block text-sm font-medium transition-colors ${
+                                            isMenuItemActive(item) ? "text-accent" : "text-foreground/80 hover:text-foreground"
+                                        }`}
                                         onClick={() => setIsOpen(false)}
+                                        aria-current={isMenuItemActive(item) ? "page" : undefined}
                                     >
                                         {item.name}
                                     </Link>
