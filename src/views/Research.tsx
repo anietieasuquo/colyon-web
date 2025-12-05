@@ -2,6 +2,30 @@ import {Brain, Network, Zap} from "lucide-react";
 import PageHeader from "@/components/PageHeader";
 
 const Research = () => {
+    const researchAreas = [
+        {
+            icon: Brain,
+            title: "Multi-Agent Intelligence",
+            description: "Exploring how autonomous AI agents can collaborate, learn from each other, and make collective decisions that surpass individual capabilities.",
+            hoverClass: "hover:border-accent",
+            iconColor: "text-accent"
+        },
+        {
+            icon: Network,
+            title: "Adaptive Security",
+            description: "Developing AI systems that continuously evolve to detect emerging threats, predict attack patterns, and protect digital ecosystems in real-time.",
+            hoverClass: "hover:border-mint",
+            iconColor: "text-mint"
+        },
+        {
+            icon: Zap,
+            title: "Transparent AI",
+            description: "Building explainable AI frameworks that make complex decision-making processes understandable, auditable, and trustworthy.",
+            hoverClass: "hover:border-accent",
+            iconColor: "text-accent"
+        },
+    ];
+
     const publications = [
         {
             title: "Game-Theoretic MARL for Analyzing and Countering Sophisticated Economic Attacks.",
@@ -28,37 +52,21 @@ const Research = () => {
 
                 {/* Research Areas */}
                 <div className="grid md:grid-cols-3 gap-8 mb-20">
-                    <div
-                        className="bg-card border border-border rounded-lg p-8 hover:border-accent transition-colors animate-fade-in">
-                        <Brain className="w-12 h-12 text-accent mb-4"/>
-                        <h3 className="text-2xl font-semibold mb-4">Multi-Agent Intelligence</h3>
-                        <p className="text-foreground/70">
-                            Exploring how autonomous AI agents can collaborate, learn from each other,
-                            and make collective decisions that surpass individual capabilities.
-                        </p>
-                    </div>
-
-                    <div
-                        className="bg-card border border-border rounded-lg p-8 hover:border-mint transition-colors animate-fade-in"
-                        style={{animationDelay: "0.1s"}}>
-                        <Network className="w-12 h-12 text-mint mb-4"/>
-                        <h3 className="text-2xl font-semibold mb-4">Adaptive Security</h3>
-                        <p className="text-foreground/70">
-                            Developing AI systems that continuously evolve to detect emerging threats,
-                            predict attack patterns, and protect digital ecosystems in real-time.
-                        </p>
-                    </div>
-
-                    <div
-                        className="bg-card border border-border rounded-lg p-8 hover:border-accent transition-colors animate-fade-in"
-                        style={{animationDelay: "0.2s"}}>
-                        <Zap className="w-12 h-12 text-accent mb-4"/>
-                        <h3 className="text-2xl font-semibold mb-4">Transparent AI</h3>
-                        <p className="text-foreground/70">
-                            Building explainable AI frameworks that make complex decision-making processes
-                            understandable, auditable, and trustworthy.
-                        </p>
-                    </div>
+                    {researchAreas.map((feature, index) => (
+                        <div
+                            key={feature.title}
+                            className={`text-center bg-card border border-border rounded-lg p-8 ${feature.hoverClass} transition-colors animate-fade-in`}
+                            style={{animationDelay: `${index * 0.1}s`}}
+                        >
+                            <div className="mb-4 text-primary justify-items-center">
+                                <feature.icon className={`w-12 h-12 ${feature.iconColor} mb-4`}/>
+                            </div>
+                            <h3 className="text-2xl font-semibold mb-4">{feature.title}</h3>
+                            <p className="text-foreground/70">
+                                {feature.description}
+                            </p>
+                        </div>
+                    ))}
                 </div>
 
                 {/* Publications Section */}
@@ -68,8 +76,14 @@ const Research = () => {
                         {
                             publications.map((pub, index) => (
                                 <div key={index} className={`border-l-2 ${pub.colour} pl-6 py-4`}>
-                                    <h4 className="text-xl font-semibold mb-2">{pub.title}</h4>
-                                    <p className="text-foreground/60 text-sm mb-2">Colyon Research Team • {pub.year}</p>
+                                    <h4 className="text-xl font-semibold mb-2">
+                                        <a href={pub.href} className="hover:text-blue-600" target="_blank">
+                                            {pub.title}
+                                        </a>
+                                    </h4>
+                                    <p className="text-foreground/60 text-sm mb-2">
+                                        Colyon Research Team • {pub.year}
+                                    </p>
                                     <p className="text-foreground/70">{pub.content}</p>
                                 </div>
                             ))
