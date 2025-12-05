@@ -28,6 +28,7 @@ npm run dev      # Start Next.js in development mode
 npm run build    # Production build (creates .next/)
 npm start        # Start production server (after build)
 npm run lint     # ESLint check
+npm run sitemap  # Regenerate sitemap.xml + robots.txt via next-sitemap
 ```
 
 ## Environment Variables
@@ -73,6 +74,16 @@ Used consistently in `/news` listing and the dynamic route `/news/[slug]`. Detai
 2. Import project in Vercel.
 3. Set environment variables in Vercel project settings.
 4. Vercel auto-detects Next.js; no build command changes needed.
+5. `postbuild` runs `next-sitemap`, so each deploy uploads fresh `public/sitemap*.xml` and `robots.txt`.
+
+## Sitemap Generation
+`npm run sitemap` first snapshots the current site metadata and news entries into `.sitemap/`, then runs `next-sitemap` so `public/sitemap*.xml` and `public/robots.txt` stay in sync. The command also runs automatically via `postbuild`, which Vercel executes during deploys. If you need to inspect the files locally:
+```bash
+npm run sitemap
+ls .sitemap
+ls public/sitemap*.xml
+```
+Ensure `SITE_URL` (defaults to `https://colyon.ai`) is set if you need a different canonical origin.
 
 ## Post-Migration Cleanup Summary
 Removed:

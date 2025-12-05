@@ -116,3 +116,5 @@ export const buildMetadata = (options: BuildMetadataOptions = {}): Metadata => {
             : undefined,
     };
 };
+
+export const siteUrl = siteConfig.url;
