@@ -6,6 +6,10 @@ import Link from "next/link";
 const Hero = () => {
     return (
         <section className="min-h-screen flex items-center justify-center px-6 pt-20">
+            <a href="#main-content"
+               className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:bg-background focus:text-foreground focus:px-4 focus:py-2 focus:rounded">
+                Skip to main content
+            </a>
             <div className="container mx-auto max-w-4xl text-center">
                 <h1 className="text-6xl md:text-7xl lg:text-8xl font-bold tracking-tight mb-6 animate-fade-in-up">
                     A Colony of AI Agents.

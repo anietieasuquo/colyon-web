@@ -1,3 +1,13 @@
 import Careers from "@/views/Careers";
-export const metadata = { title: "Careers - Colyon" };
-export default function CareersPage() { return <Careers />; }
+import {buildMetadata} from "@/lib/seo";
+
+export const metadata = buildMetadata({
+    title: "Careers at Colyon | Join the colony",
+    description:
+        "Join Colyon's team of researchers and engineers building safe, multi-agent systems and products like Monchain.",
+    path: "/careers",
+});
+
+export default function CareersPage() {
+    return <Careers/>;
+}

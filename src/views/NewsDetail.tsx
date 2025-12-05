@@ -1,12 +1,13 @@
 "use client";
 import {useEffect} from "react";
 import Link from "next/link";
-import {useRouter, useParams} from "next/navigation";
+import {useParams, useRouter} from "next/navigation";
 import {ArrowLeft} from "lucide-react";
 import {useAppDispatch, useAppSelector} from "@/store/hooks";
 import {fetchNews} from "@/store/newsSlice";
 import AutoLinkText from "@/components/AutoLinkText";
 import {slugify} from "@/lib/utils";
+import {absoluteUrl, siteConfig} from "@/lib/seo";
 
 const NewsDetail = () => {
     const params = useParams();
@@ -48,6 +49,29 @@ const NewsDetail = () => {
         ? "bg-accent/10 text-accent border border-accent/20"
         : "bg-mint/10 text-mint border border-mint/20";
 
+    const structuredData = {
+        '@context': 'https://schema.org',
+        '@type': 'NewsArticle',
+        headline: newsItem.title,
+        datePublished: new Date(newsItem.date).toISOString(),
+        image: newsItem.featuredImage ? [newsItem.featuredImage] : [absoluteUrl(siteConfig.ogImage)],
+        description: newsItem.description,
+        author: {
+            '@type': 'Organization',
+            name: siteConfig.name,
+            url: siteConfig.url,
+        },
+        publisher: {
+            '@type': 'Organization',
+            name: siteConfig.name,
+            logo: {
+                '@type': 'ImageObject',
+                url: absoluteUrl(siteConfig.logo),
+            },
+        },
+        mainEntityOfPage: absoluteUrl(`/news/${slug}`),
+    };
+
     return (
         <main className="pt-32 pb-16 min-h-screen">
             <div className="container mx-auto px-6">
@@ -60,6 +84,8 @@ const NewsDetail = () => {
                 </Link>
 
                 <article className="max-w-4xl mx-auto">
+                    <script type="application/ld+json"
+                            dangerouslySetInnerHTML={{__html: JSON.stringify(structuredData)}}/>
                     <div className={`border-l-4 ${borderColor} pl-8 animate-fade-in`}>
                         <div className="flex items-center gap-4 mb-4">
                             <span className="text-foreground/60 text-sm">{newsItem.date}</span>

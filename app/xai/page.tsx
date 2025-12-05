@@ -1,3 +1,13 @@
 import XAI from "@/views/XAI";
-export const metadata = { title: "XAI - Colyon" };
-export default function XAIPAge() { return <XAI />; }
+import {buildMetadata} from "@/lib/seo";
+
+export const metadata = buildMetadata({
+    title: "Colyon XAI | Explainable multi-agent systems",
+    description:
+        "How Colyon delivers explainable AI decisions with transparent, auditable reasoning across our agent colony.",
+    path: "/xai",
+});
+
+export default function XAIPAge() {
+    return <XAI/>;
+}

@@ -6,16 +6,16 @@ import Technology from "@/components/Technology";
 import About from "@/components/About";
 
 const Index = () => {
-  return (
-    <main>
-      <Hero />
-      <Vision />
-      <HowItWorks />
-      <Products />
-      <Technology />
-      <About />
-    </main>
-  );
+    return (
+        <main id="main-content">
+            <Hero/>
+            <Vision/>
+            <HowItWorks/>
+            <Products/>
+            <Technology/>
+            <About/>
+        </main>
+    );
 };
 
 export default Index;

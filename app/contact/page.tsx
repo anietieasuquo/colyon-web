@@ -1,3 +1,12 @@
 import ContactUs from "@/views/ContactUs";
-export const metadata = { title: "Contact Us - Colyon" };
-export default function ContactPage() { return <ContactUs />; }
+import {buildMetadata} from "@/lib/seo";
+
+export const metadata = buildMetadata({
+    title: "Contact Colyon | Talk to our team",
+    description: "Reach Colyon for partnerships, media, product support, and research collaborations.",
+    path: "/contact",
+});
+
+export default function ContactPage() {
+    return <ContactUs/>;
+}

@@ -1,3 +1,12 @@
 import TermsOfService from "@/views/TermsOfService";
-export const metadata = { title: "Terms of Service - Colyon" };
-export default function TermsPage() { return <TermsOfService />; }
+import {buildMetadata} from "@/lib/seo";
+
+export const metadata = buildMetadata({
+    title: "Colyon Terms of Service",
+    description: "Understand the legal terms governing use of Colyon products and services.",
+    path: "/terms",
+});
+
+export default function TermsPage() {
+    return <TermsOfService/>;
+}
