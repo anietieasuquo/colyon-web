@@ -3,7 +3,7 @@ User-agent: *
 Allow: /
 
 # Host
-Host: https://colyon.ai
+Host: https://www.colyon.ai
 
 # Sitemaps
-Sitemap: https://colyon.ai/sitemap.xml
+Sitemap: https://www.colyon.ai/sitemap.xml

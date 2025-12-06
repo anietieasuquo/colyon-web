@@ -4,7 +4,7 @@ export const siteConfig = {
     name: "Colyon",
     tagline: "A colony of AI agents",
     description: "Colyon builds collaborative, safety-first AI agents that cooperate to solve complex problems autonomously across finance, security, and research.",
-    url: "https://colyon.ai",
+    url: "https://www.colyon.ai",
     logo: "/img/colyon-logo.png",
     ogImage: "/img/colyon-og-image.png",
     icon: "/favicon.png",

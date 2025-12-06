@@ -43,7 +43,7 @@ const config = {
     },
     robotsTxtOptions: {
         policies: [{userAgent: "*", allow: "/"}],
-        additionalSitemaps: [`${siteUrl}/sitemap.xml`],
+        // additionalSitemaps: [`${siteUrl}/sitemap.xml`],
     },
 };
 
