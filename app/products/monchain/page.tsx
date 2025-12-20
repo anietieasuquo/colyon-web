@@ -2,9 +2,9 @@ import Monchain from "@/views/Monchain";
 import {buildMetadata} from "@/lib/seo";
 
 export const metadata = buildMetadata({
-    title: "Monchain by Colyon | AI-powered crypto wallet",
+    title: "Monchain by Colyon | AI-powered crypto platform",
     description:
-        "Discover Monchain, Colyon's AI-powered crypto wallet that proactively stops fraud and scams in real-time to prevent loss of funds. Monchain API also helps developers build secure applications by integrating with Colyon's AI-powered autonomous fraud detection engine.",
+        "Discover Monchain, Colyon's AI-powered security platform that stops crypto fraud before it happens. Built by Colyon using adaptive multi-agent intelligence, we provide a proactive security layer for wallets, exchanges, and DeFi platforms, shifting from reactive warnings to real-time prevention.",
     path: "/products/monchain",
     type: "website",
 });
