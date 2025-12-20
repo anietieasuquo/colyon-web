@@ -1,7 +1,7 @@
 "use client";
-import {Button} from "@/components/ui/button";
-import {ArrowRight} from "lucide-react";
 import Link from "next/link";
+import {ArrowRight} from "lucide-react";
+import {Button} from "@/components/ui/button";
 
 const Hero = () => {
     return (
@@ -12,23 +12,24 @@ const Hero = () => {
             </a>
             <div className="container mx-auto max-w-4xl text-center">
                 <h1 className="text-6xl md:text-7xl lg:text-8xl font-bold tracking-tight mb-6 animate-fade-in-up">
-                    A Colony of AI Agents.
+                    Build with Autonomous AI
                 </h1>
                 <p className="text-xl md:text-2xl text-muted-foreground max-w-3xl mx-auto mb-12 leading-relaxed animate-fade-in-up"
                    style={{animationDelay: "0.1s"}}>
-                    Colyon builds collaborative ecosystems where AI agents think, learn, and act together - securely and
-                    autonomously.
+                    Our multi-agent AI infrastructure enables autonomous intelligent
+                    systems to reason, plan, and collaborate in complex digital environments. Our first application,
+                    Monchain, secures the future of Web3.
                 </p>
                 <div className="flex flex-col sm:flex-row gap-4 justify-center items-center animate-fade-in-up"
                      style={{animationDelay: "0.2s"}}>
                     <Button variant="hero" size="lg" asChild>
-                        <Link href="/products/monchain" className="gap-2">
-                            Explore Monchain
+                        <Link href="https://monchain.ai/for-business" className="gap-2">
+                            For Businesses: Our API
                             <ArrowRight className="w-4 h-4 animate-[bounce-x_1.5s_ease-in-out_infinite]"/>
                         </Link>
                     </Button>
                     <Button variant="heroOutline" size="lg" asChild>
-                        <a href="#vision">Learn More</a>
+                        <a href="https://monchain.ai">For Users: Monchain Wallet</a>
                     </Button>
                 </div>
             </div>
