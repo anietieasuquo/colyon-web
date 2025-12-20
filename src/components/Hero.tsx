@@ -16,14 +16,13 @@ const Hero = () => {
                 </h1>
                 <p className="text-xl md:text-2xl text-muted-foreground max-w-3xl mx-auto mb-12 leading-relaxed animate-fade-in-up"
                    style={{animationDelay: "0.1s"}}>
-                    Our multi-agent AI infrastructure enables autonomous intelligent
-                    systems to reason, plan, and collaborate in complex digital environments. Our first application,
-                    Monchain, secures the future of Web3.
+                    Colyon builds collaborative AI systems that reason and act in complex environments.
+                    Our flagship product, Monchain, applies this architecture to secure the future of Web3.
                 </p>
                 <div className="flex flex-col sm:flex-row gap-4 justify-center items-center animate-fade-in-up"
                      style={{animationDelay: "0.2s"}}>
                     <Button variant="hero" size="lg" asChild>
-                        <Link href="https://monchain.ai/for-business" className="gap-2">
+                        <Link href="https://monchain.ai/business" className="gap-2">
                             For Businesses: Our API
                             <ArrowRight className="w-4 h-4 animate-[bounce-x_1.5s_ease-in-out_infinite]"/>
                         </Link>

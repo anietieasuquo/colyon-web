@@ -3,7 +3,7 @@ import type {Metadata} from "next";
 export const siteConfig = {
     name: "Colyon",
     tagline: "A colony of AI agents",
-    description: "Colyon builds collaborative, safety-first AI agents that cooperate to solve complex problems autonomously across finance, security, and research.",
+    description: "Colyon builds collaborative AI systems that reason and act in complex environments. Our flagship product, Monchain, applies this architecture to secure the future of Web3.",
     url: "https://www.colyon.ai",
     logo: "/img/colyon-logo.png",
     ogImage: "/img/colyon-og-image.png",
