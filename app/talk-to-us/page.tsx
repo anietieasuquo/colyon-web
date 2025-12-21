@@ -8,6 +8,7 @@ export const metadata: Metadata = buildMetadata({
     keywords: [
         "Colyon sales",
         "Monchain enterprise",
+        "Monchain business",
         "Web3 compliance platform",
         "KYB automation",
         "AI risk ops",
