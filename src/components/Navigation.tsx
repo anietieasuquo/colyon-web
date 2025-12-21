@@ -160,74 +160,77 @@ const Navigation = () => {
                                         </button>
                                         {activeSubmenu === item.name && (
                                             <div
-                                                className="absolute top-full left-1/2 z-50 mt-3 w-screen max-w-3xl -translate-x-1/2 rounded-2xl border border-border bg-card/95 p-6 shadow-xl animate-fade-in"
+                                                className="absolute top-full left-1/2 z-50 mt-3 -translate-x-1/2"
                                                 role="menu"
                                                 aria-label="Products menu"
                                             >
-                                                <div className="grid gap-6 md:grid-cols-2">
-                                                    {item.megaMenu.map((product) => (
-                                                        <div
-                                                            key={product.name}
-                                                            className="rounded-xl border border-border/60 bg-background/80 p-4 shadow-sm"
-                                                        >
-                                                            <div className="flex items-start justify-between gap-4">
-                                                                <div>
-                                                                    <Link
-                                                                        href={product.href}
-                                                                        className="text-base font-semibold text-foreground transition-colors hover:text-accent"
-                                                                        onClick={() => setActiveSubmenu(null)}
-                                                                    >
-                                                                        {product.name}
-                                                                    </Link>
-                                                                    {product.description && (
-                                                                        <p className="mt-1 text-sm text-muted-foreground">
-                                                                            {product.description}
-                                                                        </p>
-                                                                    )}
-                                                                </div>
-                                                                <Link
-                                                                    href={product.href}
-                                                                    className="text-xs font-semibold text-accent hover:underline"
-                                                                    onClick={() => setActiveSubmenu(null)}
-                                                                >
-                                                                    Explore
-                                                                </Link>
-                                                            </div>
-                                                            <div className="mt-4 space-y-3">
-                                                                {product.offerings.map((offering) => (
-                                                                    <Link
-                                                                        key={offering.name}
-                                                                        href={offering.href}
-                                                                        className={`block rounded-lg border px-3 py-2 text-left text-sm transition-colors ${
-                                                                            isPathActive(offering.href)
-                                                                                ? "border-accent/60 bg-accent/10 text-accent"
-                                                                                : "border-border/40 bg-card/80 text-foreground/80 hover:border-border hover:bg-background"
-                                                                        }`}
-                                                                        onClick={() => setActiveSubmenu(null)}
-                                                                        aria-current={isPathActive(offering.href) ? "page" : undefined}
-                                                                        role="menuitem"
-                                                                    >
-                                                                        <div
-                                                                            className="flex items-center justify-between gap-3">
-                                                                            <span
-                                                                                className="font-medium">{offering.name}</span>
-                                                                            {offering.audience && (
-                                                                                <span
-                                                                                    className="rounded-full border border-border/70 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-muted-foreground">
-                                                                                    {offering.audience}
-                                                                                </span>
-                                                                            )}
-                                                                        </div>
-                                                                        {offering.description && (
-                                                                            <p className="mt-1 text-xs text-muted-foreground">
-                                                                                {offering.description}
+                                                <div
+                                                    className="w-screen max-w-3xl rounded-2xl border border-border bg-card/95 p-6 shadow-xl animate-fade-in">
+                                                    <div className="grid gap-6 md:grid-cols-2">
+                                                        {item.megaMenu.map((product) => (
+                                                            <div
+                                                                key={product.name}
+                                                                className="rounded-xl border border-border/60 bg-background/80 p-4 shadow-sm"
+                                                            >
+                                                                <div className="flex items-start justify-between gap-4">
+                                                                    <div>
+                                                                        <Link
+                                                                            href={product.href}
+                                                                            className="text-base font-semibold text-foreground transition-colors hover:text-accent"
+                                                                            onClick={() => setActiveSubmenu(null)}
+                                                                        >
+                                                                            {product.name}
+                                                                        </Link>
+                                                                        {product.description && (
+                                                                            <p className="mt-1 text-sm text-muted-foreground">
+                                                                                {product.description}
                                                                             </p>
                                                                         )}
+                                                                    </div>
+                                                                    <Link
+                                                                        href={product.href}
+                                                                        className="text-xs font-semibold text-accent hover:underline"
+                                                                        onClick={() => setActiveSubmenu(null)}
+                                                                    >
+                                                                        Explore
                                                                     </Link>
-                                                                ))}
+                                                                </div>
+                                                                <div className="mt-4 space-y-3">
+                                                                    {product.offerings.map((offering) => (
+                                                                        <Link
+                                                                            key={offering.name}
+                                                                            href={offering.href}
+                                                                            className={`block rounded-lg border px-3 py-2 text-left text-sm transition-colors ${
+                                                                                isPathActive(offering.href)
+                                                                                    ? "border-accent/60 bg-accent/10 text-accent"
+                                                                                    : "border-border/40 bg-card/80 text-foreground/80 hover:border-border hover:bg-background"
+                                                                            }`}
+                                                                            onClick={() => setActiveSubmenu(null)}
+                                                                            aria-current={isPathActive(offering.href) ? "page" : undefined}
+                                                                            role="menuitem"
+                                                                        >
+                                                                            <div
+                                                                                className="flex items-center justify-between gap-3">
+                                                                                <span
+                                                                                    className="font-medium">{offering.name}</span>
+                                                                                {offering.audience && (
+                                                                                    <span
+                                                                                        className="rounded-full border border-border/70 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-muted-foreground">
+                                                                                        {offering.audience}
+                                                                                    </span>
+                                                                                )}
+                                                                            </div>
+                                                                            {offering.description && (
+                                                                                <p className="mt-1 text-xs text-muted-foreground">
+                                                                                    {offering.description}
+                                                                                </p>
+                                                                            )}
+                                                                        </Link>
+                                                                    ))}
+                                                                </div>
                                                             </div>
-                                                        </div>
-                                                    ))}
+                                                        ))}
+                                                    </div>
                                                 </div>
                                             </div>
                                         )}
