@@ -8,25 +8,22 @@ import AutoLinkText from "@/components/AutoLinkText";
 const Products = () => {
     const productList = [
         {
-            icon: Brain,
             title: "Monchain API",
             description: "Integrate proactive security directly into your platform. link://monchain.ai[Our API] detects and blocks fraudulent crypto transactions in real-time with 96% accuracy, so you can protect users without slowing them down.",
-            accent: "bg-mint/10",
-            link: "https://monchain.ai/business"
+            accent: "bg-mint/20",
+            link: "/products/monchain/api"
         },
         {
-            icon: Network,
             title: "Monchain Wallet",
-            description: "Secure your crypto assets with proactive fraud blocking (96% accuracy), and access AI-driven trading signals and market insights, all in one intelligent, link://monchain.ai[non-custodial wallet].",
+            description: "Secure your crypto assets with proactive fraud blocking (96% accuracy using the same core AI as our enterprise API), and access AI-driven trading signals and market insights, all in one intelligent, link://monchain.ai[non-custodial wallet].",
             accent: "bg-accent/10",
-            link: "https://monchain.ai"
+            link: "/products/monchain/wallet"
         },
         {
-            icon: Shield,
             title: "Monchain Check",
-            description: "Instantly screen any wallet or transaction address for fraud signals. Powered by the same AI engine that secures our enterprise API and wallet.",
+            description: "Instantly link://check.monchain.ai[check] any wallet or transaction address for fraud signals. Powered by the same AI engine that secures our enterprise API and wallet.",
             accent: "bg-mint/10",
-            link: "https://check.monchain.ai"
+            link: "/products/monchain/check"
         },
     ];
 
@@ -40,7 +37,7 @@ const Products = () => {
                         the Web3 ecosystem.
                     </p>
                 </div>
-                <div className="grid md:grid-cols-3 gap-8 mb-12">
+                <div className="grid md:grid-cols-3 gap-8">
                     {productList.map((product, index) => (
                         <div className="bg-card border border-border rounded-2xl p-8 hover:shadow-lg transition-shadow">
                             <div
@@ -51,20 +48,19 @@ const Products = () => {
                             <h3 className="text-2xl font-bold mb-4">{product.title}</h3>
                             <AutoLinkText
                                 text={product.description}
-                                paragraphClassName="text-lg text-muted-foreground mb-6 leading-relaxed"
+                                paragraphClassName="text-lg text-muted-foreground mb-6 leading-relaxed min-h-60"
                                 linkClassName="text-accent font-semibold underline underline-offset-4 hover:text-foreground"
                                 treatSameOriginAsInternal
                             />
+                            <div className="text-center animate-fade-in-up" style={{animationDelay: "0.3s"}}>
+                                <Button variant="heroOutline" size="lg" asChild>
+                                    <Link href={product.link}>
+                                        Discover {product.title}
+                                    </Link>
+                                </Button>
+                            </div>
                         </div>
                     ))}
-                </div>
-                <div className="text-center animate-fade-in-up" style={{animationDelay: "0.3s"}}>
-                    <Button variant="hero" size="lg" asChild>
-                        <Link href="/products/monchain">
-                            Discover Monchain
-                            <ArrowRight className="w-4 h-4"/>
-                        </Link>
-                    </Button>
                 </div>
             </div>
         </section>

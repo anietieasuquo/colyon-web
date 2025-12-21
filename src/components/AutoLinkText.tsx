@@ -16,7 +16,7 @@ interface AutoLinkTextProps {
 // Simple URL regex capturing http(s) URLs until whitespace or closing punctuation.
 // We'll post-process trailing punctuation so it does not become part of the href.
 const URL_REGEX = /(https?:\/\/[^\s]+?)([.,!?)]?(?:\s|$))/g; // captures URL + optional trailing punctuation+delimiter
-const WORDED_URL_REGEX = /(link?:\/\/[^\s]+?)([.,!?)]?(?:\s|$))/g; // captures URL + optional trailing punctuation+delimiter
+const WORDED_URL_REGEX = /(link?:\/\/[^[\s]+(?:\[[^\]]+\])?)([.,!?)]?(?:\s|$))/g; // captures link:// URL (optionally with [label]) and trailing punctuation
 
 function getWindowOrigin() {
     if (typeof window === 'undefined' || !window.location) {

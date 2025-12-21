@@ -61,7 +61,7 @@ const HowItWorks = () => {
           <Button variant="hero" size="lg" asChild>
               <Link href="#technology">
                   Learn About Our Technology
-                  <ArrowRight className="w-4 h-4" />
+                  <ArrowRight className="w-4 h-4 animate-[bounce-x_1.5s_ease-in-out_infinite]" />
               </Link>
           </Button>
         </div>

@@ -1,7 +1,7 @@
 import {Button} from "@/components/ui/button";
-import {Eye, Lock, Shield, Zap} from "lucide-react";
+import {ArrowRight, Eye, Lock, Shield, Zap} from "lucide-react";
 
-const Monchain = () => {
+const MonchainAPI = () => {
     return (
         <main className="pt-24 pb-16">
             <div className="container mx-auto px-6">
@@ -12,19 +12,24 @@ const Monchain = () => {
                         Flagship Product
                     </div>
                     <h1 className="text-5xl md:text-7xl font-bold mb-6 tracking-tight">
-                        Monchain
+                        Monchain API
                     </h1>
                     <p className="text-2xl text-foreground/70 leading-relaxed mb-8">
-                        The world's first AI-powered crypto wallet with real-time fraud prevention.
+                        Integrate proactive security directly into your platform. Our API detects
+                        and blocks fraudulent crypto transactions in real-time with 96% accuracy, so you can protect
+                        users without slowing them down.
                     </p>
                     <div className="flex gap-4 justify-center">
                         <Button variant="hero" size="lg" asChild>
-                            <a href="https://monchain.ai" target="_blank" rel="noopener noreferrer">
-                                Get Early Access
+                            <a href="https://colyon.ai/talk-to-us" target="_blank" rel="noopener noreferrer">
+                                Talk to Sales
+                                <ArrowRight className="w-4 h-4 animate-[bounce-x_1.5s_ease-in-out_infinite]"/>
                             </a>
                         </Button>
                         <Button variant="heroOutline" size="lg">
-                            Watch Demo
+                            <a href="https://docs.monchain.ai" target="_blank" rel="noopener noreferrer">
+                                API Documentation
+                            </a>
                         </Button>
                     </div>
                 </div>
@@ -129,7 +134,8 @@ const Monchain = () => {
                             <div>
                                 <h3 className="text-xl font-semibold mb-2">Secure Execution</h3>
                                 <p className="text-foreground/70">
-                                    If all agents agree it's <span className="text-accent font-semibold">safe</span>, your transaction proceeds. If not, you get a clear
+                                    If all agents agree it's <span className="text-accent font-semibold">safe</span>,
+                                    your transaction proceeds. If not, you get a clear
                                     explanation and can make an informed decision.
                                 </p>
                             </div>
@@ -156,4 +162,4 @@ const Monchain = () => {
     );
 };
 
-export default Monchain;
+export default MonchainAPI;

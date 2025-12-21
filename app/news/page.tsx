@@ -9,7 +9,7 @@ export const metadata: Metadata = buildMetadata({
         "Colyon press",
         "Colyon announcements",
         "multi-agent research",
-        "Monchain updates",
+        "MonchainWallet updates",
         "Colyon blog",
     ],
     path: "/news",
