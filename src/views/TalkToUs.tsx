@@ -92,7 +92,7 @@ const formSchema = z.object({
     projectedMonthlyVolume: z.enum(volumeValues),
     currentActiveUsers: z.enum(userValues),
     integrationStack: z.string().min(1, "Share a short description"),
-    message: z.string().min(10, "Tell us a bit more about your goals").optional(),
+    message: z.string().min(1, "Message is required").max(1000, "Message must be less than 1000 characters"),
 });
 
 type FormData = z.infer<typeof formSchema>;
@@ -160,9 +160,7 @@ const TalkToUs = () => {
     const {toast} = useToast();
     const [isSubmitting, setIsSubmitting] = useState(false);
 
-    const defaultDate = new Date();
-
-    const defaultValues = useMemo(() => ({
+    const defaultValues = useMemo<FormData>(() => ({
         contactName: "",
         workEmail: "",
         role: "",
@@ -172,7 +170,7 @@ const TalkToUs = () => {
         fundingStage: fundingStageOptions[0].value,
         product: mapParamToOptionValue(productParam, productOptions) ?? productOptions[0].value,
         about: mapParamToOptionValue(aboutParam, aboutOptions, aboutAliasMap) ?? aboutOptions[0].value,
-        expectedIntegrationDate: defaultDate,
+        expectedIntegrationDate: new Date(),
         projectedMonthlyVolume: volumeOptions[1].value,
         currentActiveUsers: userBaseOptions[0].value,
         integrationStack: "",
@@ -198,6 +196,17 @@ const TalkToUs = () => {
 
     const onSubmit = async (data: FormData) => {
         setIsSubmitting(true);
+        const enterpriseData = {
+            ...data,
+            expectedIntegrationDate: data.expectedIntegrationDate.toISOString(),
+        };
+        const payload = {
+            name: data.contactName,
+            email: data.workEmail,
+            message: data.message.trim(),
+            source: "talk-to-us",
+            enterpriseData,
+        };
         try {
             const response = await fetch(`${getMonchainApiBase()}/p/uss/api/v1/contact`, {
                 method: "POST",
@@ -205,11 +214,7 @@ const TalkToUs = () => {
                     "x-api-key": getUssApiKey(),
                     "Content-Type": "application/json",
                 },
-                body: JSON.stringify({
-                    ...data,
-                    expectedIntegrationDate: data.expectedIntegrationDate.toISOString(),
-                    source: "talk-to-us",
-                }),
+                body: JSON.stringify(payload),
             });
 
             if (!response.ok) {
@@ -222,7 +227,7 @@ const TalkToUs = () => {
                 title: "Request received",
                 description: "Our partnerships team will reach out within one business day.",
             });
-            form.reset(defaultValues);
+            form.reset({...defaultValues, expectedIntegrationDate: new Date()});
         } catch (error) {
             toast({
                 title: "Something went wrong",
