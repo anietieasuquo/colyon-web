@@ -21,6 +21,7 @@ import {Popover, PopoverContent, PopoverTrigger} from "@/components/ui/popover";
 import {Calendar} from "@/components/ui/calendar";
 import {cn} from "@/lib/utils";
 import {format} from "date-fns";
+import SubmissionConfirmationModal from "@/components/SubmissionConfirmationModal";
 
 interface Option {
     value: string;
@@ -159,6 +160,7 @@ const TalkToUs = () => {
     const aboutParam = searchParams?.get("about") ?? "";
     const {toast} = useToast();
     const [isSubmitting, setIsSubmitting] = useState(false);
+    const [isModalOpen, setIsModalOpen] = useState(false);
 
     const defaultValues = useMemo<FormData>(() => ({
         contactName: "",
@@ -223,11 +225,8 @@ const TalkToUs = () => {
                 throw new Error(detail);
             }
 
-            toast({
-                title: "Request received",
-                description: "Our partnerships team will reach out within one business day.",
-            });
             form.reset({...defaultValues, expectedIntegrationDate: new Date()});
+            setIsModalOpen(true);
         } catch (error) {
             toast({
                 title: "Something went wrong",
@@ -641,6 +640,17 @@ const TalkToUs = () => {
                     </div>
                 </section>
             </div>
+            <SubmissionConfirmationModal
+                open={isModalOpen}
+                onOpenChange={(open) => {
+                    setIsModalOpen(open);
+                    if (!open) {
+                        form.reset({...defaultValues, expectedIntegrationDate: new Date()});
+                    }
+                }}
+                title="Request received"
+                description="Our partnerships team will reach out within three business days."
+            />
         </main>
     );
 };

@@ -12,6 +12,7 @@ import * as z from "zod";
 import {useState} from "react";
 import PageHeader from "@/components/PageHeader";
 import {getMonchainApiBase, getUssApiKey} from "@/lib/config";
+import SubmissionConfirmationModal from "@/components/SubmissionConfirmationModal";
 
 const formSchema = z.object({
     name: z.string().min(1, "Name is required").max(100, "Name must be less than 100 characters"),
@@ -24,6 +25,7 @@ type FormData = z.infer<typeof formSchema>;
 const ContactUs = () => {
     const {toast} = useToast();
     const [isSubmitting, setIsSubmitting] = useState(false);
+    const [isModalOpen, setIsModalOpen] = useState(false);
 
     const form = useForm<FormData>({
         resolver: zodResolver(formSchema),
@@ -52,14 +54,8 @@ const ContactUs = () => {
                 throw new Error("Failed to send message");
             }
 
-            const result = await response.json();
-
-            toast({
-                title: "Message sent!",
-                description: "We'll get back to you as soon as possible.",
-            });
-
-            form.reset();
+            await response.json();
+            setIsModalOpen(true);
         } catch (error) {
             toast({
                 title: "Error",
@@ -194,6 +190,18 @@ const ContactUs = () => {
                         </Form>
                     </div>
                 </div>
+
+                <SubmissionConfirmationModal
+                    open={isModalOpen}
+                    onOpenChange={(open) => {
+                        setIsModalOpen(open);
+                        if (!open) {
+                            form.reset();
+                        }
+                    }}
+                    title="Message sent!"
+                    description="We'll get back to you as soon as possible."
+                />
             </div>
         </main>
     );
