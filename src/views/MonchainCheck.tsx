@@ -47,10 +47,10 @@ const MonchainCheck = () => {
                             </Button>
                         </div>
                         <div className="grid gap-6 sm:grid-cols-3 text-center">
-                            {[{label: "Addresses screened", value: "5.2M+"}, {
+                            {[{label: "Addresses screened", value: "50K+"}, {
                                 label: "Avg. response",
                                 value: "420ms"
-                            }, {label: "Confirmed fraud blocked", value: "$1.3B"}].map(({label, value}) => (
+                            }, {label: "Confirmed fraud blocked", value: "$1.3M"}].map(({label, value}) => (
                                 <div key={label} className="rounded-lg border border-border/70 bg-card/40 p-4">
                                     <p className="text-3xl font-semibold text-foreground">{value}</p>
                                     <p className="text-sm text-foreground/60">{label}</p>
@@ -210,7 +210,7 @@ const MonchainCheck = () => {
                                     </div>
                                     <p className="text-base text-foreground/70 leading-relaxed">{description}</p>
                                 </div>
-                                <Button variant="ghost" className="justify-start gap-2 text-accent hover:text-accent">
+                                <Button variant="ghost" className="justify-start gap-2 text-accent hover:text-white hover:bg-transparent">
                                     {cta}
                                     <ArrowRight className="h-4 w-4"/>
                                 </Button>
@@ -235,7 +235,7 @@ const MonchainCheck = () => {
                                 icon: ShieldCheck
                             }, {
                                 title: "Outcome proof",
-                                detail: "$1.3B+ in attempted fraud blocked for institutional partners during 2024.",
+                                detail: "$1.3B+ in attempted fraud blocked for institutional partners during 2025.",
                                 icon: LineChart
                             }, {
                                 title: "Human + AI loop",
@@ -263,7 +263,7 @@ const MonchainCheck = () => {
                             confidence we can show regulators."
                         </blockquote>
                         <div>
-                            <p className="font-semibold">Head of Crypto Compliance</p>
+                            <p className="font-semibold">Head of Compliance</p>
                             <p className="text-sm text-foreground/60">Tier-1 LATAM exchange</p>
                         </div>
                         <div className="rounded-2xl border border-border/60 bg-background/60 p-5 space-y-3 text-sm">
