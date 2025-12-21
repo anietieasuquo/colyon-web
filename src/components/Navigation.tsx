@@ -34,7 +34,7 @@ const Navigation = () => {
             ],
         },
         {name: "News", href: "/news"},
-        {name: "Contact", href: "/contact"},
+        {name: "Contact", href: "/contact"}
     ];
 
     const normalizePath = (path?: string | null) => {
