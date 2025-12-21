@@ -1,5 +1,5 @@
 import {Button} from "@/components/ui/button";
-import {ArrowRight, Eye, Lock, Shield, Zap} from "lucide-react";
+import {ArrowRight, CheckCircle2, CircuitBoard, FileText, Layers3, ShieldCheck, Zap} from "lucide-react";
 
 const MonchainAPI = () => {
     return (
@@ -15,74 +15,85 @@ const MonchainAPI = () => {
                         Monchain API
                     </h1>
                     <p className="text-2xl text-foreground/70 leading-relaxed mb-8">
-                        Integrate proactive security directly into your platform. Our API detects
-                        and blocks fraudulent crypto transactions in real-time with 96% accuracy, so you can protect
-                        users without slowing them down.
+                        Monchain API embeds Colyon&apos;s multi-agent intelligence directly into your wallet, exchange,
+                        or institutional rails. Detect anomalous flows, enforce policy, and block fraud before
+                        settlement, all without adding latency to customer transactions.
                     </p>
-                    <div className="flex gap-4 justify-center">
+                    <div className="flex flex-wrap gap-4 justify-center">
                         <Button variant="hero" size="lg" asChild>
                             <a href="https://colyon.ai/talk-to-us" target="_blank" rel="noopener noreferrer">
                                 Talk to Sales
                                 <ArrowRight className="w-4 h-4 animate-[bounce-x_1.5s_ease-in-out_infinite]"/>
                             </a>
                         </Button>
-                        <Button variant="heroOutline" size="lg">
+                        <Button variant="heroOutline" size="lg" asChild>
                             <a href="https://docs.monchain.ai" target="_blank" rel="noopener noreferrer">
-                                API Documentation
+                                View API Docs
                             </a>
                         </Button>
                     </div>
                 </div>
 
-                {/* Features Grid */}
-                <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-20">
-                    <div className="bg-card border border-border rounded-lg p-6 animate-fade-in">
-                        <div className="mb-4 justify-items-center">
-                            <Shield className="w-10 h-10 text-accent"/>
-                        </div>
-                        <h3 className="text-xl font-semibold mb-3 text-center">Real-Time Protection</h3>
-                        <p className="text-foreground/70 text-sm text-center">
-                            Every transaction analyzed by multiple AI agents before execution.
-                        </p>
+                {/* Trust Indicators */}
+                <div className="grid md:grid-cols-3 gap-6 mb-20">
+                    <div className="bg-card border border-border rounded-lg p-6 text-center animate-fade-in">
+                        <p className="text-sm uppercase tracking-wide text-foreground/60 mb-2">Decision Time</p>
+                        <p className="text-4xl font-bold text-accent mb-2">&lt;40 ms</p>
+                        <p className="text-foreground/70 text-sm">Inline scoring layer keeps settlement speeds
+                            intact.</p>
                     </div>
-
-                    <div className="bg-card border border-border rounded-lg p-6 animate-fade-in"
+                    <div className="bg-card border border-border rounded-lg p-6 text-center animate-fade-in"
                          style={{animationDelay: "0.1s"}}>
-                        <div className="mb-4 justify-items-center">
-                            <Zap className="w-10 h-10 text-mint"/>
-                        </div>
-                        <h3 className="text-xl font-semibold mb-3 text-center">Instant Alerts</h3>
-                        <p className="text-foreground/70 text-sm text-center">
-                            Get notified immediately when suspicious activity is detected.
-                        </p>
+                        <p className="text-sm uppercase tracking-wide text-foreground/60 mb-2">Coverage</p>
+                        <p className="text-4xl font-bold text-mint mb-2">120+</p>
+                        <p className="text-foreground/70 text-sm">Chains, L2s, and custody providers supported out of
+                            the box.</p>
                     </div>
-
-                    <div className="bg-card border border-border rounded-lg p-6 animate-fade-in"
+                    <div className="bg-card border border-border rounded-lg p-6 text-center animate-fade-in"
                          style={{animationDelay: "0.2s"}}>
-                        <div className="mb-4 justify-items-center">
-                            <Eye className="w-10 h-10 text-accent"/>
-                        </div>
-                        <h3 className="text-xl font-semibold mb-3 text-center">Full Transparency</h3>
-                        <p className="text-foreground/70 text-sm text-center">
-                            Understand exactly why decisions are made with explainable AI.
-                        </p>
-                    </div>
-
-                    <div className="bg-card border border-border rounded-lg p-6 animate-fade-in"
-                         style={{animationDelay: "0.3s"}}>
-                        <div className="mb-4 justify-items-center">
-                            <Lock className="w-10 h-10 text-mint"/>
-                        </div>
-                        <h3 className="text-xl font-semibold mb-3 text-center">Your Keys, Your Crypto</h3>
-                        <p className="text-foreground/70 text-sm text-center">
-                            Non-custodial wallet. We never have access to your private keys.
-                        </p>
+                        <p className="text-sm uppercase tracking-wide text-foreground/60 mb-2">Accuracy</p>
+                        <p className="text-4xl font-bold text-accent mb-2">96%</p>
+                        <p className="text-foreground/70 text-sm">Verified fraud-block rate based on enterprise
+                            pilots.</p>
                     </div>
                 </div>
 
-                {/* How It Works */}
-                <div className="max-w-4xl mx-auto mb-20">
-                    <h2 className="text-3xl font-bold mb-12 text-center">How Monchain Works</h2>
+                {/* Pain to Solution */}
+                <div className="max-w-6xl mx-auto mb-20">
+                    <h2 className="text-3xl font-bold mb-10 text-center">Built for Security, Risk, and Compliance
+                        Leaders</h2>
+                    <div className="grid md:grid-cols-3 gap-6">
+                        <div className="bg-card border border-border rounded-lg p-6">
+                            <ShieldCheck className="w-10 h-10 text-accent mb-4"/>
+                            <h3 className="text-xl font-semibold mb-3">Policy Enforcement</h3>
+                            <p className="text-foreground/70 text-sm">
+                                Define custom guardrails per desk, geography, or asset. Monchain executes them in code
+                                and
+                                returns deterministic allow/deny guidance.
+                            </p>
+                        </div>
+                        <div className="bg-card border border-border rounded-lg p-6">
+                            <Layers3 className="w-10 h-10 text-mint mb-4"/>
+                            <h3 className="text-xl font-semibold mb-3">Agentic Defense Mesh</h3>
+                            <p className="text-foreground/70 text-sm">
+                                Specialized AI agents monitor behavioral baselines, external intel, and sanction feeds,
+                                collaborating to surface only high-signal alerts.
+                            </p>
+                        </div>
+                        <div className="bg-card border border-border rounded-lg p-6">
+                            <FileText className="w-10 h-10 text-accent mb-4"/>
+                            <h3 className="text-xl font-semibold mb-3">Audit-Ready Explanations</h3>
+                            <p className="text-foreground/70 text-sm">
+                                Each verdict ships with traceable rationale so legal, regulators, and counterparties can
+                                understand the decision path instantly.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                {/* Architecture */}
+                <div className="max-w-5xl mx-auto mb-20">
+                    <h2 className="text-3xl font-bold mb-12 text-center">How the Platform Operates</h2>
                     <div className="space-y-8">
                         <div className="flex gap-6">
                             <div
@@ -90,55 +101,120 @@ const MonchainAPI = () => {
                                 1
                             </div>
                             <div>
-                                <h3 className="text-xl font-semibold mb-2">Connect Your Wallet</h3>
+                                <h3 className="text-xl font-semibold mb-2">Unified Data Ingestion</h3>
                                 <p className="text-foreground/70">
-                                    Import your existing wallet or create a new one. Monchain integrates seamlessly
-                                    with all major chains.
+                                    Stream wallet intents, custodial transfer requests, and blockchain mempool data into
+                                    a
+                                    single normalized schema via REST, gRPC, or webhook adapters.
                                 </p>
                             </div>
                         </div>
-
                         <div className="flex gap-6">
                             <div
                                 className="flex-shrink-0 w-12 h-12 rounded-full bg-mint/10 border border-mint flex items-center justify-center text-mint font-bold">
                                 2
                             </div>
                             <div>
-                                <h3 className="text-xl font-semibold mb-2">AI Agents Activate</h3>
+                                <h3 className="text-xl font-semibold mb-2">Multi-Agent Risk Scoring</h3>
                                 <p className="text-foreground/70">
-                                    Multiple specialized agents begin monitoring your transactions, analyzing patterns,
-                                    and learning from global threat intelligence.
+                                    Behavioral, on-chain intelligence, sanction intelligence, and counterparty
+                                    reputation
+                                    agents collaborate, weighting signals in real time for a composite risk posture.
                                 </p>
                             </div>
                         </div>
-
                         <div className="flex gap-6">
                             <div
                                 className="flex-shrink-0 w-12 h-12 rounded-full bg-accent/10 border border-accent flex items-center justify-center text-accent font-bold">
                                 3
                             </div>
                             <div>
-                                <h3 className="text-xl font-semibold mb-2">Real-Time Analysis</h3>
+                                <h3 className="text-xl font-semibold mb-2">Deterministic Actions</h3>
                                 <p className="text-foreground/70">
-                                    Before every transaction, agents assess risk, check against known frauds, and
-                                    evaluate recipient addresses. All in milliseconds.
+                                    Responses map to your policies, allow, step-up verification, quarantine, or block, and
+                                    notify downstream systems with a transparent decision artifact.
                                 </p>
                             </div>
                         </div>
-
                         <div className="flex gap-6">
                             <div
                                 className="flex-shrink-0 w-12 h-12 rounded-full bg-mint/10 border border-mint flex items-center justify-center text-mint font-bold">
                                 4
                             </div>
                             <div>
-                                <h3 className="text-xl font-semibold mb-2">Secure Execution</h3>
+                                <h3 className="text-xl font-semibold mb-2">Closed-Loop Learning</h3>
                                 <p className="text-foreground/70">
-                                    If all agents agree it's <span className="text-accent font-semibold">safe</span>,
-                                    your transaction proceeds. If not, you get a clear
-                                    explanation and can make an informed decision.
+                                    Confirmed fraud, analyst overrides, and regulator feedback feed back into the model
+                                    so
+                                    every team benefits from shared intelligence without exposing PII.
                                 </p>
                             </div>
+                        </div>
+                    </div>
+                </div>
+
+                {/* Integrations */}
+                <div className="max-w-6xl mx-auto mb-20 grid lg:grid-cols-2 gap-8">
+                    <div className="bg-card border border-border rounded-xl p-8">
+                        <h3 className="text-2xl font-semibold mb-4 flex items-center gap-3">
+                            <CircuitBoard className="w-6 h-6 text-accent"/>
+                            Integration Patterns
+                        </h3>
+                        <ul className="space-y-4 text-foreground/70 text-sm">
+                            <li className="flex items-start gap-2">
+                                <CheckCircle2 className="w-4 h-4 text-mint mt-0.5"/>
+                                REST, streaming, and webhook endpoints with SDKs for TypeScript, Kotlin, and Go.
+                            </li>
+                            <li className="flex items-start gap-2">
+                                <CheckCircle2 className="w-4 h-4 text-mint mt-0.5"/>
+                                Policy-as-code templates deployable via Terraform or GitOps pipelines.
+                            </li>
+                            <li className="flex items-start gap-2">
+                                <CheckCircle2 className="w-4 h-4 text-mint mt-0.5"/>
+                                Real-time alerting to Slack, PagerDuty, ServiceNow, and SIEM connectors.
+                            </li>
+                        </ul>
+                    </div>
+                    <div className="bg-card border border-border rounded-xl p-8">
+                        <h3 className="text-2xl font-semibold mb-4 flex items-center gap-3">
+                            <Zap className="w-6 h-6 text-accent"/>
+                            Deployment Options
+                        </h3>
+                        <ul className="space-y-4 text-foreground/70 text-sm">
+                            <li className="flex items-start gap-2">
+                                <CheckCircle2 className="w-4 h-4 text-mint mt-0.5"/>
+                                Multi-tenant SaaS with dedicated data partitions and regional residency controls.
+                            </li>
+                            <li className="flex items-start gap-2">
+                                <CheckCircle2 className="w-4 h-4 text-mint mt-0.5"/>
+                                Private cloud or on-prem appliance for regulated markets needing air-gapped control.
+                            </li>
+                            <li className="flex items-start gap-2">
+                                <CheckCircle2 className="w-4 h-4 text-mint mt-0.5"/>
+                                24/7 enterprise support with named technical account managers and 99.95% SLA.
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                {/* Governance */}
+                <div
+                    className="max-w-5xl mx-auto mb-20 bg-gradient-to-br from-accent/5 to-mint/5 border border-accent/20 rounded-2xl p-12">
+                    <h2 className="text-3xl font-bold mb-6 text-center">Compliance and Governance Ready</h2>
+                    <div className="grid md:grid-cols-3 gap-6 text-sm text-foreground/80">
+                        <div>
+                            <p className="font-semibold mb-2">Regulatory Alignment</p>
+                            <p>Supports Travel Rule, AMLD6, MAS PSN02, and NYDFS 504 reporting with exportable logs.</p>
+                        </div>
+                        <div>
+                            <p className="font-semibold mb-2">Data Controls</p>
+                            <p>Tenant-level encryption, field-level masking, and flexible retention to satisfy internal
+                                governance mandates.</p>
+                        </div>
+                        <div>
+                            <p className="font-semibold mb-2">Human-in-the-Loop</p>
+                            <p>Analyst overrides automatically document root cause analysis for internal audit
+                                records.</p>
                         </div>
                     </div>
                 </div>
@@ -146,16 +222,24 @@ const MonchainAPI = () => {
                 {/* CTA Section */}
                 <div
                     className="max-w-4xl mx-auto bg-gradient-to-br from-accent/10 to-mint/10 border border-accent/20 rounded-xl p-12 text-center">
-                    <h2 className="text-3xl font-bold mb-4">Join the Waitlist</h2>
+                    <h2 className="text-3xl font-bold mb-4">Launch a Secure Pilot</h2>
                     <p className="text-foreground/70 mb-8 text-lg">
-                        Monchain will soon be launched. Be among the first to experience
-                        the future of AI in Web3.
+                        Partner with Colyon&apos;s solution architects to integrate Monchain API in under two sprints,
+                        run
+                        parallel monitoring, and certify controls with your risk office.
                     </p>
-                    <Button variant="hero" size="lg" asChild>
-                        <a href="https://monchain.ai" target="_blank" rel="noopener noreferrer">
-                            Request Early Access
-                        </a>
-                    </Button>
+                    <div className="flex flex-wrap gap-4 justify-center">
+                        <Button variant="hero" size="lg" asChild>
+                            <a href="https://colyon.ai/talk-to-us" target="_blank" rel="noopener noreferrer">
+                                Schedule a Security Review
+                            </a>
+                        </Button>
+                        <Button variant="heroOutline" size="lg" asChild>
+                            <a href="https://docs.monchain.ai" target="_blank" rel="noopener noreferrer">
+                                Explore Docs
+                            </a>
+                        </Button>
+                    </div>
                 </div>
             </div>
         </main>
