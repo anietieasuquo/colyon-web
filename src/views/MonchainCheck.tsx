@@ -1,4 +1,5 @@
 import {Button} from "@/components/ui/button";
+import Link from "next/link";
 import {
     Activity,
     AlertTriangle,
@@ -41,9 +42,9 @@ const MonchainCheck = () => {
                                 </a>
                             </Button>
                             <Button variant="heroOutline" size="lg" asChild>
-                                <a href="mailto:team@monchain.ai?subject=Monchain%20Check%20Demo">
+                                <Link href="/talk-to-us?product=monchain-check&about=demo" target="_blank">
                                     Book a guided demo
-                                </a>
+                                </Link>
                             </Button>
                         </div>
                         <div className="grid gap-6 sm:grid-cols-3 text-center">
@@ -191,16 +192,19 @@ const MonchainCheck = () => {
                         {[{
                             title: "Exchanges",
                             description: "Screen deposits and withdrawals before settlement. Auto-freeze addresses that trip high-risk rules while giving analysts full rationale.",
-                            cta: "See exchange workflow"
+                            cta: "See exchange workflow",
+                            link: "/products/monchain/check/exchange"
                         }, {
                             title: "Wallet & dApp",
                             description: "Deliver in-wallet warnings so end-users understand exposure and can opt-out of malicious contracts before signing.",
-                            cta: "Embed risk banner"
+                            cta: "Embed risk banner",
+                            link: "/products/monchain/check/wallet"
                         }, {
                             title: "Compliance & KYT",
                             description: "Route alerts to case tools, export SAR-ready evidence packets, and meet Travel Rule obligations instantly.",
-                            cta: "Connect to case tools"
-                        }].map(({title, description, cta}) => (
+                            cta: "Connect to case tools",
+                            link: "/products/monchain/check/compliance"
+                        }].map(({title, description, cta, link}) => (
                             <div key={title}
                                  className="rounded-2xl border border-border/80 bg-card/50 p-6 flex flex-col gap-6">
                                 <div className="space-y-2">
@@ -210,9 +214,13 @@ const MonchainCheck = () => {
                                     </div>
                                     <p className="text-base text-foreground/70 leading-relaxed">{description}</p>
                                 </div>
-                                <Button variant="ghost" className="justify-start gap-2 text-accent hover:text-white hover:bg-transparent">
-                                    {cta}
-                                    <ArrowRight className="h-4 w-4"/>
+                                <Button variant="ghost"
+                                        className="justify-start gap-2 text-accent hover:text-white hover:bg-transparent"
+                                        asChild>
+                                    <Link href={link}>
+                                        {cta}
+                                        <ArrowRight className="h-4 w-4"/>
+                                    </Link>
                                 </Button>
                             </div>
                         ))}

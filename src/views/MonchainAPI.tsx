@@ -1,5 +1,6 @@
 import {Button} from "@/components/ui/button";
 import {ArrowRight, CheckCircle2, CircuitBoard, FileText, Layers3, ShieldCheck, Zap} from "lucide-react";
+import Link from "next/link";
 
 const MonchainAPI = () => {
     return (
@@ -21,13 +22,13 @@ const MonchainAPI = () => {
                     </p>
                     <div className="flex flex-wrap gap-4 justify-center">
                         <Button variant="hero" size="lg" asChild>
-                            <a href="https://colyon.ai/talk-to-us" target="_blank" rel="noopener noreferrer">
+                            <Link href="/talk-to-us?product=monchain-api&about=integrations" target="_blank">
                                 Talk to Sales
                                 <ArrowRight className="w-4 h-4 animate-[bounce-x_1.5s_ease-in-out_infinite]"/>
-                            </a>
+                            </Link>
                         </Button>
                         <Button variant="heroOutline" size="lg" asChild>
-                            <a href="https://docs.monchain.ai" target="_blank" rel="noopener noreferrer">
+                            <a href="https://docs.colyon.ai/products/monchain/api" target="_blank" rel="noopener noreferrer">
                                 View API Docs
                             </a>
                         </Button>
@@ -230,12 +231,12 @@ const MonchainAPI = () => {
                     </p>
                     <div className="flex flex-wrap gap-4 justify-center">
                         <Button variant="hero" size="lg" asChild>
-                            <a href="https://colyon.ai/talk-to-us" target="_blank" rel="noopener noreferrer">
+                            <Link href="/talk-to-us?product=monchain-api&about=security-review" target="_blank">
                                 Schedule a Security Review
-                            </a>
+                            </Link>
                         </Button>
                         <Button variant="heroOutline" size="lg" asChild>
-                            <a href="https://docs.monchain.ai" target="_blank" rel="noopener noreferrer">
+                            <a href="https://docs.colyon.ai/products/monchain/api" target="_blank" rel="noopener noreferrer">
                                 Explore Docs
                             </a>
                         </Button>
