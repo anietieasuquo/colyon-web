@@ -16,8 +16,6 @@ const Navigation = () => {
 
     const menuItems = [
         {name: "Research", href: "/research"},
-        {name: "Safety", href: "/safety"},
-        {name: "XAI", href: "/xai"},
         {
             name: "Monchain",
             submenu: [
@@ -33,6 +31,8 @@ const Navigation = () => {
                 {name: "Careers", href: "/careers"},
             ],
         },
+        {name: "Safety", href: "/safety"},
+        {name: "XAI", href: "/xai"},
         {name: "News", href: "/news"},
         {name: "Contact", href: "/contact"}
     ];
