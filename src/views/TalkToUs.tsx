@@ -127,12 +127,11 @@ const valueProps: ValueProp[] = [
 ];
 
 const clientLogos = [
-    {name: "Bitcoin.com", src: "/img/clients/Bitcoin.com.png", showTitle: false, rescale: true},
+    {name: "Bitcoin.com", src: "/img/clients/bitcoin.jpeg", showTitle: true, rescale: true},
     {name: "Coinbase", src: "/img/clients/coinbase.svg", showTitle: false, rescale: false},
-    {name: "Coinmetro", src: "/img/clients/coinmetro.svg", showTitle: true, rescale: false},
-    {name: "MetaWealth", src: "/img/clients/metawealth.png", showTitle: false, rescale: true},
+    {name: "Coinmetro", src: "/img/clients/coinmetro.svg", showTitle: true, rescale: true},
     {name: "Trust Wallet", src: "/img/clients/trust-wallet.svg", showTitle: false, rescale: false},
-    {name: "Uniswap", src: "/img/clients/uniswap.svg", showTitle: true, rescale: false},
+    {name: "Uniswap", src: "/img/clients/uniswap.svg", showTitle: true, rescale: true},
 ];
 
 const aboutAliasMap: Record<string, string> = {
@@ -286,15 +285,20 @@ const TalkToUs = () => {
                         <div className="bg-card border border-border rounded-2xl p-6">
                             <p className="text-sm uppercase tracking-[0.2em] text-foreground/60 mb-4">Join the companies
                                 that are transforming web3</p>
-                            <div className="flex flex-wrap gap-x-6 gap-y-4 max-w-md">
+                            <div className="flex flex-wrap gap-x-6 gap-y-2 max-w-md">
                                 {clientLogos.map((logo) => (
                                     <div
                                         key={logo.name}
-                                        className="flex items-center gap-3 text-sm font-medium text-foreground/70 uppercase tracking-wide basis-1/2 sm:basis-auto"
+                                        className="flex items-center gap-2 text-sm font-medium text-foreground/70 tracking-wide basis-1/2 sm:basis-auto"
                                     >
-                                        <Image src={logo.src} alt={logo.name} width={32} height={32}
-                                               className="w-7 h-7 object-contain invert"/>
-                                        <span>{logo.name}</span>
+                                        <Image
+                                            src={logo.src}
+                                            alt={logo.name}
+                                            width={32}
+                                            height={32}
+                                            className={`${logo.rescale ? 'min-w-2' : 'min-w-28'} h-auto object-contain`}
+                                        />
+                                        {logo.showTitle && <span className="text-foreground/70">{logo.name}</span>}
                                     </div>
                                 ))}
                             </div>
