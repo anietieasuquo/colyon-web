@@ -215,7 +215,7 @@ const Navigation = () => {
                                                                                     className="font-medium">{offering.name}</span>
                                                                                 {offering.audience && (
                                                                                     <span
-                                                                                        className="rounded-full border border-border/70 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-muted-foreground">
+                                                                                        className="rounded-full border border-border/70 px-2 py-0.5 text-[10px] font-semibold tracking-wide text-muted-foreground">
                                                                                         {offering.audience}
                                                                                     </span>
                                                                                 )}
