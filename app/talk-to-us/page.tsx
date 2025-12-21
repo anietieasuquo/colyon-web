@@ -1,6 +1,7 @@
 import TalkToUs from "@/views/TalkToUs";
 import {buildMetadata} from "@/lib/seo";
 import {Metadata} from "next";
+import {Suspense} from "react";
 
 export const metadata: Metadata = buildMetadata({
     title: "Talk to Colyon | Enterprise Web3 Risk & Compliance",
@@ -17,6 +18,9 @@ export const metadata: Metadata = buildMetadata({
 });
 
 export default function TalkToUsPage() {
-    return <TalkToUs/>;
+    return (
+        <Suspense fallback={<div className="py-16 text-center text-sm text-foreground/60">Loading form…</div>}>
+            <TalkToUs/>
+        </Suspense>
+    );
 }
-
