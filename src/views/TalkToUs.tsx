@@ -279,22 +279,22 @@ const TalkToUs = () => {
                             </div>
                             <p className="text-foreground/80 text-base">
                                 Work with ex-exchange risk leads and ML architects who have shipped agentic guardrails
-                                for Fortune 100 fintechs. We scope integration plans, KPI dashboards,
+                                for Fortune 100 fintech. We scope integration plans, KPI dashboards,
                                 and control states within your first 10 days.
                             </p>
                         </div>
-                        <div className="bg-card border border-border rounded-2xl text-center p-8">
-                            <p className="text-sm uppercase tracking-[0.2em] text-foreground/60 mb-4">
-                                Join the companies that are transforming web3
-                            </p>
-                            <div className="relative flex flex-row gap-6 max-w-full">
+                        <div className="bg-card border border-border rounded-2xl p-6">
+                            <p className="text-sm uppercase tracking-[0.2em] text-foreground/60 mb-4">Join the companies
+                                that are transforming web3</p>
+                            <div className="flex flex-wrap gap-x-6 gap-y-4 max-w-md">
                                 {clientLogos.map((logo) => (
-                                    <div key={logo.name}
-                                         className="flex items-center gap-3 text-sm font-medium text-foreground/80">
+                                    <div
+                                        key={logo.name}
+                                        className="flex items-center gap-3 text-sm font-medium text-foreground/70 uppercase tracking-wide basis-1/2 sm:basis-auto"
+                                    >
                                         <Image src={logo.src} alt={logo.name} width={32} height={32}
-                                               className="min-w-20 h-auto object-contain"/>
-                                        {logo.showTitle &&
-                                            <span className="tracking-wide text-foreground/70">{logo.name}</span>}
+                                               className="w-7 h-7 object-contain invert"/>
+                                        <span>{logo.name}</span>
                                     </div>
                                 ))}
                             </div>
