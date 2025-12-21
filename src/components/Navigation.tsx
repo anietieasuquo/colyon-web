@@ -15,7 +15,6 @@ const Navigation = () => {
     const submenuRefs = useRef<{ [key: string]: HTMLDivElement | null }>({});
 
     const menuItems = [
-        {name: "Research", href: "/research"},
         {
             name: "Monchain",
             submenu: [
@@ -31,6 +30,7 @@ const Navigation = () => {
                 {name: "Careers", href: "/careers"},
             ],
         },
+        {name: "Research", href: "/research"},
         {name: "Safety", href: "/safety"},
         {name: "XAI", href: "/xai"},
         {name: "News", href: "/news"},
