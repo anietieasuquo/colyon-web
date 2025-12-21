@@ -2,29 +2,24 @@
 import {Button} from "@/components/ui/button";
 import Link from "next/link";
 import Image from "next/image";
-import {ArrowRight, Brain, Network, Shield} from "lucide-react";
 import AutoLinkText from "@/components/AutoLinkText";
 
 const Products = () => {
     const productList = [
         {
-            title: "Monchain API",
-            description: "Integrate proactive security directly into your platform. link://monchain.ai[Our API] detects and blocks fraudulent crypto transactions in real-time with 96% accuracy, so you can protect users without slowing them down.",
-            accent: "bg-mint/20",
-            link: "/products/monchain/api"
+            title: "Monchain Check",
+            description: "Monchain Check is your complete solution for real-time crypto fraud detection. From instant address screening to enterprise-grade API integrations, our platform delivers 96% accurate risk scoring, powered by our multi-agent autonomous AI engine.",
+            accent: "bg-mint/10",
+            link: "/products/monchain/check",
+            cta: "Explore"
         },
         {
             title: "Monchain Wallet",
-            description: "Secure your crypto assets with proactive fraud blocking (96% accuracy using the same core AI as our enterprise API), and access AI-driven trading signals and market insights, all in one intelligent, link://monchain.ai[non-custodial wallet].",
+            description: "Secure your crypto assets with proactive fraud blocking (96% accuracy using the same core AI as our enterprise API), and access AI-driven trading signals and market insights, all in one intelligent, non-custodial wallet.",
             accent: "bg-accent/10",
-            link: "/products/monchain/wallet"
-        },
-        {
-            title: "Monchain Check",
-            description: "Instantly link://check.monchain.ai[check] any wallet or transaction address for fraud signals. Powered by the same AI engine that secures our enterprise API and wallet.",
-            accent: "bg-mint/10",
-            link: "/products/monchain/check"
-        },
+            link: "/products/monchain/wallet",
+            cta: "Discover"
+        }
     ];
 
     return (
@@ -37,7 +32,7 @@ const Products = () => {
                         the Web3 ecosystem.
                     </p>
                 </div>
-                <div className="grid md:grid-cols-3 gap-8">
+                <div className="grid md:grid-cols-2 gap-8">
                     {productList.map((product, index) => (
                         <div className="bg-card border border-border rounded-2xl p-8 hover:shadow-lg transition-shadow">
                             <div
@@ -48,14 +43,14 @@ const Products = () => {
                             <h3 className="text-2xl font-bold mb-4">{product.title}</h3>
                             <AutoLinkText
                                 text={product.description}
-                                paragraphClassName="text-lg text-muted-foreground mb-6 leading-relaxed min-h-60"
+                                paragraphClassName="text-lg text-muted-foreground mb-6 leading-relaxed"
                                 linkClassName="text-accent font-semibold underline underline-offset-4 hover:text-foreground"
                                 treatSameOriginAsInternal
                             />
-                            <div className="text-center animate-fade-in-up" style={{animationDelay: "0.3s"}}>
+                            <div className="animate-fade-in-up" style={{animationDelay: "0.3s"}}>
                                 <Button variant="heroOutline" size="lg" asChild>
                                     <Link href={product.link}>
-                                        Discover {product.title}
+                                        {product.cta} {product.title}
                                     </Link>
                                 </Button>
                             </div>

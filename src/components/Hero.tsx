@@ -22,13 +22,13 @@ const Hero = () => {
                 <div className="flex flex-col sm:flex-row gap-4 justify-center items-center animate-fade-in-up"
                      style={{animationDelay: "0.2s"}}>
                     <Button variant="hero" size="lg" asChild>
-                        <Link href="https://monchain.ai/business" className="gap-2">
-                            For Businesses: Our API
+                        <Link href="/products/monchain/check" className="gap-2">
+                            For Businesses: Monchain Check
                             <ArrowRight className="w-4 h-4 animate-[bounce-x_1.5s_ease-in-out_infinite]"/>
                         </Link>
                     </Button>
                     <Button variant="heroOutline" size="lg" asChild>
-                        <a href="https://monchain.ai">For Users: Monchain Wallet</a>
+                        <Link href="/products/monchain/wallet" className="gap-2">For Users: Monchain Wallet</Link>
                     </Button>
                 </div>
             </div>
