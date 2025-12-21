@@ -5,13 +5,17 @@ import {
     AlertTriangle,
     ArrowRight,
     CheckCircle2,
+    CircuitBoard,
+    FileText,
     Gauge,
     Globe,
     Layers,
+    Layers3,
     LineChart,
     ShieldCheck,
     Target,
-    Users
+    Users,
+    Zap
 } from "lucide-react";
 
 const MonchainCheck = () => {
@@ -38,17 +42,17 @@ const MonchainCheck = () => {
                             <Button variant="hero" size="lg" asChild>
                                 <a href="https://check.monchain.ai" target="_blank" rel="noopener noreferrer">
                                     Run a free risk check
-                                    <ArrowRight className="w-4 h-4"/>
+                                    <ArrowRight className="w-4 h-4 animate-[bounce-x_1.5s_ease-in-out_infinite]"/>
                                 </a>
                             </Button>
                             <Button variant="heroOutline" size="lg" asChild>
-                                <Link href="/talk-to-us?product=monchain-check&about=demo" target="_blank">
-                                    Book a guided demo
-                                </Link>
+                                <a href="https://docs.colyon.ai/products/monchain/api" target="_blank" rel="noopener noreferrer">
+                                    View API Docs
+                                </a>
                             </Button>
                         </div>
                         <div className="grid gap-6 sm:grid-cols-3 text-center">
-                            {[{label: "Addresses screened", value: "50K+"}, {
+                            {[{label: "Addresses screened", value: "500K+"}, {
                                 label: "Avg. response",
                                 value: "420ms"
                             }, {label: "Confirmed fraud blocked", value: "$1.3M"}].map(({label, value}) => (
@@ -103,14 +107,15 @@ const MonchainCheck = () => {
                     </div>
                 </section>
 
-                {/* Value pillars */}
+                {/* Unified value pillars */}
                 <section className="space-y-10">
                     <div className="text-center space-y-4 max-w-3xl mx-auto">
-                        <h2 className="text-3xl md:text-4xl font-bold">Everything you need to trust what happens
-                            on-chain</h2>
+                        <h2 className="text-3xl md:text-4xl font-bold">Single fraud intelligence layer for UI and
+                            API</h2>
                         <p className="text-foreground/70 text-lg">
-                            Monchain Check correlates on-chain signals, web intelligence, and private consortium feeds
-                            to deliver an actionable risk score with explainability built in.
+                            The same multi-agent backend powers the self-serve checker, enterprise API, and embeddable
+                            SDKs so your teams can experiment in minutes and deploy at scale without rebuilding policy
+                            logic twice. It includes risk-scoring and explainability built-in.
                         </p>
                     </div>
                     <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4 text-center">
@@ -144,32 +149,37 @@ const MonchainCheck = () => {
                     </div>
                 </section>
 
-                {/* How scoring works */}
+                {/* Architecture + scoring */}
                 <section className="max-w-5xl mx-auto">
                     <div className="text-center space-y-3 mb-12">
                         <p className="text-sm uppercase tracking-[0.3em] text-accent">Process</p>
-                        <h2 className="text-3xl font-bold">How a Monchain risk score is produced</h2>
+                        <h2 className="text-3xl font-bold">How the Monchain Check engine operates</h2>
                         <p className="text-foreground/70 text-lg">Each step is deterministic, logged, and auditable so
-                            regulators and partners can reproduce the call.</p>
+                            regulators and partners can reproduce the call. Every channel, from the free checker UI to
+                            mission-critical APIs, runs on this deterministic pipeline.</p>
                     </div>
                     <div className="space-y-10">
                         {[{
-                            step: "Signal ingestion",
-                            detail: "We parse 7500+ data points: wallet age, velocity, DeFi touchpoints, mixers, cross-chain hops, OFAC, etc.",
+                            step: "Unified data ingestion",
+                            detail: "Stream wallet intents, exchange transfers, custody instructions, and mempool data via REST, gRPC, or webhooks into one normalized schema.",
                             color: "bg-accent/10 border-accent"
                         }, {
-                            step: "Multi-agent evaluation",
-                            detail: "Specialized AI agents evaluate behavioral, graph, and semantic risks, then vote with confidence levels.",
+                            step: "Multi-agent risk scoring",
+                            detail: "Behavioral, graph, semantic, and sanctions agents collaborate in parallel, each submitting a verdict + confidence score. We normalize the vote into a 0-100 score, attach supporting evidence, and provide recommended responses.",
                             color: "bg-mint/10 border-mint"
                         }, {
-                            step: "Score + explanation",
-                            detail: "We normalize the vote into a 0-100 score, attach supporting evidence, and provide recommended responses.",
+                            step: "Deterministic actions",
+                            detail: "Policies you define map scores to allow, warn, hold, or block responses which propagate back to UI kits, SDKs, or downstream systems.",
                             color: "bg-accent/10 border-accent"
+                        }, {
+                            step: "Closed-loop learning",
+                            detail: "Analyst overrides, confirmed fraud, and regulator feedback retrain the models so every org benefits without sharing PII.",
+                            color: "bg-mint/10 border-mint"
                         }].map(({step, detail, color}, idx) => (
                             <div key={step} className="flex flex-col gap-4 rounded-2xl border p-6 lg:flex-row"
                                  style={{animationDelay: `${idx * 0.08}s`}}>
                                 <div
-                                    className={`flex h-12 w-12 items-center justify-center rounded-full border text-sm font-semibold uppercase tracking-wide ${color}`}>
+                                    className={`flex h-12 w-12 min-w-12 max-w-12 min-h-12 max-h-12 items-center justify-center rounded-full border text-sm font-semibold uppercase tracking-wide ${color}`}>
                                     {idx + 1}
                                 </div>
                                 <div>
@@ -178,6 +188,103 @@ const MonchainCheck = () => {
                                 </div>
                             </div>
                         ))}
+                    </div>
+                </section>
+
+                {/* Enterprise modules */}
+                <section className="space-y-10">
+                    <div className="text-center space-y-4 max-w-3xl mx-auto">
+                        <h2 className="text-3xl font-bold">Converged toolkit for teams and developers</h2>
+                        <p className="text-foreground/70 text-lg">Switch between the hosted checker, SDK widgets, and
+                            raw API access without touching a different data source.</p>
+                    </div>
+                    <div className="grid gap-6 md:grid-cols-3">
+                        <div className="rounded-2xl border border-border/80 bg-card/60 p-6 space-y-3">
+                            <ShieldCheck className="w-10 h-10 text-accent"/>
+                            <h3 className="text-xl font-semibold">Policy enforcement</h3>
+                            <p className="text-sm text-foreground/70">Define guardrails per desk, geography, or asset
+                                once. The same logic powers the UI checker, SDK banners, and API responses.</p>
+                        </div>
+                        <div className="rounded-2xl border border-border/80 bg-card/60 p-6 space-y-3">
+                            <Layers3 className="w-10 h-10 text-mint"/>
+                            <h3 className="text-xl font-semibold">Agentic defense mesh</h3>
+                            <p className="text-sm text-foreground/70">Specialized AI agents monitor behavioral
+                                baselines, sanction feeds, and consortium intel to surface only high-signal alerts.</p>
+                        </div>
+                        <div className="rounded-2xl border border-border/80 bg-card/60 p-6 space-y-3">
+                            <FileText className="w-10 h-10 text-accent"/>
+                            <h3 className="text-xl font-semibold">Audit-ready explanations</h3>
+                            <p className="text-sm text-foreground/70">Every verdict ships with traceable rationale so
+                                legal, regulators, and counterparties can replay the decision path instantly.</p>
+                        </div>
+                    </div>
+                </section>
+
+                {/* Integration + deployment */}
+                <section className="max-w-6xl mx-auto grid lg:grid-cols-2 gap-8">
+                    <div className="bg-card border border-border rounded-xl p-8 space-y-4">
+                        <h3 className="text-2xl font-semibold flex items-center gap-3">
+                            <CircuitBoard className="w-6 h-6 text-accent"/>
+                            Integration patterns
+                        </h3>
+                        <ul className="space-y-4 text-foreground/70 text-sm">
+                            <li className="flex items-start gap-2">
+                                <CheckCircle2 className="w-4 h-4 text-mint mt-0.5"/>
+                                REST, streaming, and webhook endpoints with SDKs for TypeScript, Kotlin, and Go.
+                            </li>
+                            <li className="flex items-start gap-2">
+                                <CheckCircle2 className="w-4 h-4 text-mint mt-0.5"/>
+                                Policy-as-code templates deployable via Terraform or GitOps pipelines.
+                            </li>
+                            <li className="flex items-start gap-2">
+                                <CheckCircle2 className="w-4 h-4 text-mint mt-0.5"/>
+                                Real-time alerting to Slack, PagerDuty, ServiceNow, and SIEM connectors.
+                            </li>
+                        </ul>
+                    </div>
+                    <div className="bg-card border border-border rounded-xl p-8 space-y-4">
+                        <h3 className="text-2xl font-semibold flex items-center gap-3">
+                            <Zap className="w-6 h-6 text-accent"/>
+                            Deployment options
+                        </h3>
+                        <ul className="space-y-4 text-foreground/70 text-sm">
+                            <li className="flex items-start gap-2">
+                                <CheckCircle2 className="w-4 h-4 text-mint mt-0.5"/>
+                                Multi-tenant SaaS with dedicated data partitions and regional residency controls.
+                            </li>
+                            <li className="flex items-start gap-2">
+                                <CheckCircle2 className="w-4 h-4 text-mint mt-0.5"/>
+                                Private cloud or on-prem appliance for regulated markets needing air-gapped control.
+                            </li>
+                            <li className="flex items-start gap-2">
+                                <CheckCircle2 className="w-4 h-4 text-mint mt-0.5"/>
+                                24/7 enterprise support with named technical account managers and 99.95% SLA.
+                            </li>
+                        </ul>
+                    </div>
+                </section>
+
+                {/* Governance */}
+                <section
+                    className="max-w-5xl mx-auto bg-gradient-to-br from-accent/5 to-mint/5 border border-accent/20 rounded-2xl p-12 space-y-6">
+                    <div className="text-center space-y-3">
+                        <h2 className="text-3xl font-bold">Compliance and governance ready</h2>
+                        <p className="text-foreground/70">Travel Rule, AMLD6, MAS PSN02, NYDFS 504 reporting, and custom
+                            attestations supported out of the box.</p>
+                    </div>
+                    <div className="grid md:grid-cols-3 gap-6 text-sm text-foreground/80">
+                        <div>
+                            <p className="font-semibold mb-2">Regulatory alignment</p>
+                            <p>Exportable logs map scores to the controls regulators expect.</p>
+                        </div>
+                        <div>
+                            <p className="font-semibold mb-2">Data controls</p>
+                            <p>Tenant-level encryption, field-level masking, and flexible retention.</p>
+                        </div>
+                        <div>
+                            <p className="font-semibold mb-2">Human-in-the-loop</p>
+                            <p>Analyst overrides automatically document root cause analysis for audit.</p>
+                        </div>
                     </div>
                 </section>
 
@@ -243,7 +350,7 @@ const MonchainCheck = () => {
                                 icon: ShieldCheck
                             }, {
                                 title: "Outcome proof",
-                                detail: "$1.3B+ in attempted fraud blocked for institutional partners during 2025.",
+                                detail: "$1.3M+ in attempted fraud blocked for institutional partners during 2025.",
                                 icon: LineChart
                             }, {
                                 title: "Human + AI loop",
@@ -281,7 +388,7 @@ const MonchainCheck = () => {
                             </div>
                             <div className="flex items-center justify-between">
                                 <span className="text-foreground/60">API latency (P95)</span>
-                                <span className="font-semibold">640ms</span>
+                                <span className="font-semibold">420ms</span>
                             </div>
                             <div className="flex items-center justify-between">
                                 <span className="text-foreground/60">Evidence retention</span>
@@ -297,20 +404,20 @@ const MonchainCheck = () => {
                     <p className="text-sm uppercase tracking-[0.35em] text-accent">Start in minutes</p>
                     <h2 className="text-3xl md:text-4xl font-bold">Plug Monchain Check into your risk stack</h2>
                     <p className="text-lg text-foreground/70 max-w-3xl mx-auto">
-                        Run unlimited self-serve checks, connect to our API for production flows, or invite our team to
-                        help design your scoring policy.
+                        Run unlimited self-serve checks, connect to our API for production flows, or drop in our UI
+                        toolkits to warn users before they sign anything risky, all on the same backend.
                     </p>
                     <div className="flex flex-wrap justify-center gap-3">
                         <Button variant="hero" size="lg" asChild>
                             <a href="https://check.monchain.ai" target="_blank" rel="noopener noreferrer">
                                 Launch the checker
-                                <ArrowRight className="w-4 h-4"/>
+                                <ArrowRight className="w-4 h-4 animate-[bounce-x_1.5s_ease-in-out_infinite]"/>
                             </a>
                         </Button>
                         <Button variant="heroOutline" size="lg" asChild>
-                            <a href="https://monchain.ai/docs" target="_blank" rel="noopener noreferrer">
-                                View API docs
-                            </a>
+                            <Link href="/talk-to-us?product=monchain-check&about=enterprise" target="_blank">
+                                Talk to the team
+                            </Link>
                         </Button>
                     </div>
                 </section>
@@ -320,3 +427,4 @@ const MonchainCheck = () => {
 };
 
 export default MonchainCheck;
+

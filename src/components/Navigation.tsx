@@ -21,9 +21,8 @@ const Navigation = () => {
         {
             name: "Monchain",
             submenu: [
-                {name: "API", href: "/products/monchain/api"},
-                {name: "Wallet", href: "/products/monchain/wallet"},
                 {name: "Check", href: "/products/monchain/check"},
+                {name: "Wallet", href: "/products/monchain/wallet"},
             ],
         },
         {

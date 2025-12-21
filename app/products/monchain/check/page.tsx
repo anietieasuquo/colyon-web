@@ -4,7 +4,7 @@ import MonchainCheck from "@/views/MonchainCheck";
 export const metadata = buildMetadata({
     title: "Monchain Check by Colyon | AI-powered crypto platform",
     description:
-        "With Monchain Check, you can instantly check any wallet or transaction address for fraud signals. Powered by the same AI engine that secures Colyon's enterprise API and wallet.",
+        "Discover Monchain Check, Colyon's AI-powered security platform that stops crypto fraud before it happens. Built using Colyon's adaptive multi-agent intelligence, we provide a proactive security layer for wallets, exchanges, and DeFi platforms, shifting from reactive warnings to real-time prevention.",
     path: "/products/monchain/check",
     type: "website",
 });
