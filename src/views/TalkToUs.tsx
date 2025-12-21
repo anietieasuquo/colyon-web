@@ -6,7 +6,7 @@ import {useSearchParams} from "next/navigation";
 import * as z from "zod";
 import {zodResolver} from "@hookform/resolvers/zod";
 import {useForm} from "react-hook-form";
-import {Loader2, Shield, LineChart, Layers, Globe, Users} from "lucide-react";
+import {CalendarIcon, Globe, Layers, LineChart, Loader2, Shield, Users} from "lucide-react";
 
 import PageHeader from "@/components/PageHeader";
 import {Form, FormControl, FormField, FormItem, FormLabel, FormMessage} from "@/components/ui/form";
@@ -16,6 +16,11 @@ import {Select, SelectContent, SelectItem, SelectTrigger, SelectValue} from "@/c
 import {Button} from "@/components/ui/button";
 import {useToast} from "@/hooks/use-toast";
 import {getMonchainApiBase, getUssApiKey} from "@/lib/config";
+import countries from "@/countries.json";
+import {Popover, PopoverContent, PopoverTrigger} from "@/components/ui/popover";
+import {Calendar} from "@/components/ui/calendar";
+import {cn} from "@/lib/utils";
+import {format} from "date-fns";
 
 interface Option {
     value: string;
@@ -61,11 +66,17 @@ const userBaseOptions: Option[] = [
     {value: "1m-plus", label: "1M+"},
 ];
 
+const countryOptions: Option[] = Object.entries(countries).map(([code, name]) => ({
+    value: code,
+    label: name,
+}));
+
 const productValues = productOptions.map((option) => option.value) as [string, ...string[]];
 const aboutValues = aboutOptions.map((option) => option.value) as [string, ...string[]];
 const fundingValues = fundingStageOptions.map((option) => option.value) as [string, ...string[]];
 const volumeValues = volumeOptions.map((option) => option.value) as [string, ...string[]];
 const userValues = userBaseOptions.map((option) => option.value) as [string, ...string[]];
+const countryValues = countryOptions.map((option) => option.value) as [string, ...string[]];
 
 const formSchema = z.object({
     contactName: z.string().min(1, "Full name is required").max(120, "Name is too long"),
@@ -73,11 +84,11 @@ const formSchema = z.object({
     role: z.string().min(1, "Role is required"),
     companyName: z.string().min(1, "Company is required"),
     companyWebsite: z.string().url("Please enter a valid URL"),
-    headquartersCountry: z.string().min(1, "Country is required"),
+    headquartersCountry: z.enum(countryValues),
     fundingStage: z.enum(fundingValues),
     product: z.enum(productValues),
-    about: z.string().min(1, "Select a focus area"),
-    expectedIntegrationDate: z.string().min(1, "Please provide a date"),
+    about: z.enum(aboutValues),
+    expectedIntegrationDate: z.date({required_error: "Please select a date"}),
     projectedMonthlyVolume: z.enum(volumeValues),
     currentActiveUsers: z.enum(userValues),
     integrationStack: z.string().min(1, "Share a short description"),
@@ -116,15 +127,31 @@ const valueProps: ValueProp[] = [
 ];
 
 const clientLogos = [
-    {name: "Helios Digital", src: "/img/clients/helios.svg"},
-    {name: "Orbit Labs", src: "/img/clients/orbit.svg"},
-    {name: "Voyager DAO", src: "/img/clients/voyager.svg"},
+    {name: "Bitcoin.com", src: "/img/clients/Bitcoin.com.png", showTitle: false, rescale: true},
+    {name: "Coinbase", src: "/img/clients/coinbase.svg", showTitle: false, rescale: false},
+    {name: "Coinmetro", src: "/img/clients/coinmetro.svg", showTitle: true, rescale: false},
+    {name: "MetaWealth", src: "/img/clients/metawealth.png", showTitle: false, rescale: true},
+    {name: "Trust Wallet", src: "/img/clients/trust-wallet.svg", showTitle: false, rescale: false},
+    {name: "Uniswap", src: "/img/clients/uniswap.svg", showTitle: true, rescale: false},
 ];
 
-const mapParamToOptionValue = (param: string | null, options: Option[]) => {
+const aboutAliasMap: Record<string, string> = {
+    compliance: "compliance",
+    enterprise: "compliance",
+    "risk-ops": "risk-ops",
+    "fraud": "risk-ops",
+    exchange: "exchange",
+    otc: "exchange",
+    "wallet-toolkits": "infrastructure",
+    infrastructure: "infrastructure",
+    investor: "investor",
+};
+
+const mapParamToOptionValue = (param: string | null, options: Option[], aliasMap?: Record<string, string>) => {
     if (!param) return undefined;
     const normalized = param.toLowerCase();
-    return options.find((option) => option.value.toLowerCase() === normalized)?.value;
+    const target = aliasMap?.[normalized] ?? normalized;
+    return options.find((option) => option.value.toLowerCase() === target)?.value;
 };
 
 const TalkToUs = () => {
@@ -134,17 +161,19 @@ const TalkToUs = () => {
     const {toast} = useToast();
     const [isSubmitting, setIsSubmitting] = useState(false);
 
+    const defaultDate = new Date();
+
     const defaultValues = useMemo(() => ({
         contactName: "",
         workEmail: "",
         role: "",
         companyName: "",
         companyWebsite: "",
-        headquartersCountry: "",
+        headquartersCountry: countryOptions.find((option) => option.value === "US")?.value ?? countryOptions[0].value,
         fundingStage: fundingStageOptions[0].value,
         product: mapParamToOptionValue(productParam, productOptions) ?? productOptions[0].value,
-        about: mapParamToOptionValue(aboutParam, aboutOptions) ?? aboutOptions[0].value,
-        expectedIntegrationDate: "",
+        about: mapParamToOptionValue(aboutParam, aboutOptions, aboutAliasMap) ?? aboutOptions[0].value,
+        expectedIntegrationDate: defaultDate,
         projectedMonthlyVolume: volumeOptions[1].value,
         currentActiveUsers: userBaseOptions[0].value,
         integrationStack: "",
@@ -162,7 +191,7 @@ const TalkToUs = () => {
         if (inferredProduct && inferredProduct !== form.getValues("product")) {
             form.setValue("product", inferredProduct);
         }
-        const inferredAbout = mapParamToOptionValue(aboutParam, aboutOptions);
+        const inferredAbout = mapParamToOptionValue(aboutParam, aboutOptions, aboutAliasMap);
         if (inferredAbout && inferredAbout !== form.getValues("about")) {
             form.setValue("about", inferredAbout);
         }
@@ -177,7 +206,11 @@ const TalkToUs = () => {
                     "x-api-key": getUssApiKey(),
                     "Content-Type": "application/json",
                 },
-                body: JSON.stringify({...data, source: "talk-to-us"}),
+                body: JSON.stringify({
+                    ...data,
+                    expectedIntegrationDate: data.expectedIntegrationDate.toISOString(),
+                    source: "talk-to-us",
+                }),
             });
 
             if (!response.ok) {
@@ -213,13 +246,16 @@ const TalkToUs = () => {
                 <section className="grid lg:grid-cols-[1fr,1.2fr] gap-12 mb-24">
                     <div className="space-y-8">
                         <div className="bg-card border border-border rounded-2xl p-8">
-                            <p className="text-sm uppercase tracking-[0.2em] text-foreground/60 mb-4">Why teams choose Colyon</p>
+                            <p className="text-sm uppercase tracking-[0.2em] text-foreground/60 mb-4">
+                                Why teams choose Colyon
+                            </p>
                             <div className="space-y-6">
                                 {valueProps.map((item) => {
                                     const Icon = item.icon;
                                     return (
                                         <div key={item.title} className="flex gap-4">
-                                            <div className="w-12 h-12 rounded-full bg-accent/10 border border-accent/20 flex items-center justify-center">
+                                            <div
+                                                className="w-12 h-12 rounded-full bg-accent/10 border border-accent/20 flex items-center justify-center">
                                                 <Icon className="w-6 h-6 text-accent"/>
                                             </div>
                                             <div>
@@ -231,307 +267,366 @@ const TalkToUs = () => {
                                 })}
                             </div>
                         </div>
-                        <div className="bg-gradient-to-br from-mint/10 to-accent/10 border border-accent/20 rounded-2xl p-8">
+                        <div
+                            className="bg-gradient-to-br from-mint/10 to-accent/10 border border-accent/20 rounded-2xl p-8">
                             <div className="flex items-center gap-3 mb-4">
                                 <Users className="w-8 h-8 text-mint"/>
                                 <div>
-                                    <p className="text-sm uppercase tracking-[0.2em] text-foreground/60">Dedicated pods</p>
+                                    <p className="text-sm uppercase tracking-[0.2em] text-foreground/60">Dedicated
+                                        pods</p>
                                     <h3 className="text-2xl font-semibold">Partner success engineers</h3>
                                 </div>
                             </div>
                             <p className="text-foreground/80 text-base">
-                                Work with ex-exchange risk leads and ML architects who have shipped agentic guardrails for
-                                Fortune 100 fintechs. We scope integration plans, KPI dashboards, and control states within
-                                your first 10 days.
+                                Work with ex-exchange risk leads and ML architects who have shipped agentic guardrails
+                                for Fortune 100 fintechs. We scope integration plans, KPI dashboards,
+                                and control states within your first 10 days.
                             </p>
+                        </div>
+                        <div className="bg-card border border-border rounded-2xl text-center p-8">
+                            <p className="text-sm uppercase tracking-[0.2em] text-foreground/60 mb-4">
+                                Join the companies that are transforming web3
+                            </p>
+                            <div className="relative flex flex-row gap-6 max-w-full">
+                                {clientLogos.map((logo) => (
+                                    <div key={logo.name}
+                                         className="flex items-center gap-3 text-sm font-medium text-foreground/80">
+                                        <Image src={logo.src} alt={logo.name} width={32} height={32}
+                                               className="min-w-20 h-auto object-contain"/>
+                                        {logo.showTitle &&
+                                            <span className="tracking-wide text-foreground/70">{logo.name}</span>}
+                                    </div>
+                                ))}
+                            </div>
                         </div>
                     </div>
 
-                    <div className="bg-card border border-border rounded-2xl p-8 shadow-lg">
-                        <h2 className="text-3xl font-bold mb-6">Enterprise intake form</h2>
-                        <Form {...form}>
-                            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
-                                <div className="grid md:grid-cols-2 gap-4">
-                                    <FormField
-                                        control={form.control}
-                                        name="contactName"
-                                        render={({field}) => (
-                                            <FormItem>
-                                                <FormLabel>Full name</FormLabel>
-                                                <FormControl>
-                                                    <Input placeholder="Jane Doe" {...field} disabled={isSubmitting}/>
-                                                </FormControl>
-                                                <FormMessage/>
-                                            </FormItem>
-                                        )}
-                                    />
-                                    <FormField
-                                        control={form.control}
-                                        name="workEmail"
-                                        render={({field}) => (
-                                            <FormItem>
-                                                <FormLabel>Work email</FormLabel>
-                                                <FormControl>
-                                                    <Input type="email" placeholder="you@company.com" {...field} disabled={isSubmitting}/>
-                                                </FormControl>
-                                                <FormMessage/>
-                                            </FormItem>
-                                        )}
-                                    />
-                                </div>
-
-                                <div className="grid md:grid-cols-2 gap-4">
-                                    <FormField
-                                        control={form.control}
-                                        name="companyName"
-                                        render={({field}) => (
-                                            <FormItem>
-                                                <FormLabel>Company name</FormLabel>
-                                                <FormControl>
-                                                    <Input placeholder="Orbit Labs" {...field} disabled={isSubmitting}/>
-                                                </FormControl>
-                                                <FormMessage/>
-                                            </FormItem>
-                                        )}
-                                    />
-                                    <FormField
-                                        control={form.control}
-                                        name="role"
-                                        render={({field}) => (
-                                            <FormItem>
-                                                <FormLabel>Your role</FormLabel>
-                                                <FormControl>
-                                                    <Input placeholder="Head of Compliance" {...field} disabled={isSubmitting}/>
-                                                </FormControl>
-                                                <FormMessage/>
-                                            </FormItem>
-                                        )}
-                                    />
-                                </div>
-
-                                <div className="grid md:grid-cols-2 gap-4">
-                                    <FormField
-                                        control={form.control}
-                                        name="companyWebsite"
-                                        render={({field}) => (
-                                            <FormItem>
-                                                <FormLabel>Company website</FormLabel>
-                                                <FormControl>
-                                                    <Input placeholder="https://" {...field} disabled={isSubmitting}/>
-                                                </FormControl>
-                                                <FormMessage/>
-                                            </FormItem>
-                                        )}
-                                    />
-                                    <FormField
-                                        control={form.control}
-                                        name="headquartersCountry"
-                                        render={({field}) => (
-                                            <FormItem>
-                                                <FormLabel>HQ country</FormLabel>
-                                                <FormControl>
-                                                    <Input placeholder="United Kingdom" {...field} disabled={isSubmitting}/>
-                                                </FormControl>
-                                                <FormMessage/>
-                                            </FormItem>
-                                        )}
-                                    />
-                                </div>
-
-                                <div className="grid md:grid-cols-2 gap-4">
-                                    <FormField
-                                        control={form.control}
-                                        name="fundingStage"
-                                        render={({field}) => (
-                                            <FormItem>
-                                                <FormLabel>Funding stage</FormLabel>
-                                                <Select onValueChange={field.onChange} defaultValue={field.value} disabled={isSubmitting}>
+                    <div className="space-y-8">
+                        <div className="bg-card border border-border rounded-2xl p-6">
+                            <h2 className="text-3xl font-bold mb-6">Enterprise intake form</h2>
+                            <Form {...form}>
+                                <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+                                    <div className="grid md:grid-cols-2 gap-4">
+                                        <FormField
+                                            control={form.control}
+                                            name="contactName"
+                                            render={({field}) => (
+                                                <FormItem>
+                                                    <FormLabel>Full name</FormLabel>
                                                     <FormControl>
-                                                        <SelectTrigger>
-                                                            <SelectValue placeholder="Select stage"/>
-                                                        </SelectTrigger>
+                                                        <Input placeholder="Jane Doe" {...field}
+                                                               disabled={isSubmitting}/>
                                                     </FormControl>
-                                                    <SelectContent>
-                                                        {fundingStageOptions.map((option) => (
-                                                            <SelectItem key={option.value} value={option.value}>
-                                                                {option.label}
-                                                            </SelectItem>
-                                                        ))}
-                                                    </SelectContent>
-                                                </Select>
-                                                <FormMessage/>
-                                            </FormItem>
-                                        )}
-                                    />
-                                    <FormField
-                                        control={form.control}
-                                        name="product"
-                                        render={({field}) => (
-                                            <FormItem>
-                                                <FormLabel>Product focus</FormLabel>
-                                                <Select onValueChange={field.onChange} value={field.value} disabled={isSubmitting}>
+                                                    <FormMessage/>
+                                                </FormItem>
+                                            )}
+                                        />
+                                        <FormField
+                                            control={form.control}
+                                            name="workEmail"
+                                            render={({field}) => (
+                                                <FormItem>
+                                                    <FormLabel>Work email</FormLabel>
                                                     <FormControl>
-                                                        <SelectTrigger>
-                                                            <SelectValue placeholder="Choose a product"/>
-                                                        </SelectTrigger>
+                                                        <Input type="email" placeholder="you@company.com" {...field}
+                                                               disabled={isSubmitting}/>
                                                     </FormControl>
-                                                    <SelectContent>
-                                                        {productOptions.map((option) => (
-                                                            <SelectItem key={option.value} value={option.value}>
-                                                                {option.label}
-                                                            </SelectItem>
-                                                        ))}
-                                                    </SelectContent>
-                                                </Select>
-                                                <FormMessage/>
-                                            </FormItem>
-                                        )}
-                                    />
-                                </div>
+                                                    <FormMessage/>
+                                                </FormItem>
+                                            )}
+                                        />
+                                    </div>
 
-                                <div className="grid md:grid-cols-2 gap-4">
-                                    <FormField
-                                        control={form.control}
-                                        name="about"
-                                        render={({field}) => (
-                                            <FormItem>
-                                                <FormLabel>What brings you here?</FormLabel>
-                                                <Select onValueChange={field.onChange} value={field.value} disabled={isSubmitting}>
+                                    <div className="grid md:grid-cols-2 gap-4">
+                                        <FormField
+                                            control={form.control}
+                                            name="companyName"
+                                            render={({field}) => (
+                                                <FormItem>
+                                                    <FormLabel>Company name</FormLabel>
                                                     <FormControl>
-                                                        <SelectTrigger>
-                                                            <SelectValue placeholder="Select"/>
-                                                        </SelectTrigger>
+                                                        <Input placeholder="Orbit Labs" {...field}
+                                                               disabled={isSubmitting}/>
                                                     </FormControl>
-                                                    <SelectContent>
-                                                        {aboutOptions.map((option) => (
-                                                            <SelectItem key={option.value} value={option.value}>
-                                                                {option.label}
-                                                            </SelectItem>
-                                                        ))}
-                                                    </SelectContent>
-                                                </Select>
-                                                <FormMessage/>
-                                            </FormItem>
-                                        )}
-                                    />
+                                                    <FormMessage/>
+                                                </FormItem>
+                                            )}
+                                        />
+                                        <FormField
+                                            control={form.control}
+                                            name="role"
+                                            render={({field}) => (
+                                                <FormItem>
+                                                    <FormLabel>Your role</FormLabel>
+                                                    <FormControl>
+                                                        <Input placeholder="Head of Compliance" {...field}
+                                                               disabled={isSubmitting}/>
+                                                    </FormControl>
+                                                    <FormMessage/>
+                                                </FormItem>
+                                            )}
+                                        />
+                                    </div>
+
+                                    <div className="grid md:grid-cols-2 gap-4">
+                                        <FormField
+                                            control={form.control}
+                                            name="companyWebsite"
+                                            render={({field}) => (
+                                                <FormItem>
+                                                    <FormLabel>Company website</FormLabel>
+                                                    <FormControl>
+                                                        <Input placeholder="https://" {...field}
+                                                               disabled={isSubmitting}/>
+                                                    </FormControl>
+                                                    <FormMessage/>
+                                                </FormItem>
+                                            )}
+                                        />
+                                        <FormField
+                                            control={form.control}
+                                            name="headquartersCountry"
+                                            render={({field}) => (
+                                                <FormItem>
+                                                    <FormLabel>HQ country</FormLabel>
+                                                    <Select onValueChange={field.onChange} value={field.value}
+                                                            disabled={isSubmitting}>
+                                                        <FormControl>
+                                                            <SelectTrigger>
+                                                                <SelectValue placeholder="Select country"/>
+                                                            </SelectTrigger>
+                                                        </FormControl>
+                                                        <SelectContent className="max-h-64">
+                                                            {countryOptions.map((option) => (
+                                                                <SelectItem key={option.value} value={option.value}>
+                                                                    {option.label}
+                                                                </SelectItem>
+                                                            ))}
+                                                        </SelectContent>
+                                                    </Select>
+                                                    <FormMessage/>
+                                                </FormItem>
+                                            )}
+                                        />
+                                    </div>
+
+                                    <div className="grid md:grid-cols-2 gap-4">
+                                        <FormField
+                                            control={form.control}
+                                            name="fundingStage"
+                                            render={({field}) => (
+                                                <FormItem>
+                                                    <FormLabel>Funding stage</FormLabel>
+                                                    <Select onValueChange={field.onChange} defaultValue={field.value}
+                                                            disabled={isSubmitting}>
+                                                        <FormControl>
+                                                            <SelectTrigger>
+                                                                <SelectValue placeholder="Select stage"/>
+                                                            </SelectTrigger>
+                                                        </FormControl>
+                                                        <SelectContent>
+                                                            {fundingStageOptions.map((option) => (
+                                                                <SelectItem key={option.value} value={option.value}>
+                                                                    {option.label}
+                                                                </SelectItem>
+                                                            ))}
+                                                        </SelectContent>
+                                                    </Select>
+                                                    <FormMessage/>
+                                                </FormItem>
+                                            )}
+                                        />
+                                        <FormField
+                                            control={form.control}
+                                            name="product"
+                                            render={({field}) => (
+                                                <FormItem>
+                                                    <FormLabel>Product focus</FormLabel>
+                                                    <Select onValueChange={field.onChange} value={field.value}
+                                                            disabled={isSubmitting}>
+                                                        <FormControl>
+                                                            <SelectTrigger>
+                                                                <SelectValue placeholder="Choose a product"/>
+                                                            </SelectTrigger>
+                                                        </FormControl>
+                                                        <SelectContent>
+                                                            {productOptions.map((option) => (
+                                                                <SelectItem key={option.value} value={option.value}>
+                                                                    {option.label}
+                                                                </SelectItem>
+                                                            ))}
+                                                        </SelectContent>
+                                                    </Select>
+                                                    <FormMessage/>
+                                                </FormItem>
+                                            )}
+                                        />
+                                    </div>
+
+                                    <div className="grid md:grid-cols-2 gap-4">
+                                        <FormField
+                                            control={form.control}
+                                            name="about"
+                                            render={({field}) => (
+                                                <FormItem>
+                                                    <FormLabel>What brings you here?</FormLabel>
+                                                    <Select onValueChange={field.onChange} value={field.value}
+                                                            disabled={isSubmitting}>
+                                                        <FormControl>
+                                                            <SelectTrigger>
+                                                                <SelectValue placeholder="Select"/>
+                                                            </SelectTrigger>
+                                                        </FormControl>
+                                                        <SelectContent>
+                                                            {aboutOptions.map((option) => (
+                                                                <SelectItem key={option.value} value={option.value}>
+                                                                    {option.label}
+                                                                </SelectItem>
+                                                            ))}
+                                                        </SelectContent>
+                                                    </Select>
+                                                    <FormMessage/>
+                                                </FormItem>
+                                            )}
+                                        />
+                                        <FormField
+                                            control={form.control}
+                                            name="expectedIntegrationDate"
+                                            render={({field}) => (
+                                                <FormItem className="flex flex-col">
+                                                    <FormLabel>Expected integration date</FormLabel>
+                                                    <Popover>
+                                                        <PopoverTrigger asChild>
+                                                            <FormControl>
+                                                                <Button
+                                                                    variant="outline"
+                                                                    className={cn(
+                                                                        "justify-start text-left font-normal",
+                                                                        !field.value && "text-muted-foreground",
+                                                                    )}
+                                                                    disabled={isSubmitting}
+                                                                >
+                                                                    {field.value ? format(field.value, "PPP") : "Pick a date"}
+                                                                    <CalendarIcon
+                                                                        className="ml-auto h-4 w-4 opacity-50"/>
+                                                                </Button>
+                                                            </FormControl>
+                                                        </PopoverTrigger>
+                                                        <PopoverContent className="w-auto p-0" align="start">
+                                                            <Calendar
+                                                                mode="single"
+                                                                selected={field.value}
+                                                                onSelect={field.onChange}
+                                                                disabled={(date) => date < new Date()}
+                                                                initialFocus
+                                                            />
+                                                        </PopoverContent>
+                                                    </Popover>
+                                                    <FormMessage/>
+                                                </FormItem>
+                                            )}
+                                        />
+                                    </div>
+
+                                    <div className="grid md:grid-cols-2 gap-4">
+                                        <FormField
+                                            control={form.control}
+                                            name="projectedMonthlyVolume"
+                                            render={({field}) => (
+                                                <FormItem>
+                                                    <FormLabel>Projected volume / month</FormLabel>
+                                                    <Select onValueChange={field.onChange} value={field.value}
+                                                            disabled={isSubmitting}>
+                                                        <FormControl>
+                                                            <SelectTrigger>
+                                                                <SelectValue placeholder="Select"/>
+                                                            </SelectTrigger>
+                                                        </FormControl>
+                                                        <SelectContent>
+                                                            {volumeOptions.map((option) => (
+                                                                <SelectItem key={option.value} value={option.value}>
+                                                                    {option.label}
+                                                                </SelectItem>
+                                                            ))}
+                                                        </SelectContent>
+                                                    </Select>
+                                                    <FormMessage/>
+                                                </FormItem>
+                                            )}
+                                        />
+                                        <FormField
+                                            control={form.control}
+                                            name="currentActiveUsers"
+                                            render={({field}) => (
+                                                <FormItem>
+                                                    <FormLabel>Current active users</FormLabel>
+                                                    <Select onValueChange={field.onChange} value={field.value}
+                                                            disabled={isSubmitting}>
+                                                        <FormControl>
+                                                            <SelectTrigger>
+                                                                <SelectValue placeholder="Select"/>
+                                                            </SelectTrigger>
+                                                        </FormControl>
+                                                        <SelectContent>
+                                                            {userBaseOptions.map((option) => (
+                                                                <SelectItem key={option.value} value={option.value}>
+                                                                    {option.label}
+                                                                </SelectItem>
+                                                            ))}
+                                                        </SelectContent>
+                                                    </Select>
+                                                    <FormMessage/>
+                                                </FormItem>
+                                            )}
+                                        />
+                                    </div>
+
                                     <FormField
                                         control={form.control}
-                                        name="expectedIntegrationDate"
+                                        name="integrationStack"
                                         render={({field}) => (
                                             <FormItem>
-                                                <FormLabel>Expected integration date</FormLabel>
+                                                <FormLabel>How is your stack set up today?</FormLabel>
                                                 <FormControl>
-                                                    <Input type="date" {...field} disabled={isSubmitting}/>
+                                                    <Textarea rows={3}
+                                                              placeholder="Chain coverage, data providers, internal models" {...field}
+                                                              disabled={isSubmitting}/>
                                                 </FormControl>
                                                 <FormMessage/>
                                             </FormItem>
                                         )}
                                     />
-                                </div>
 
-                                <div className="grid md:grid-cols-2 gap-4">
                                     <FormField
                                         control={form.control}
-                                        name="projectedMonthlyVolume"
+                                        name="message"
                                         render={({field}) => (
                                             <FormItem>
-                                                <FormLabel>Projected volume / month</FormLabel>
-                                                <Select onValueChange={field.onChange} value={field.value} disabled={isSubmitting}>
-                                                    <FormControl>
-                                                        <SelectTrigger>
-                                                            <SelectValue placeholder="Select"/>
-                                                        </SelectTrigger>
-                                                    </FormControl>
-                                                    <SelectContent>
-                                                        {volumeOptions.map((option) => (
-                                                            <SelectItem key={option.value} value={option.value}>
-                                                                {option.label}
-                                                            </SelectItem>
-                                                        ))}
-                                                    </SelectContent>
-                                                </Select>
+                                                <FormLabel>Anything else we should know?</FormLabel>
+                                                <FormControl>
+                                                    <Textarea rows={5}
+                                                              placeholder="KPIs, geos, compliance blockers..." {...field}
+                                                              disabled={isSubmitting}/>
+                                                </FormControl>
                                                 <FormMessage/>
                                             </FormItem>
                                         )}
                                     />
-                                    <FormField
-                                        control={form.control}
-                                        name="currentActiveUsers"
-                                        render={({field}) => (
-                                            <FormItem>
-                                                <FormLabel>Current active users</FormLabel>
-                                                <Select onValueChange={field.onChange} value={field.value} disabled={isSubmitting}>
-                                                    <FormControl>
-                                                        <SelectTrigger>
-                                                            <SelectValue placeholder="Select"/>
-                                                        </SelectTrigger>
-                                                    </FormControl>
-                                                    <SelectContent>
-                                                        {userBaseOptions.map((option) => (
-                                                            <SelectItem key={option.value} value={option.value}>
-                                                                {option.label}
-                                                            </SelectItem>
-                                                        ))}
-                                                    </SelectContent>
-                                                </Select>
-                                                <FormMessage/>
-                                            </FormItem>
+
+                                    <Button type="submit" variant="hero" size="lg" className="w-full"
+                                            disabled={!form.formState.isValid || isSubmitting}>
+                                        {isSubmitting ? (
+                                            <>
+                                                <Loader2 className="mr-2 h-4 w-4 animate-spin"/>
+                                                Sending details...
+                                            </>
+                                        ) : (
+                                            "Submit"
                                         )}
-                                    />
-                                </div>
-
-                                <FormField
-                                    control={form.control}
-                                    name="integrationStack"
-                                    render={({field}) => (
-                                        <FormItem>
-                                            <FormLabel>How is your stack set up today?</FormLabel>
-                                            <FormControl>
-                                                <Input placeholder="Chain coverage, data providers, internal models" {...field} disabled={isSubmitting}/>
-                                            </FormControl>
-                                            <FormMessage/>
-                                        </FormItem>
-                                    )}
-                                />
-
-                                <FormField
-                                    control={form.control}
-                                    name="message"
-                                    render={({field}) => (
-                                        <FormItem>
-                                            <FormLabel>Anything else we should know?</FormLabel>
-                                            <FormControl>
-                                                <Textarea rows={5} placeholder="KPIs, geos, compliance blockers..." {...field} disabled={isSubmitting}/>
-                                            </FormControl>
-                                            <FormMessage/>
-                                        </FormItem>
-                                    )}
-                                />
-
-                                <Button type="submit" variant="hero" size="lg" className="w-full" disabled={!form.formState.isValid || isSubmitting}>
-                                    {isSubmitting ? (
-                                        <>
-                                            <Loader2 className="mr-2 h-4 w-4 animate-spin"/>
-                                            Sending details...
-                                        </>
-                                    ) : (
-                                        "Request a strategy session"
-                                    )}
-                                </Button>
-                            </form>
-                        </Form>
-                    </div>
-                </section>
-
-                <section className="bg-card border border-border rounded-2xl p-10 text-center">
-                    <p className="text-sm uppercase tracking-[0.3em] text-foreground/60 mb-4">Join the companies that are transforming web3</p>
-                    <h2 className="text-3xl font-semibold mb-8">Trusted by exchanges, wallets, and infra leaders</h2>
-                    <div className="grid grid-cols-2 md:grid-cols-3 gap-6 items-center">
-                        {clientLogos.map((logo) => (
-                            <div key={logo.name} className="bg-background border border-border rounded-xl p-4 flex items-center justify-center h-24">
-                                <Image src={logo.src} alt={logo.name} width={140} height={48} className="object-contain"/>
-                            </div>
-                        ))}
+                                    </Button>
+                                </form>
+                            </Form>
+                        </div>
                     </div>
                 </section>
             </div>

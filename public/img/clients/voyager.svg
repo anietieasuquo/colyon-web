@@ -1,8 +1,0 @@
-<svg width="140" height="48" viewBox="0 0 140 48" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="title">
-  <title>Voyager DAO</title>
-  <rect width="140" height="48" rx="12" fill="#0F172A" />
-  <path d="M20 34L32 14L44 34" stroke="#60A5FA" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" />
-  <path d="M26 24H38" stroke="#93C5FD" stroke-width="2" stroke-linecap="round" />
-  <text x="54" y="30" font-family="'Inter', 'Helvetica', sans-serif" font-size="18" font-weight="600" fill="#E0F2FE">Voyager</text>
-</svg>
-
