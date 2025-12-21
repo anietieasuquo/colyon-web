@@ -244,7 +244,7 @@ const TalkToUs = () => {
                 />
 
                 <section className="grid lg:grid-cols-[1fr,1.2fr] gap-12 mb-24">
-                    <div className="space-y-8">
+                    <div className="space-y-8 order-2 lg:order-1">
                         <div className="bg-card border border-border rounded-2xl p-8">
                             <p className="text-sm uppercase tracking-[0.2em] text-foreground/60 mb-4">
                                 Why teams choose Colyon
@@ -301,9 +301,11 @@ const TalkToUs = () => {
                         </div>
                     </div>
 
-                    <div className="space-y-8">
+                    <div className="space-y-8 order-1 lg:order-2">
                         <div className="bg-card border border-border rounded-2xl p-6">
-                            <h2 className="text-3xl font-bold mb-6">Enterprise intake form</h2>
+                            <p className="text-sm uppercase tracking-[0.2em] text-foreground/60 mb-4">
+                                Enterprise intake form
+                            </p>
                             <Form {...form}>
                                 <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
                                     <div className="grid md:grid-cols-2 gap-4">
