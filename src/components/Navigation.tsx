@@ -273,7 +273,7 @@ const Navigation = () => {
                                                             className={`block px-4 py-2 text-sm transition-colors ${
                                                                 isPathActive(subItem.href)
                                                                     ? "text-accent bg-accent/20"
-                                                                    : "text-foreground/80 hover:text-black hover:bg-white"
+                                                                    : "text-foreground/80 hover:text-foreground/80 hover:bg-background"
                                                             }`}
                                                             onClick={() => setActiveSubmenu(null)}
                                                             aria-current={isPathActive(subItem.href) ? "page" : undefined}
