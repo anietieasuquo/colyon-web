@@ -34,7 +34,7 @@ const Products = () => {
                 </div>
                 <div className="grid md:grid-cols-2 gap-8">
                     {productList.map((product, index) => (
-                        <div className="bg-card border border-border rounded-2xl p-8 hover:shadow-lg transition-shadow">
+                        <div className="bg-card border border-border rounded-2xl p-8 hover:shadow-lg transition-shadow" key={product.title}>
                             <div
                                 className={`w-12 h-12 ${product.accent} rounded-xl flex items-center justify-center mb-6`}>
                                 <Image src="/img/monchain/favicon.png" alt="Monchain" width={24} height={24}

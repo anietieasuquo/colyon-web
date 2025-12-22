@@ -366,10 +366,10 @@ const Navigation = () => {
                                                                         setActiveSubmenu(null);
                                                                         setIsOpen(false);
                                                                     }}
-                                                                    className={`w-full rounded-md px-2 py-2 text-left text-sm transition-colors ${
+                                                                    className={`w-full rounded-lg border px-3 py-2 text-left text-sm transition-colors ${
                                                                         isPathActive(offering.href)
-                                                                            ? "text-accent"
-                                                                            : "text-foreground/70 hover:text-foreground"
+                                                                            ? "border-accent/60 bg-accent/10 text-accent"
+                                                                            : "border-border/50 bg-card/80 text-foreground/80 hover:border-border hover:bg-background"
                                                                     }`}
                                                                     aria-current={isPathActive(offering.href) ? "page" : undefined}
                                                                 >
