@@ -369,7 +369,7 @@ const Navigation = () => {
                                                                     className={`w-full rounded-lg border px-3 py-2 text-left text-sm transition-colors ${
                                                                         isPathActive(offering.href)
                                                                             ? "border-accent/60 bg-accent/10 text-accent"
-                                                                            : "border-border/50 bg-card/80 text-foreground/80 hover:border-border hover:bg-background"
+                                                                            : "border-border bg-card text-foreground/90 hover:border-border/80 hover:bg-background/90"
                                                                     }`}
                                                                     aria-current={isPathActive(offering.href) ? "page" : undefined}
                                                                 >
@@ -378,7 +378,7 @@ const Navigation = () => {
                                                                         <span>{offering.name}</span>
                                                                         {offering.audience && (
                                                                             <span
-                                                                                className="text-[11px] uppercase tracking-wide text-muted-foreground">
+                                                                                className="rounded-full border border-border/70 px-2 py-0.5 text-[11px] uppercase tracking-wide text-muted-foreground/90 bg-background/50">
                                                                                 {offering.audience}
                                                                             </span>
                                                                         )}
