@@ -46,7 +46,7 @@ const MonchainCheck = () => {
                                 </a>
                             </Button>
                             <Button variant="heroOutline" size="lg" asChild>
-                                <a href="https://docs.colyon.ai/products/monchain/api" target="_blank" rel="noopener noreferrer">
+                                <a href="https://docs.colyon.ai/api-docs?slug=monchain/overview" target="_blank" rel="noopener noreferrer">
                                     View API Docs
                                 </a>
                             </Button>

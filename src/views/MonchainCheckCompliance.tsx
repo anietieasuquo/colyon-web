@@ -179,7 +179,7 @@ const MonchainCheckCompliance = () => {
                             </Link>
                         </Button>
                         <Button variant="heroOutline" asChild>
-                            <a href="https://docs.colyon.ai/products/monchain/check?merchant=compliance" target="_blank" rel="noopener noreferrer">
+                            <a href="https://docs.colyon.ai/api-docs?slug=monchain/overview&merchant=compliance" target="_blank" rel="noopener noreferrer">
                                 Download policy packet
                             </a>
                         </Button>

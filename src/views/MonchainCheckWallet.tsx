@@ -169,7 +169,7 @@ const MonchainCheckWallet = () => {
                     </div>
                     <div className="flex flex-wrap gap-3">
                         <Button variant="hero" asChild>
-                            <a href="https://docs.colyon.ai/products/monchain/check?merchant=wallet" target="_blank"
+                            <a href="https://docs.colyon.ai/api-docs?slug=monchain/overview&merchant=wallet" target="_blank"
                                rel="noopener noreferrer">
                                 Explore SDK docs
                                 <ArrowRight className="w-4 h-4"/>
