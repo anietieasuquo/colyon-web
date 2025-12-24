@@ -206,8 +206,8 @@ const TalkToUs = () => {
             name: data.contactName,
             email: data.workEmail,
             message: data.message.trim(),
-            source: "talk-to-us",
-            enterpriseData,
+            source: "colyon/talk-to-us",
+            enterprise_data: enterpriseData
         };
         try {
             const response = await fetch(`${getMonchainApiBase()}/p/uss/api/v1/contact`, {
