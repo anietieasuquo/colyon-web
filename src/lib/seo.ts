@@ -27,6 +27,7 @@ const defaultKeywords = [
     "multi-agent systems",
     "ai safety",
     "monchain",
+    "fraud intelligence",
     "crypto wallet",
     "collective intelligence",
     "artificial intelligence",

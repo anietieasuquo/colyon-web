@@ -6,9 +6,9 @@ export const newsItems: NewsItem[] = [
         date: 'September 8, 2025',
         category: 'Product Launch',
         title: 'Colyon Launches Waiting List For Monchain Crypto Wallet',
-        description: "We're excited to announce that we have today opened a public waiting list for Monchain, our AI-powered crypto wallet that brings AI protection to digital asset users.",
-        content: "We're excited to announce that we have today opened a public waiting list for Monchain, our AI-powered crypto wallet that brings AI protection to digital asset users. The Monchain homepage (https://monchain.ai" +
-            ") now features a sign-up form inviting early adopters to join and receive priority access.\n\nBuilt on our multi-agent architecture, Monchain is designed to deliver real-time fraud detection, clear audit trails for security actions, and privacy-first handling of user data. The waiting list rollout gives us an initial cohort to test product flows, gather feedback, and refine the wallet's behavior before a wider launch.\n\nInterested users can join the waitlist directly on the Monchain homepage to receive updates and early access invites. For more information about Colyon and our mission to build cooperative, safety-centered AI systems, visit colyon.ai.",
+        description: "We're excited to announce that we have today opened a public waiting list for Monchain Wallet, our AI-powered crypto wallet that brings AI protection to digital asset users.",
+        content: "We're excited to announce that we have today opened a public waiting list for Monchain Wallet, our AI-powered crypto wallet that brings AI protection to digital asset users. The Monchain homepage (https://monchain.ai" +
+            ") now features a sign-up form inviting early adopters to join and receive priority access.\n\nBuilt on our multi-agent architecture, Monchain Wallet is designed to deliver real-time fraud detection, clear audit trails for security actions, and privacy-first handling of user data. The waiting list rollout gives us an initial cohort to test product flows, gather feedback, and refine the wallet's behavior before a wider launch.\n\nInterested users can join the waitlist directly on the Monchain homepage to receive updates and early access invites. For more information about Colyon and our mission to build cooperative, safety-centered AI systems, visit colyon.ai.",
         accentColor: 'accent' as const,
         featuredImage: 'https://images.unsplash.com/photo-1677442136019-21780ecad995?w=800&q=80',
         year: 2025,
@@ -38,4 +38,3 @@ export const newsItems: NewsItem[] = [
         year: 2025,
     },
 ];
-

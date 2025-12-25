@@ -28,8 +28,8 @@ const Products = () => {
                 <div className="text-center mb-16 animate-fade-in-up">
                     <h2 className="text-4xl md:text-5xl font-bold mb-6 tracking-tight">Products</h2>
                     <p className="text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
-                        Powered by Colyon's collaborative AI, the Monchain platform delivers proactive security across
-                        the Web3 ecosystem.
+                        Powered by Colyon's collaborative AI, the Monchain platform delivers proactive security through
+                        Monchain Check for businesses and Monchain Wallet for everyday crypto users.
                     </p>
                 </div>
                 <div className="grid md:grid-cols-2 gap-8">

@@ -32,11 +32,11 @@ const AboutUs = () => {
                         <p>
                             Our flagship product, <Link href="/products/monchain" className="gap-2"><span
                             className="text-accent font-semibold">Monchain</span></Link>,
-                            demonstrates our promise in the real world. Monchain is an AI-powered crypto wallet and
-                            hybrid exchange that leverages our multi-agent architecture to detect and stop fraud,
-                            analyze risk in real time, and give users clear, auditable explanations of security
-                            decisions. Monchain shows how collective intelligence can protect people and assets
-                            with speed and transparency.
+                            demonstrates our promise in the real world. Monchain is a proactive security platform that
+                            unifies Monchain Check for enterprises and Monchain Wallet for consumers, all powered by our
+                            multi-agent AI architecture to detect and stop fraud, analyze risk in real time, and provide
+                            auditable explanations of every decision. Monchain shows how collective intelligence can
+                            protect people and assets with speed and transparency.
                         </p>
                     </div>
                 </div>

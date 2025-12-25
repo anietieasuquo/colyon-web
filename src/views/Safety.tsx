@@ -87,8 +87,9 @@ const Safety = () => {
                     <h2 className="text-3xl font-bold mb-6">Safety in Action: Monchain</h2>
                     <p className="text-foreground/80 leading-relaxed mb-6">
                         Our flagship product, Monchain, demonstrates our commitment to safety through
-                        real-time fraud detection, transaction analysis, and user protection in the
-                        cryptocurrency space.
+                        the combined power of Monchain Check for enterprises and Monchain Wallet for everyday crypto
+                        users, pairing real-time fraud detection, transaction analysis,
+                        and user protection across the cryptocurrency space.
                     </p>
                     <ul className="space-y-3 text-foreground/70">
                         <li className="flex items-start">
