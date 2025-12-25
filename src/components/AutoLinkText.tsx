@@ -26,7 +26,7 @@ function getWindowOrigin() {
 }
 
 function parseBracketedLink(raw: string) {
-    const match = raw.match(/^(link?:\/\/[^\[]+)(\[[^\]]+\])?/);
+    const match = raw.match(/^(link?:\/\/[^[]+)(\[[^\]]+\])?/);
     if (!match) return {link: raw, text: raw};
     const link = match[1].replace('link://', 'https://');
     const text = match[2] ? match[2].slice(1, -1) : link;

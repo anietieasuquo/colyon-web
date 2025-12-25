@@ -58,7 +58,7 @@ Used consistently in `/news` listing and the dynamic route `/news/[slug]`. Detai
 
 
 ## Routing
-- `app/` directory defines Next.js routes.
+- `src/app/` directory defines Next.js routes.
 - Former `src/pages/` components moved to `src/views/` and imported by route files.
 - Dynamic route: `/news/[slug]` (marked `dynamic = 'force-dynamic'` to allow client-side Redux fetching).
 
