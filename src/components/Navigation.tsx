@@ -36,7 +36,7 @@ type MenuItem = {
 const productCatalog: Product[] = [
     {
         name: "Monchain",
-        href: "/talk-to-us?product=monchain-check&about=compliance",
+        href: "/monchain",
         description: "AI-powered security platform that stops crypto fraud before it happens.",
         offerings: [
             {
